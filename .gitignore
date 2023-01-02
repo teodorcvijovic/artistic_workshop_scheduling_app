@@ -11,9 +11,6 @@
 npm-debug.log
 yarn-error.log
 
-# Angular
-*.angular/*
-
 # IDEs and editors
 .idea/
 .project
@@ -32,8 +29,8 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
-.sass-cache/
+*/.angular/cache*
+*.sass-cache/*
 /connect.lock
 /coverage
 /libpeerconnection.log
