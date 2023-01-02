@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "63b30bac424b43df807316b2"
+  },
+  "username": "teo",
+  "password": "123",
+  "firstname": "Teodor",
+  "lastname": "Cvijovic",
+  "phone": "+38130000333",
+  "email": "teo@gmail.com",
+  "role": 1,
+  "organization_name": "Studio 33",
+  "organization_address": "Serbia, Belgrade, 11000, Vodovodska 87",
+  "organization_pib": "123"
+},{
+  "_id": {
+    "$oid": "63b30dff424b43df807316b3"
+  },
+  "username": "admin",
+  "password": "123",
+  "firstname": "Admin",
+  "lastname": "Adminic",
+  "phone": "+38130000333",
+  "email": "admin@gmail.com",
+  "role": 0,
+  "organization_name": "",
+  "organization_address": "",
+  "organization_pib": ""
+}]
