@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.error = ''
   }
 
   /****** fields ******/
@@ -160,6 +161,8 @@ export class RegisterComponent implements OnInit {
     if (width < 100 || width > 300 || height < 100 || height > 300) {
       // error
       this.error = 'Image size can be between 100x100px and 300x300px.'
+      this.myImage = null
+      this.base64code = null
       return
     }
     this.error = ''
