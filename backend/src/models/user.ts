@@ -36,6 +36,9 @@ let User = new Schema(
         },
         status: {
             type: Number
+        },
+        image: {
+            type: String
         }
     }
 )

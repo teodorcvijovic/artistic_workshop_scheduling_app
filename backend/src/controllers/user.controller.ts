@@ -32,6 +32,10 @@ export class UserController {
         let organization_name = request.body.organization_name
         let organization_address = request.body.organization_address
         let organization_pib = request.body.organization_pib
+        let image = request.body.image
+
+        // PRINT
+        console.log(image)
 
         // user cannot register as admin
         if (role == Authentication.ADMIN_ROLE) 
@@ -56,7 +60,8 @@ export class UserController {
                 organization_name: organization_name,
                 organization_address: organization_address,
                 organization_pib: organization_pib,
-                status: this.WAITING_STATUS
+                status: this.WAITING_STATUS,
+                image: image
             })
 
             newUser.save((error, user) => {

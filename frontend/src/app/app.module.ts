@@ -23,7 +23,7 @@ import { RegisterComponent } from './register/register.component'
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -55,6 +55,16 @@
             </td>
         </tr>
 
+        <tr>
+            <td>Image (optional):</td>
+            <td>
+                <input  type="file"  (change)="onChange($event)" accept="image/*, .jpeg, .png">
+                <!-- <div *ngIf="myImage">
+                    <img [src]="myImage" width="100px" height="100px"/>
+                </div> -->
+            </td>
+        </tr>
+
         <!-- ------------------------------------- -->
 
         <tr>
@@ -94,4 +104,6 @@
         <br>
     </table>
     <span style='color: red'>{{error}}</span><br>
+
+    <hr>
 </div>
