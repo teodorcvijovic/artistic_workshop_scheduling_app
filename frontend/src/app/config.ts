@@ -6,4 +6,8 @@ export class Configuration {
     static JWT_SECRET_KEY = 'key123'
 
     static BACKEND_USER_ROUTES = 'user'
+
+    static ADMIN_ROLE = 0
+    static ORGANIZER_ROLE = 1
+    static PARTICIPANT_ROLE = 2
 }

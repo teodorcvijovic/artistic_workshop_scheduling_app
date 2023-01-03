@@ -8,14 +8,16 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ResetLinkComponent } from './reset-link/reset-link.component'
+import { ResetLinkComponent } from './reset-link/reset-link.component';
+import { RegisterComponent } from './register/register.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ResetPasswordComponent,
-    ResetLinkComponent
+    ResetLinkComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
       return
     }
 
-    this.userService.login(this.username, this.password)
-    .subscribe({
+    this.userService.login(this.username, this.password).subscribe({
       next: (data:any) => {
           let jwtToken = data.jwt_token
           let user = JSON.parse(data.user)
@@ -62,5 +61,9 @@ export class LoginComponent implements OnInit {
 
   resetPassword() {
     this.router.navigate(['/reset_password'])
+  }
+
+  register() {
+    this.router.navigate(['/register'])
   }
 }

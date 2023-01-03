@@ -43,12 +43,6 @@ export class ResetLinkComponent implements OnInit {
     // check regex
     if (!this.checkPasswords()) return
 
-    if (this.new_password1 != this.new_password2) {
-      this.error = 'Passwords in both fields should be the same.'
-      this.message = ''
-      return
-    }
-
     this.userService.resetLink(this.email, this.key, this.new_password1).subscribe({
       next: (data:any) => {
           this.message = data.message
@@ -79,6 +73,12 @@ export class ResetLinkComponent implements OnInit {
       this.message = ''
       this.error = "Password should contain at least one capital letter, one number, and one special character. \
                     Lenght should be from 8 to 16 characters."
+      return false
+    }
+
+    if (this.new_password1 != this.new_password2) {
+      this.error = 'Passwords in both fields should be the same.'
+      this.message = ''
       return false
     }
 

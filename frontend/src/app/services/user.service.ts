@@ -35,4 +35,10 @@ export class UserService {
 
     return this.http.post(`${this.URI}/reset_link?email=${email}&key=${key}`, body)
   }
+
+  register(data) {
+    const body = data
+
+    return this.http.post(`${this.URI}/register`, body)
+  }
 }

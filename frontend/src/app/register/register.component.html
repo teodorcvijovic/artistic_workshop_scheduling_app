@@ -1,0 +1,97 @@
+<div>
+    <table>
+        <tr>
+            <td>
+                <h3>Register</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td>
+                <input type='text' name='username' [(ngModel)]='username'>
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                <input type='password' name='password1' [(ngModel)]='password1'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Confirm Password:</td>
+            <td>
+                <input type='password' name='password2' [(ngModel)]='password2'>
+            </td>
+        </tr>
+
+        <!-- ------------------------------------- -->
+
+        <tr>
+            <td>First name:</td>
+            <td>
+                <input type='text' name='firstname' [(ngModel)]='firstname'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Last name:</td>
+            <td>
+                <input type='text' name='lastname' [(ngModel)]='lastname'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Phone number:</td>
+            <td>
+                <input type='text' name='phone' [(ngModel)]='phone'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Email:</td>
+            <td>
+                <input type='text' name='email' [(ngModel)]='email'>
+            </td>
+        </tr>
+
+        <!-- ------------------------------------- -->
+
+        <tr>
+            <td colspan='2'>
+                <h5>Organization info (optional):</h5>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Name:</td>
+            <td>
+                <input type='text' name='organization_name' [(ngModel)]='organization_name'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Address:</td>
+            <td>
+                <input type='text' name='organization_address' [(ngModel)]='organization_address'>
+            </td>
+        </tr>
+
+        <tr>
+            <td>PIB:</td>
+            <td>
+                <input type='text' name='organization_pib' [(ngModel)]='organization_pib'>
+            </td>
+        </tr>
+
+        <!-- ------------------------------------- -->
+        <br>
+        <tr>
+            <td colspan='2'>
+                <button (click)='register()'>Register</button>
+            </td>
+        </tr>
+        <br>
+    </table>
+    <span style='color: red'>{{error}}</span><br>
+</div>
