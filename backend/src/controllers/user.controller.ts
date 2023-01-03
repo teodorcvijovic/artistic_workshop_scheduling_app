@@ -34,9 +34,6 @@ export class UserController {
         let organization_pib = request.body.organization_pib
         let image = request.body.image
 
-        // PRINT
-        console.log(image)
-
         // user cannot register as admin
         if (role == Authentication.ADMIN_ROLE) 
             return response.status(400).send({ message: 'User cannot register as admin.' })

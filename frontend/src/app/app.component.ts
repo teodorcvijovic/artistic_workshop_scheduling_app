@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionUtil } from './sessionutil';
+import { SessionUtil } from './utils/sessionutil';
 
 @Component({
   selector: 'app-root',

@@ -10,8 +10,9 @@ import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetLinkComponent } from './reset-link/reset-link.component';
 import { RegisterComponent } from './register/register.component'
-import { HeadersInterceptor } from './headers.interceptor';
+import { HeadersInterceptor } from './utils/headers.interceptor';
 import { HomeComponent } from './home/home.component';
+import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './home/home.component';
     ResetPasswordComponent,
     ResetLinkComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    RegistrationRequestsComponent
   ],
   imports: [
     BrowserModule,

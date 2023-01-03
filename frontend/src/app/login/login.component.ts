@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-import { SessionUtil } from '../sessionutil';
+import { SessionUtil } from '../utils/sessionutil';
 
 @Component({
   selector: 'app-login',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Configuration } from '../config'
+import { Configuration } from '../utils/config'
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +41,25 @@ export class UserService {
 
     return this.http.post(`${this.URI}/register`, body)
   }
+
+  getAllRequests() {
+    return this.http.get(`${this.URI}/requests`)
+  }
+
+  acceptRequest(username) {
+    const body = {
+      username: username
+    }
+
+    return this.http.put(`${this.URI}/permit`, body)
+  }
+
+  denyRequest(username) {
+    const body = {
+      username: username
+    }
+
+    return this.http.put(`${this.URI}/deny`, body)
+  }
+
 }
