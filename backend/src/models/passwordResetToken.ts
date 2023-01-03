@@ -14,7 +14,7 @@ let PasswordResetToken = new Schema(
         expiration_timestamp: {
             type: Date,
             default: Date.now,
-            expires: 60 * Configuration.PASSWORD_RESET_TOKEN_DURATION
+            expires: 3600 + 60 * Configuration.PASSWORD_RESET_TOKEN_DURATION
         }
     }
 )

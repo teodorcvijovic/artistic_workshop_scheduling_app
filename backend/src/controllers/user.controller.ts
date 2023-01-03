@@ -94,7 +94,10 @@ export class UserController {
                 'organization_pib': user.organization_pib,
             }
             let jwt_token = jwt.sign(token_data, Configuration.JWT_SECRET_KEY)
-            response.send({'jwt_token': jwt_token})
+            response.send({
+                'user': JSON.stringify(user),
+                'jwt_token': jwt_token
+            })
         })
     }
 
@@ -151,7 +154,7 @@ export class UserController {
         })
         
         // TO DO: change this link to frontend url
-        var link = `http://localhost:4000/user/reset_link?email=${email}&key=${token.key}` 
+        var link = `http://localhost:4200/reset_link?email=${email}&key=${token.key}` 
         var mailOptions = {
             from: Configuration.APP_EMAIL,
             to: email,

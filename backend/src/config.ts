@@ -5,4 +5,4 @@ export class Configuration {
 
     static APP_EMAIL = 'pia.projekat.teo@gmail.com'
     static APP_PASSWORD = 'wtfqvyvimgjbvfxb'
-}
+} 

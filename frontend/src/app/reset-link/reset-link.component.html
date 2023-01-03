@@ -1,0 +1,23 @@
+<div>
+    <h3>Password reset for user with email: {{email}}</h3>
+    <table>
+        <tr>
+            <td>New password:</td>
+            <td>
+                <input type='password' name='new_password1' [(ngModel)]='new_password1'>
+            </td>
+        </tr>
+        <tr>
+            <td>New password:</td>
+            <td>
+                <input type='password' name='new_password2' [(ngModel)]='new_password2'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan='2'>
+                <button (click)='changePassword()'>Change password</button>
+            </td>
+        </tr>
+    </table>
+    <span style='color: red'>{{error}}</span><span style='color: rgb(31, 141, 21)'>{{message}}</span><br>
+</div>
