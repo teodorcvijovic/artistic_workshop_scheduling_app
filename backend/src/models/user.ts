@@ -34,6 +34,9 @@ let User = new Schema(
         organization_pib: {
             type: String
         },
+        status: {
+            type: Number
+        }
     }
 )
 
