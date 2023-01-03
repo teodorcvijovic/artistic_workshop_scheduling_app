@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+#app {
+    margin: 20px;
+}
+
+#main-app-body{
+    background-color: rgb(240, 240, 240);
+}
+
+input {
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+
+}
+
+button {
+    border-radius: 5px;
+    margin: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(213, 213, 213);
+    border-color: rgb(213, 213, 213);
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+button:hover {
+    border-radius: 5px;
+    margin: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: rgb(228, 228, 228);
+    background-color: rgb(78, 78, 78);
+    border-color: rgb(78, 78, 78);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}

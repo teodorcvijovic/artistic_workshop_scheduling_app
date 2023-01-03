@@ -53,11 +53,9 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  logout() {
-    SessionUtil.clear()
-
-    // TODO: redirect
-  }
+  // logout() {
+  //   SessionUtil.clear()
+  // }
 
   resetPassword() {
     this.router.navigate(['/reset_password'])

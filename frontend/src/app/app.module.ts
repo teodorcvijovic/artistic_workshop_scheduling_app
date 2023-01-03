@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ResetLinkComponent } from './reset-link/reset-link.component';
 import { RegisterComponent } from './register/register.component'
 import { HeadersInterceptor } from './headers.interceptor';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HeadersInterceptor } from './headers.interceptor';
     LoginComponent,
     ResetPasswordComponent,
     ResetLinkComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
