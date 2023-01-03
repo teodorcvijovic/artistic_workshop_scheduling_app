@@ -21,7 +21,7 @@ export class UserController {
         })
     }
 
-    register = (request: express.Request, response: express.Response)=>{
+    register = async (request: express.Request, response: express.Response)=>{
         let username = request.body.username
         let password = request.body.password
         let firstname = request.body.firstname
@@ -37,10 +37,13 @@ export class UserController {
         if (role == Authentication.ADMIN_ROLE) 
             return response.status(400).send({ message: 'User cannot register as admin.' })
 
+        let u = await User.findOne({'email': email})
+        if (u) return response.status(400).send({ message: 'User with given email already exists.' })
+
         User.findOne({'username': username}, (error, user) => {
             if (error) return response.status(400).send({ message: error })
             
-            if (user != null) return response.status(400).send({ message: 'User already exists.' })
+            if (user != null) return response.status(400).send({ message: 'User with given username already exists.' })
 
             const newUser = new User({
                 username: username,
