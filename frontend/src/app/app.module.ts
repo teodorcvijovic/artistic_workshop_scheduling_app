@@ -17,6 +17,7 @@ import { PasswordChangeComponent } from './password-change/password-change.compo
 import { NavbarComponent } from './navbar/navbar.component';
 import { AdminListUsersComponent } from './admin-list-users/admin-list-users.component';
 import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component
     PasswordChangeComponent,
     NavbarComponent,
     AdminListUsersComponent,
-    AdminAddUserComponent
+    AdminAddUserComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,

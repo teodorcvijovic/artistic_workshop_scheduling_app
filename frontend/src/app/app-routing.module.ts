@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component';
 import { AdminListUsersComponent } from './admin-list-users/admin-list-users.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'requests', component: RegistrationRequestsComponent},
   {path: 'users', component: AdminListUsersComponent},
   {path: 'add_user', component: AdminAddUserComponent},
+  {path: 'admin_login', component: AdminLoginComponent},
 
   // home
   {path: '', redirectTo: 'home', pathMatch: 'full' },

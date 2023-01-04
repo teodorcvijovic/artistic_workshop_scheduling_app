@@ -1,0 +1,33 @@
+<div>
+    <table>
+        <tr>
+            <td>
+                <h3>Admin login form</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td>
+                <input type='text' name='username' [(ngModel)]='username'>
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                <input type='password' name='password' [(ngModel)]='password'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan='2'>
+                <button (click)='login()'>Login</button>
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <td colspan='2'>
+                <button (click)='resetPassword()'>Reset password</button>
+            </td>
+        </tr>
+    </table>
+    <span style='color: red'>{{error}}</span><br>
+</div>
