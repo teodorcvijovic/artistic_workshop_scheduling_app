@@ -6,15 +6,33 @@ export class RoleCheck {
 
     static adminCheck(router: Router) {
         let user = SessionUtil.getUser()
-        if (user == null) return
+        if (user == null || Object.keys(user).length == 0) router.navigate(['/login'])
         if (user.role == Configuration.ADMIN_ROLE) return
         router.navigate(['/login'])
     }
 
+    static isAdmin() {
+        let user = SessionUtil.getUser()
+        if (user == null || Object.keys(user).length == 0) return false
+        if (user.role == Configuration.ADMIN_ROLE) return true
+        return false
+    }
+
     static organizerCheck(router: Router) {
         let user = SessionUtil.getUser()
-        if (user == null) return
+        if (user == null || Object.keys(user).length == 0) router.navigate(['/login'])
         if (user.role == Configuration.ORGANIZER_ROLE || user.role == Configuration.ADMIN_ROLE) return
         router.navigate(['/login'])
+    }
+
+    static loggedCheck(router: Router) {
+        let user = SessionUtil.getUser()
+        if (user == null || Object.keys(user).length == 0) router.navigate(['/login'])
+    }
+
+    static isLogged() {
+        let user = SessionUtil.getUser()
+        if (user == null || Object.keys(user).length == 0) return false
+        return true
     }
 }

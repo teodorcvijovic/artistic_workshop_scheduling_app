@@ -31,6 +31,10 @@ export class SessionUtil {
         window.sessionStorage.setItem(SessionUtil.USER_KEY_NAME, JSON.stringify(user))
     }
 
+    static isLogged() {
+        return window.sessionStorage.getItem(this.USER_KEY_NAME) != null
+    }
+
     static clear() {
         window.sessionStorage.clear()
     }

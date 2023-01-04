@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { RoleCheck } from './utils/role-check';
 import { SessionUtil } from './utils/sessionutil';
 
 @Component({
@@ -10,20 +11,5 @@ import { SessionUtil } from './utils/sessionutil';
 export class AppComponent {
   title = 'My App Component';
 
-  constructor(
-    private router: Router
-  ) {}
-
-  logged: boolean
-
-  ngOnInit() {
-    this.logged = false
-
-    if (SessionUtil.getJWT() != '') this.logged = true
-  }
-
-  logout() {
-    SessionUtil.clear()
-    this.router.navigate(['/'])
-  }
+  
 }

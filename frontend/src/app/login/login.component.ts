@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
           SessionUtil.putUser(user)
           this.error = ''
 
-          // TODO: redirect
+          // window.location.reload()
+          this.router.navigate(['/home'])
       },
       error: error => {
         this.error = error.error.message

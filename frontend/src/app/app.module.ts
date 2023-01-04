@@ -13,6 +13,8 @@ import { RegisterComponent } from './register/register.component'
 import { HeadersInterceptor } from './utils/headers.interceptor';
 import { HomeComponent } from './home/home.component';
 import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { RegistrationRequestsComponent } from './registration-requests/registrat
     ResetLinkComponent,
     RegisterComponent,
     HomeComponent,
-    RegistrationRequestsComponent
+    RegistrationRequestsComponent,
+    PasswordChangeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

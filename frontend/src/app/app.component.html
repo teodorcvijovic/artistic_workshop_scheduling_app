@@ -1,13 +1,5 @@
 <div id="app">
-  <nav class="navbar" id="navbar">
-    <div class="">
-      <a *ngIf='!logged' class="navbar-brand navbar-link" href="/login">Login</a>
-      <a *ngIf='logged' class="navbar-brand navbar-link" (click)="logout()">Logout</a>
-      <a class="navbar-brand navbar-link" href="/">Home</a>
-    </div>
-  </nav>
-
-  <hr>
+  
   
   <div id="router-outlet">
     <router-outlet></router-outlet>
