@@ -1,0 +1,10 @@
+.commit {
+    background-color: rgb(9, 53, 149);
+    color: white;
+}
+
+.commit:hover {
+    background-color: rgb(30, 32, 74);
+    color: white;
+    border-color: rgb(30, 32, 74);
+}
