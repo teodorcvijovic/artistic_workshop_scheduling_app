@@ -11,9 +11,18 @@
             <div  [ngClass]="{'greyish': editable_user_id != '' && user._id != editable_user_id, 'request': editable_user_id == '' || user._id == editable_user_id}"> 
             <table>
                 <tr>
+                    <td rowspan="6" style="padding-left: 0px; padding-right: 15px;">
+                        <!-- image -->
+                        <!-- <input  *ngIf="user._id == editable_user_id" type="file"  (change)="onChange($event)" accept="image/*, .jpeg, .png"> -->
+                        <div *ngIf="user.image && editable_user_id == ''">
+                            <img [src]="user.image" width="100px" height="100px"/>
+                        </div>
+                    </td>
                     <th> Username:&nbsp; </th>
                     <td *ngIf="user._id != editable_user_id">{{user.username}}</td>
                     <td *ngIf="user._id == editable_user_id"><input type="text" name="username" [(ngModel)]="username"></td>
+
+                    
                 </tr>
                 <tr *ngIf="user._id == editable_user_id">
                     <th> Password:&nbsp; </th>
@@ -49,6 +58,18 @@
                     <td><input type="radio" name="role" [value]="2" [(ngModel)]="role">Participant</td>
                 </tr>
                 <tr><td colspan="4"><i>If chosen role is <b>Participant</b>, organization info won't be updated.</i></td></tr>
+                <tr>
+                    <th>Image:&nbsp;</th>
+                    <td>
+                        <button style="padding: 1px; border-radius: 0px" (click)="removeImage()">Remove</button>
+                    </td>
+                    <td colspan="2">
+                        <input  type="file"  (change)="onChange($event)" accept="image/*, .jpeg, .png">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4"><span style='color: red'>{{error}}</span></td>
+                </tr>
             </table>
             <hr>
             <h5 [ngStyle]="{'color': (user.role==2) ? '#c1c1c1' : ''}">Organization info</h5>

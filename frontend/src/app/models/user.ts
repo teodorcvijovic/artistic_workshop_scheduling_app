@@ -10,6 +10,6 @@ export class User{
     organization_name: string
     organization_address: string
     organization_pib: string
-    image: string
+    image: any
 }
 

@@ -7,6 +7,11 @@
     margin-bottom: 20px;
 }
 
+img {
+    border-radius: 5px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
 .greyish {
         margin: 5px;
         background-color: rgb(223, 223, 223);
