@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Configuration } from '../utils/config';
 import { SessionUtil } from '../utils/sessionutil';
 
 @Component({
@@ -40,7 +41,12 @@ export class AdminLoginComponent implements OnInit {
       next: (data:any) => {
           let jwtToken = data.jwt_token
           let user = JSON.parse(data.user)
-          
+
+          if (user.role != Configuration.ADMIN_ROLE) {
+            this.error = 'Only users with admin role can access this form.'
+            return
+          }
+
           SessionUtil.putJWT(jwtToken)
           SessionUtil.putUser(user)
           this.error = ''

@@ -61,6 +61,7 @@ export class AdminListUsersComponent implements OnInit {
 
     this.username = user.username
     this.firstname = user.firstname
+    this.password = user.password
     this.lastname = user.lastname
     this.phone = user.phone
     this.email = user.email

@@ -6,9 +6,9 @@ export class RoleCheck {
 
     static adminCheck(router: Router) {
         let user = SessionUtil.getUser()
-        if (user == null || Object.keys(user).length == 0) router.navigate(['/login'])
+        if (user == null || Object.keys(user).length == 0) router.navigate(['/admin_login'])
         if (user.role == Configuration.ADMIN_ROLE) return
-        router.navigate(['/login'])
+        router.navigate(['/admin_login'])
     }
 
     static isAdmin() {
