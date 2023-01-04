@@ -158,7 +158,6 @@ export class UserController {
             }
         })
         
-        // TO DO: change this link to frontend url
         var link = `http://localhost:4200/reset_link?email=${email}&key=${token.key}` 
         var mailOptions = {
             from: Configuration.APP_EMAIL,

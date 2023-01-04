@@ -62,4 +62,13 @@ export class UserService {
     return this.http.put(`${this.URI}/deny`, body)
   }
 
+  changePassword(old_password, new_password) {
+    const body = {
+      old_password: old_password,
+      new_password: new_password
+    }
+
+    return this.http.put(`${this.URI}/change_password`, body)
+  }
+
 }

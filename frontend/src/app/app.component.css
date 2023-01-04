@@ -1,29 +1,6 @@
-#navbar {
-    padding: 20px;
-    background-color: rgb(200, 200, 200);
-    border-radius: 7px;
-    box-shadow: 5px 10px 8px #d4d4d4;
-}
+
 
 #router-outlet {
     margin-top: 20px;
 }
 
-
-.navbar-link {
-    color: rgb(0, 0, 0);
-    /* font-weight: bold; */
-    font-size: 20px;
-    margin-left: 10px;
-}
-
-.navbar-link:hover {
-    color: rgb(119, 119, 119);
-    /* font-weight: bold; */
-    font-size: 20px;
-    margin-left: 10px;
-}
-
-.admin {
-    color: rgb(7, 113, 28);
-}
