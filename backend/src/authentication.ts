@@ -20,9 +20,10 @@ export class Authentication {
             
             let role = decodedToken.role
             if (role == null) return response.status(401).send({ message: "Unauthorized access. Role is not specified in the token." })
-            request.role = role
+            
 
-            // TO DO: access token fields and insert in into request
+            // access token fields and insert in into request
+            request.role = role
             request.username = decodedToken.username
 
             next()
