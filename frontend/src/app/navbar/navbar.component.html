@@ -3,7 +3,7 @@
       <a *ngIf='!logged' class="navbar-brand navbar-link" href="/login">Login</a>
       <a *ngIf='logged' class="navbar-brand navbar-link" (click)="logout()">Logout</a>
       <a *ngIf='logged' class="navbar-brand navbar-link" href="/password_change">Change password</a>
-      <a class="navbar-brand navbar-link" href="/">Home</a>
+      <a *ngIf='!isAdmin' class="navbar-brand navbar-link" href="/">Home</a>
 
       <!-- admin routes -->
       <a *ngIf='isAdmin' class="navbar-brand navbar-link admin" href="/requests">Registration requests</a>
