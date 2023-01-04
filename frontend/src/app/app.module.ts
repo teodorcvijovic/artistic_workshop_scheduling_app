@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AdminListUsersComponent } from './admin-list-users/admin-list-users.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     HomeComponent,
     RegistrationRequestsComponent,
     PasswordChangeComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdminListUsersComponent
   ],
   imports: [
     BrowserModule,

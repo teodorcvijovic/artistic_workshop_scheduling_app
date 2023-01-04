@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+<div class="container"> <!-- responsive -->
+    <div class="row">
+        <div class="col-sm-12"> <h4>Users</h4><hr></div>
+    </div>
+    <div class="row">
+        <div *ngFor='let user of users' class="col-sm-12 col-md-6 col-lg-6">
+            <div class="request"> 
+            <table>
+                <tr>
+                    <th> Username:&nbsp; </th><td>{{user.username}}</td>
+                </tr>
+                <tr>
+                    <th> Firstname:&nbsp; </th><td>{{user.firstname}}</td>
+                </tr>
+                <tr>
+                    <th> Lastname:&nbsp; </th><td>{{user.lastname}}</td>
+                </tr>
+                <tr>
+                    <th> Email:&nbsp; </th><td>{{user.email}}</td>
+                </tr>
+                <tr>
+                    <th> Phone:&nbsp; </th><td>{{user.phone}}</td>
+                </tr>
+            </table>
+            <hr>
+            <h5 [ngStyle]="{'color': (user.role==2) ? '#c1c1c1' : ''}">Organization info</h5>
+            <table  [ngStyle]="{'color': (user.role==2) ? '#c1c1c1' : ''}">
+                <tr>
+                    <th> Name:&nbsp; </th><td>{{user.organization_name}}</td>
+                </tr>
+                <tr>
+                    <th> Address:&nbsp; </th><td>{{user.organization_address}}</td>
+                </tr>
+                <tr>
+                    <th> PIB:&nbsp; </th><td>{{user.organization_pib}}</td>
+                </tr>
+            </table> 
+          <hr>
+          <table>
+            <tr>
+                <td>  <button (click)='deleteUser(user)' class="reject">Delete user</button> </td>
+            </tr>
+          </table>
+            </div>
+        </div>
+    </div>
+</div>

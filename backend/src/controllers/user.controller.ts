@@ -13,13 +13,6 @@ export class UserController {
     WAITING_STATUS = 0
     APPROVED_STATUS = 1
     DISAPPROVED_STATUS = 2
-    
-    getAllUsers = (request: express.Request, response: express.Response)=>{
-        User.find({}, (error , users)=>{
-            if (error) console.log(error)
-            else response.json(users)
-        })
-    }
 
     register = async (request: express.Request, response: express.Response)=>{
         let username = request.body.username
@@ -239,6 +232,114 @@ export class UserController {
             user.save()
 
             response.send({message: 'Request is denied.'})
+        })
+    }
+
+    getAllUsers = (request: express.Request, response: express.Response)=>{
+        User.find({}, (error , users)=>{
+            if (error) console.log(error)
+            else response.json(users)
+        })
+    }
+
+    deleteUser = (request: express.Request, response: express.Response) => {
+        //let username = request.body.username
+        let _id = request.body._id
+
+        User.findOne({_id: _id}, (error, user) => {
+            if (error) return response.status(400).send({ message: error })
+            
+            if (user == null) return response.status(404).send({ message: 'User is not found.' })
+
+            user.delete()
+
+            response.send({message: 'User is deleted.'})
+        })
+    }
+
+    updateUser = async (request: express.Request, response: express.Response) => {
+        let _id = request.body._id
+        let username = request.body.username
+        let password = request.body.password
+        let firstname = request.body.firstname
+        let lastname = request.body.lastname
+        let phone = request.body.phone
+        let email = request.body.email
+        let role = request.body.role
+        let organization_name = request.body.organization_name
+        let organization_address = request.body.organization_address
+        let organization_pib = request.body.organization_pib
+        let image = request.body.image
+
+        let u = await User.findOne({username: username})
+        if (u) return response.status(400).send({ message: 'Username is not unique.' })
+        u = await User.findOne({email: email})
+        if (u) return response.status(400).send({ message: 'Email is not unique.' })
+
+        User.findOne({_id: _id}, (error, user) => {
+            if (error) return response.status(400).send({ message: error })
+            
+            if (user == null) return response.status(404).send({ message: 'User is not found.' })
+
+            user.username = username
+            user.password = password
+            user.firstname = firstname
+            user.lastname = lastname
+            user.phone = phone
+            user.email = email
+            user.role = role
+            user.organization_name = organization_name
+            user.organization_address = organization_address
+            user.organization_pib = organization_pib
+            user.image = image
+
+            user.save()
+            response.send({message: 'User is updated.'})
+        })
+    }
+
+    createUser = async (request: express.Request, response: express.Response) => {
+        let username = request.body.username
+        let password = request.body.password
+        let firstname = request.body.firstname
+        let lastname = request.body.lastname
+        let phone = request.body.phone
+        let email = request.body.email
+        let role = request.body.role
+        let organization_name = request.body.organization_name
+        let organization_address = request.body.organization_address
+        let organization_pib = request.body.organization_pib
+        let image = request.body.image
+
+        let u = await User.findOne({'email': email})
+        if (u) return response.status(400).send({ message: 'User with given email already exists.' })
+
+        User.findOne({'username': username}, (error, user) => {
+            if (error) return response.status(400).send({ message: error })
+            
+            if (user != null) return response.status(400).send({ message: 'User with given username already exists.' })
+
+            const newUser = new User({
+                username: username,
+                password: password,
+                firstname: firstname,
+                lastname: lastname,
+                phone: phone,
+                email: email,
+                role: role,
+                organization_name: organization_name,
+                organization_address: organization_address,
+                organization_pib: organization_pib,
+                status: this.APPROVED_STATUS,
+                image: image
+            })
+
+            newUser.save((error, user) => {
+                if (error) return response.status(400).send({ message: 'Registration failed.' })
+
+                // successful user creation
+                response.json(user)
+            })
         })
     }
 

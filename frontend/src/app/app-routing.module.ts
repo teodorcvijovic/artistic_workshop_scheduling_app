@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminListUsersComponent } from './admin-list-users/admin-list-users.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
 
   // admin routes
   {path: 'requests', component: RegistrationRequestsComponent},
+  {path: 'users', component: AdminListUsersComponent},
 
   {path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'home', component: HomeComponent}

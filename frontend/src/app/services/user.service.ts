@@ -71,4 +71,24 @@ export class UserService {
     return this.http.put(`${this.URI}/change_password`, body)
   }
 
+  getAllUsers() {
+    return this.http.get(`${this.URI}/all`)
+  }
+
+  deleteUser(_id) {
+    const body = {
+      _id: _id
+    }
+
+    return this.http.delete(`${this.URI}`, {body: body})
+  }
+
+  createUser(data) {
+    return this.http.post(`${this.URI}`, data)
+  }
+
+  updateUser(data) {
+    return this.http.put(`${this.URI}`, data)
+  }
+
 }

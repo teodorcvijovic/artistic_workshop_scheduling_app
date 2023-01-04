@@ -4,11 +4,6 @@ import { Authentication } from '../authentication'
 
 const user_router = express.Router()
 
-user_router.route("/all").get(
-    [Authentication.jwtCheck, Authentication.isAdmin],
-    (request, response) => new UserController().getAllUsers(request, response)
-)
-
 user_router.route("/register").post(
     (request, response) => new UserController().register(request, response)
 )
@@ -45,6 +40,26 @@ user_router.route("/permit").put(
 user_router.route("/deny").put(
     [Authentication.jwtCheck, Authentication.isAdmin],
     (request, response) => new UserController().denyRequest(request, response)
+)
+
+user_router.route("/all").get(
+    [Authentication.jwtCheck, Authentication.isAdmin],
+    (request, response) => new UserController().getAllUsers(request, response)
+)
+
+user_router.route("").delete(
+    [Authentication.jwtCheck, Authentication.isAdmin],
+    (request, response) => new UserController().deleteUser(request, response)
+)
+
+user_router.route("").put(
+    [Authentication.jwtCheck, Authentication.isAdmin],
+    (request, response) => new UserController().updateUser(request, response)
+)
+
+user_router.route("").post(
+    [Authentication.jwtCheck, Authentication.isAdmin],
+    (request, response) => new UserController().createUser(request, response)
 )
 
 export default user_router
