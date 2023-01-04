@@ -271,10 +271,10 @@ export class UserController {
         let organization_pib = request.body.organization_pib
         let image = request.body.image
 
-        let u = await User.findOne({username: username})
-        if (u) return response.status(400).send({ message: 'Username is not unique.' })
-        u = await User.findOne({email: email})
-        if (u) return response.status(400).send({ message: 'Email is not unique.' })
+        // let u = await User.findOne({username: username})
+        // if (u) return response.status(400).send({ message: 'Username is not unique.' })
+        // u = await User.findOne({email: email})
+        // if (u) return response.status(400).send({ message: 'Email is not unique.' })
 
         User.findOne({_id: _id}, (error, user) => {
             if (error) return response.status(400).send({ message: error })

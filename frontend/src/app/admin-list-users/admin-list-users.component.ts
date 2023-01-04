@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import { Configuration } from '../utils/config';
 import { RoleCheck } from '../utils/role-check';
 import { SessionUtil } from '../utils/sessionutil';
 
@@ -23,15 +24,23 @@ export class AdminListUsersComponent implements OnInit {
     this.userService.getAllUsers().subscribe((data: User[]) => {
       this.users = data
     })
+
+    this.editable_user_id = ''
   }
 
   users: User[]
 
+  editable_user_id: string
   username: string
   password: string
   firstname: string
   lastname: string
-  
+  phone: string
+  email: string
+  organization_name: string
+  organization_address: string
+  organization_pib: string
+  role: number
 
   deleteUser(user) {
     if (user.username == SessionUtil.getUser().username) {
@@ -45,8 +54,49 @@ export class AdminListUsersComponent implements OnInit {
     })
   }
 
-  updateUser() {
-    // TO DO
+  editUser(user) {
+    this.editable_user_id = user._id
+
+    this.username = user.username
+    this.firstname = user.firstname
+    this.lastname = user.lastname
+    this.phone = user.phone
+    this.email = user.email
+    this.organization_name = user.organization_name
+    this.organization_address = user.organization_address
+    this.organization_pib = user.organization_pib
+    this.role = user.role
+  }
+
+  cancelEdit() {
+    this.editable_user_id = ''
+  }
+
+  commitUserChanges(user) {
+    if (this.role == Configuration.PARTICIPANT_ROLE) {
+      this.organization_name = ''
+      this.organization_address = ''
+      this.organization_pib = ''
+    }
+
+    let data = {
+      _id: user._id,
+      username: this.username,
+      password: this.password,
+      firstname: this.firstname,
+      lastname: this.lastname,
+      role: this.role,
+      phone: this.phone,
+      email: this.email,
+      organization_name: this.organization_name,
+      organization_address: this.organization_address,
+      organization_pib: this.organization_pib
+    }
+
+    this.userService.updateUser(data).subscribe((data) => {
+      this.editable_user_id = ''
+    })
+
   }
 
 }

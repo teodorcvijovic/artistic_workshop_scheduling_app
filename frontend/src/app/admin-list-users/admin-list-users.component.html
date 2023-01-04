@@ -5,41 +5,74 @@
     </div>
     <div class="row">
         <div *ngFor='let user of users' class="col-sm-12 col-md-6 col-lg-6">
-            <div class="request"> 
+            <div  [ngClass]="{'greyish': editable_user_id != '' && user._id != editable_user_id, 'request': editable_user_id == '' || user._id == editable_user_id}"> 
             <table>
                 <tr>
-                    <th> Username:&nbsp; </th><td>{{user.username}}</td>
+                    <th> Username:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.username}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="username" [(ngModel)]="username"></td>
+                </tr>
+                <tr *ngIf="user._id == editable_user_id">
+                    <th> Password:&nbsp; </th>
+                    <td><input type="text" name="password" [(ngModel)]="password"></td>
                 </tr>
                 <tr>
-                    <th> Firstname:&nbsp; </th><td>{{user.firstname}}</td>
+                    <th> Firstname:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.firstname}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="firstname" [(ngModel)]="firstname"></td>
                 </tr>
                 <tr>
-                    <th> Lastname:&nbsp; </th><td>{{user.lastname}}</td>
+                    <th> Lastname:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.lastname}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="lastname" [(ngModel)]="lastname"></td>
                 </tr>
                 <tr>
-                    <th> Email:&nbsp; </th><td>{{user.email}}</td>
+                    <th> Email:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.email}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="email" [(ngModel)]="email"></td>
                 </tr>
                 <tr>
-                    <th> Phone:&nbsp; </th><td>{{user.phone}}</td>
+                    <th> Phone:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.phone}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="phone" [(ngModel)]="phone"></td>
                 </tr>
+            </table>
+            <hr *ngIf="user._id == editable_user_id">
+            <table *ngIf="user._id == editable_user_id">
+                <tr>
+                    <th>Role:&nbsp;</th>
+                    <td><input type="radio" name="role" [value]="0" [(ngModel)]="role">Admin</td>
+                    <td><input type="radio" name="role" [value]="1" [(ngModel)]="role">Organizer</td>
+                    <td><input type="radio" name="role" [value]="2" [(ngModel)]="role">Participant</td>
+                </tr>
+                <tr><td colspan="4"><i>If chosen role is <b>Participant</b>, organization info won't be updated.</i></td></tr>
             </table>
             <hr>
             <h5 [ngStyle]="{'color': (user.role==2) ? '#c1c1c1' : ''}">Organization info</h5>
             <table  [ngStyle]="{'color': (user.role==2) ? '#c1c1c1' : ''}">
                 <tr>
-                    <th> Name:&nbsp; </th><td>{{user.organization_name}}</td>
+                    <th> Name:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.organization_name}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="organization_name" [(ngModel)]="organization_name"></td>
                 </tr>
                 <tr>
-                    <th> Address:&nbsp; </th><td>{{user.organization_address}}</td>
+                    <th> Address:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.organization_address}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="organization_address" [(ngModel)]="organization_address"></td>
                 </tr>
                 <tr>
-                    <th> PIB:&nbsp; </th><td>{{user.organization_pib}}</td>
+                    <th> PIB:&nbsp; </th>
+                    <td *ngIf="user._id != editable_user_id">{{user.organization_pib}}</td>
+                    <td *ngIf="user._id == editable_user_id"><input type="text" name="organization_pib" [(ngModel)]="organization_pib"></td>
                 </tr>
             </table> 
           <hr>
           <table>
             <tr>
-                <td>  <button (click)='deleteUser(user)' class="reject">Delete user</button> </td>
+                <td *ngIf="user._id != editable_user_id">  <button (click)='deleteUser(user)' class="reject">Delete user</button> </td>
+                <td *ngIf="user._id != editable_user_id">  <button (click)='editUser(user)' class="">Edit user data</button> </td>
+                <td *ngIf="user._id == editable_user_id">  <button (click)='commitUserChanges(user)' class="commit">Commit changes</button> </td>
+                <td *ngIf="user._id == editable_user_id">  <button (click)='cancelEdit()' class="">Cancel</button> </td>
             </tr>
           </table>
             </div>
