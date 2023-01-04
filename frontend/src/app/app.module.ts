@@ -16,6 +16,7 @@ import { RegistrationRequestsComponent } from './registration-requests/registrat
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AdminListUsersComponent } from './admin-list-users/admin-list-users.component';
+import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdminListUsersComponent } from './admin-list-users/admin-list-users.com
     RegistrationRequestsComponent,
     PasswordChangeComponent,
     NavbarComponent,
-    AdminListUsersComponent
+    AdminListUsersComponent,
+    AdminAddUserComponent
   ],
   imports: [
     BrowserModule,

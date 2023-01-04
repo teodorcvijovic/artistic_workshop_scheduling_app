@@ -1,7 +1,10 @@
 <app-navbar></app-navbar>
 <div class="container"> <!-- responsive -->
     <div class="row">
-        <div class="col-sm-12"> <h4>Users</h4><hr></div>
+        <div class="col-sm-12"> 
+            <h4>Users</h4><hr>
+            <button (click)="addNewUser()">Add new user</button><hr>
+        </div>
     </div>
     <div class="row">
         <div *ngFor='let user of users' class="col-sm-12 col-md-6 col-lg-6">

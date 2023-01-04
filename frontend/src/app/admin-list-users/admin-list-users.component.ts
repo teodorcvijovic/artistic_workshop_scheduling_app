@@ -44,7 +44,7 @@ export class AdminListUsersComponent implements OnInit {
 
   deleteUser(user) {
     if (user.username == SessionUtil.getUser().username) {
-      // just in case admin delete himself
+      // just in case admin deletes himself
       SessionUtil.clear()
       this.router.navigate([''])
     }
@@ -93,10 +93,25 @@ export class AdminListUsersComponent implements OnInit {
       organization_pib: this.organization_pib
     }
 
+    user.username = this.username
+    user.password = this.password
+    user.firstname = this.firstname
+    user.lastname = this.lastname
+    user.phone = this.phone
+    user.email = this.email
+    user.role = this.role
+    user.organization_name = this.organization_name
+    user.organization_address = this.organization_address
+    user.organization_pib = this.organization_pib
+
     this.userService.updateUser(data).subscribe((data) => {
       this.editable_user_id = ''
     })
 
+  }
+
+  addNewUser() {
+    this.router.navigate(['/add_user'])
   }
 
 }
