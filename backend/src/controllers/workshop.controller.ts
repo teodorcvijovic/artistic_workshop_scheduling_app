@@ -4,6 +4,7 @@ import nodemailer from "nodemailer"
 import { Configuration } from "../config"
 import User from "../models/user"
 import user from "../models/user"
+import { ObjectID } from "mongodb"
 
 export class WorkshopController {
 
@@ -300,16 +301,84 @@ export class WorkshopController {
         })
     }
 
-    getAllParticipationRequests = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    getParticipationRequests = async (request: any, response: express.Response)=>{
+        let user_id = request.user_id
+        let workshop_id = request.query.workshop_id
+
+        let participationRequests = []
+
+        Workshop.findOne({organizer_id: user_id, _id: workshop_id}, async (error, workshop) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+            if (workshop == null) return response.status(404).send({ message: "Workshop not found." })
+
+            for (const user of workshop.reservations) {
+                let u = await User.findOne({_id: user._id})
+                if (u != null) {
+                    participationRequests.push({
+                        _id: u._id,
+                        username: u.username,
+                        firstname: u.firstname,
+                        lastname: u.lastname,
+                        email: u.email,
+                        workshop_id: workshop_id
+                    })
+                }
+            }
+
+            return response.send(participationRequests)
+        })
     }
 
-    permitParticipation = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    permitParticipation = async (request: any, response: express.Response)=>{
+        let user_id = request.user_id
+
+        let workshop_id = request.body.workshop_id
+        let participant_id = request.body.participant_id
+
+        Workshop.findOne({organizer_id: user_id, _id: workshop_id}, async (error, workshop) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+            if (workshop == null) return response.status(404).send({ message: "Workshop not found." })
+
+            for (const user of workshop.reservations) {
+                if (user._id == participant_id) {
+                    workshop.participants.push({_id: participant_id})
+                    workshop.reservations = workshop.reservations.filter(u => u._id != participant_id)
+                    break
+                }
+            }
+
+            workshop.save()
+            return response.send({message: 'Participation is sucessfully permited.'})
+        })
     }
 
-    denyParticipation = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    denyParticipation = async (request: any, response: express.Response)=>{
+        let user_id = request.user_id
+
+        let workshop_id = request.body.workshop_id
+        let participant_id = request.body.participant_id
+
+        Workshop.findOne({organizer_id: user_id, _id: workshop_id}, async (error, workshop) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+            if (workshop == null) return response.status(404).send({ message: "Workshop not found." })
+
+            for (const user of workshop.reservations) {
+                if (user._id == participant_id) {
+                    workshop.reservations = workshop.reservations.filter(u => u._id != participant_id)
+                    this.notifyWaitingQueue(workshop)
+                    break
+                }
+            }
+
+            workshop.save()
+            return response.send({message: 'Participation is denied.'})
+        })
     }
     
     /************* admin routes ****************/
@@ -338,9 +407,9 @@ export class WorkshopController {
         // TO DO
     }
 
-    denyNewWorkshop = async (request: express.Request, response: express.Response)=>{
-        // TO DO
-    }
+    // denyNewWorkshop = async (request: express.Request, response: express.Response)=>{
+    //     // TO DO
+    // }
 
     createWorkshop = async (request: express.Request, response: express.Response)=>{
         // TO DO

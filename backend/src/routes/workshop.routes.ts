@@ -54,9 +54,11 @@ workshop_router.route("/queue").post(
     (request, response) => new WorkshopController().putMeInWaitingQueue(request, response)
 )
 
+// for individual workshops
+// query param: workshop_id
 workshop_router.route("/participation_requests").get(
     [Authentication.jwtCheck, Authentication.isOrganizer],
-    (request, response) => new WorkshopController().getAllParticipationRequests(request, response)
+    (request, response) => new WorkshopController().getParticipationRequests(request, response)
 )
 
 workshop_router.route("/permit_participation").put(
@@ -64,7 +66,7 @@ workshop_router.route("/permit_participation").put(
     (request, response) => new WorkshopController().permitParticipation(request, response)
 )
 
-workshop_router.route("/deny_pariticipation").put(
+workshop_router.route("/deny_participation").put(
     [Authentication.jwtCheck, Authentication.isOrganizer],
     (request, response) => new WorkshopController().denyParticipation(request, response)
 )
@@ -87,10 +89,10 @@ workshop_router.route("/permit").put(
     (request, response) => new WorkshopController().permitNewWorkshop(request, response)
 )
 
-workshop_router.route("/deny").put(
-    [Authentication.jwtCheck, Authentication.isAdmin],
-    (request, response) => new WorkshopController().denyNewWorkshop(request, response)
-)
+// workshop_router.route("/deny").put(
+//     [Authentication.jwtCheck, Authentication.isAdmin],
+//     (request, response) => new WorkshopController().denyNewWorkshop(request, response)
+// )
 
 // admin create workshop, organizer must send request for creating a new workshop
 workshop_router.route("").post(
