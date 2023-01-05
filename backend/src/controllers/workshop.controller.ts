@@ -11,8 +11,7 @@ export class WorkshopController {
     
         Workshop.find({}, (error , workshops)=>{
             if (error) {
-                console.log(error)
-                return
+                return response.status(400).send({ message: error })
             }
 
             workshops = workshops.filter(w => currentDate <= w.date)
@@ -26,8 +25,7 @@ export class WorkshopController {
 
         Workshop.find({}, (error , workshops)=>{
             if (error) {
-                console.log(error)
-                return
+                return response.status(400).send({ message: error })
             }
 
             workshops = workshops.filter(w => {
@@ -50,8 +48,7 @@ export class WorkshopController {
 
         Workshop.find({}, (error , workshops)=>{
             if (error) {
-                console.log(error)
-                return
+                return response.status(400).send({ message: error })
             }
 
             workshops = workshops.filter(w => {
@@ -75,8 +72,7 @@ export class WorkshopController {
 
         Workshop.findOne({_id: workshop_id}, (error , workshop)=>{
             if (error) {
-                console.log(error)
-                return
+                return response.status(400).send({ message: error })
             }
 
             if (workshop == null) return response.status(404).send({ message: 'Workshop not found.' })
@@ -157,8 +153,7 @@ export class WorkshopController {
 
         Workshop.find({}, (error , workshops)=>{
             if (error) {
-                console.log(error)
-                return
+                return response.status(400).send({ message: error })
             }
 
             workshops = workshops.filter(w => {
@@ -169,9 +164,64 @@ export class WorkshopController {
         })
     }
 
-    cancelWorkshopIOrganized = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    cancelWorkshopIOrganized = async (request: any, response: express.Response)=>{
+        let user_id = request.user_id
+
+        let workshop_id = request.body._id
+
+        Workshop.findOne({_id: workshop_id}, (error, workshop) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            if (workshop == null) return response.status(404).send({ message: "Workshop not found." })
+
+            if (workshop.organizer_id != user_id) return response.status(401).send({ message: "Unauthorized attempt to delete a workshop." })
+       
+            this.notifyAboutWorkshopCanceling(workshop)
+
+            workshop.delete()
+
+            // TODO: what about chat threads?
+
+            return response.send({ message: "Workshop successfully canceled" })
+        })
     }
+
+    /***** helper *****/
+
+    notifyAboutWorkshopCanceling(workshop) {
+        workshop.participants.forEach(async waiting => {
+            // send an email
+            var transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: Configuration.APP_EMAIL,
+                    pass: Configuration.APP_PASSWORD
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            })
+
+            let user = await User.findOne({_id: waiting._id})
+            if (user != null) { 
+                let email = user.email
+                var mailOptions = {
+                    from: Configuration.APP_EMAIL,
+                    to: email,
+                    subject: 'Workshoped canceled!',
+                    text: 'Workshop ' + workshop.name + ' is canceled! Sorry.'
+                }
+                
+                transporter.sendMail(mailOptions, function(error, info){
+                    if (error) console.log(error);
+                })
+            }
+        })
+    }
+
+    /**************** */
 
     newWorkshopCreationRequest = async (request: express.Request, response: express.Response)=>{
         // TO DO
@@ -202,11 +252,23 @@ export class WorkshopController {
     /************* admin routes ****************/
 
     getAllWorkshops = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+        Workshop.find({}, (error , workshops)=>{
+            if (error) {
+                console.log(error)
+                return
+            }
+            response.json(workshops)
+        })
     }
 
     getAllRequestsForOrganizing = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+        Workshop.find({approved: false}, (error , workshops)=>{
+            if (error) {
+                console.log(error)
+                return
+            }
+            response.json(workshops)
+        })
     }
 
     permitNewWorkshop = async (request: express.Request, response: express.Response)=>{
