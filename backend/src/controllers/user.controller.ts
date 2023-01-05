@@ -80,7 +80,9 @@ export class UserController {
 
             if (user.password != password) return response.status(401).send({ message: 'Invalid password.' })
 
+
             let token_data = {
+                '_id': user._id,
                 'username': user.username,
                 'firstname': user.firstname,
                 'lastname': user.lastname,

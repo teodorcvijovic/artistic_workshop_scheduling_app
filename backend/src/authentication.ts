@@ -25,6 +25,9 @@ export class Authentication {
             // access token fields and insert in into request
             request.role = role
             request.username = decodedToken.username
+            request.email = decodedToken.email
+            request.user_id = decodedToken._id
+
 
             next()
         })

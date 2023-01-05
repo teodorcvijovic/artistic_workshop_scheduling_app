@@ -1,11 +1,12 @@
+import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
 let Workshop = new Schema(
     {
-        id: {type: Number },
-        organizer_username: {type: String},
+        id: {type: ObjectId },
+        organizer_id: {type: String},
 
         // main_image
         // gallery
