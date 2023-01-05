@@ -3,6 +3,7 @@ import Workshop from '../models/workshop'
 import nodemailer from "nodemailer"
 import { Configuration } from "../config"
 import User from "../models/user"
+import user from "../models/user"
 
 export class WorkshopController {
 
@@ -84,7 +85,6 @@ export class WorkshopController {
                 return false
             })
             if (isRemoved) {
-                workshop.capacity = workshop.capacity - 1
                 this.notifyWaitingQueue(workshop)
             }
 
@@ -95,7 +95,6 @@ export class WorkshopController {
                 return false
             })
             if (isRemoved) {
-                workshop.capacity = workshop.capacity - 1
                 this.notifyWaitingQueue(workshop)
             }
 
@@ -229,12 +228,76 @@ export class WorkshopController {
 
     /************ participation requests *******/
 
-    applyForWorkshop = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    applyForWorkshop = async (request: any, response: express.Response)=>{
+        let user_id = request.user_id
+
+        let workshop_id = request.body._id
+
+        Workshop.findOne({_id: workshop_id}, (error, workshop) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            if (workshop == null) return response.status(404).send({ message: "Workshop not found." })
+
+            if (this.checkIfUserAlreadyApplied(workshop, user_id)) return response.status(404).send({ message: "You cannot apply twice for the same workshop." })
+
+            if (WorkshopController.placesLeft(workshop) <= 0) {
+                // capacity full
+                workshop.waiting_queue.push({"_id": user_id})
+                workshop.save()
+                return response.status(400).send({ message: "You will be notified if someone cancel." })
+            }
+
+            workshop.reservations.push({"_id": user_id})
+            workshop.save()
+
+            return response.send({ message: "Your application request will be considered by organizer." })
+        })
     }
 
-    putMeInWaitingQueue = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    /**** helper ****/
+
+    checkIfUserAlreadyApplied(workshop, user_id) {
+        let alreadyApplied = false
+        workshop.participants.forEach(participant => {
+            if (participant._id == user_id) alreadyApplied = true
+        })
+        workshop.reservations.forEach(participant => {
+            if (participant._id == user_id) alreadyApplied = true
+        })
+
+        return alreadyApplied
+    }
+
+    static placesLeft(workshop) {
+        let cnt = 0
+        let participants = workshop.participants
+        if (participants != null && participants !== undefined) cnt += workshop.participants.length
+        let reservations = workshop.participants
+        if (reservations != null && reservations !== undefined) cnt += workshop.reservations.length
+        return workshop.capacity - cnt
+    }
+
+    /***************/
+
+    putMeInWaitingQueue = async (request: any, response: express.Response)=>{
+        let user_id = request.user_id
+
+        let workshop_id = request.body._id
+
+        Workshop.findOne({_id: workshop_id}, (error, workshop) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            if (workshop == null) return response.status(404).send({ message: "Workshop not found." })
+
+            workshop.waiting_queue.push({"_id": user_id})
+            workshop.save()
+
+            return response.send({ message: "You will be notified if someone cancel." })
+        })
     }
 
     getAllParticipationRequests = async (request: express.Request, response: express.Response)=>{
