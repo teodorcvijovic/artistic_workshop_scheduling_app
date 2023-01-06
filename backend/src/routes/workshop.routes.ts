@@ -45,16 +45,6 @@ workshop_router.route("/participating").get(
     (request, response) => new WorkshopController().getMyCurrentWorkshops(request, response)
 )
 
-workshop_router.route("/like").put(
-    [Authentication.jwtCheck],
-    (request, response) => new WorkshopController().likeWorkshop(request, response)
-)
-
-workshop_router.route("/unlike").put(
-    [Authentication.jwtCheck],
-    (request, response) => new WorkshopController().unlikeWorkshop(request, response)
-)
-
 workshop_router.route("/cancel_pariticipation").put(
     [Authentication.jwtCheck, Authentication.isParticipant],
     (request, response) => new WorkshopController().cancelParticipation(request, response)

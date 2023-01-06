@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 
 import user_router from './routes/user.routes'
 import workshop_router from './routes/workshop.routes'
+import activity_router from './routes/activity.routes'
 
 const app = express()
 app.use(cors())
@@ -18,6 +19,7 @@ connection.once('open', ()=>{
 const router = express.Router()
 router.use('/user', user_router)
 router.use('/workshop', workshop_router)
+router.use('/activity', activity_router)
  
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`))
