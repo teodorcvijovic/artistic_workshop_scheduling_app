@@ -207,7 +207,7 @@ export class ActivityController {
             if (comment == null) {
                 return response.status(404).send({ message: "Comment not found." })
             }
-
+ 
             if (role != Authentication.ADMIN_ROLE && user_id != comment.user_id) {
                 return response.status(401).send({ message: "Unauthorized attemt to delete a comment." })
             }
