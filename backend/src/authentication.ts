@@ -54,9 +54,7 @@ export class Authentication {
     static isParticipant = (request, response, next) => {
         let role = request.role
 
-        if (role != Authentication.ADMIN_ROLE && 
-            role != Authentication.ORGANIZER_ROLE &&
-            role != Authentication.PARTICIPANT_ROLE) 
+        if (role != Authentication.PARTICIPANT_ROLE) 
             return response.status(401).send({ message: "Unauthorized access." })
 
         next()

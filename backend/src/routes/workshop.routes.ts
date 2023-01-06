@@ -46,7 +46,7 @@ workshop_router.route("/participating").get(
 )
 
 workshop_router.route("/cancel_pariticipation").put(
-    [Authentication.jwtCheck],
+    [Authentication.jwtCheck, Authentication.isParticipant],
     (request, response) => new WorkshopController().cancelParticipation(request, response)
 )
 
@@ -71,12 +71,12 @@ workshop_router.route("/new_request").post(
 /*************** participation requests **************/
 
 workshop_router.route("/apply").post(
-    [Authentication.jwtCheck],
+    [Authentication.jwtCheck, Authentication.isParticipant],
     (request, response) => new WorkshopController().applyForWorkshop(request, response)
 )
 
 workshop_router.route("/queue").post(
-    [Authentication.jwtCheck],
+    [Authentication.jwtCheck, Authentication.isParticipant],
     (request, response) => new WorkshopController().putMeInWaitingQueue(request, response)
 )
 

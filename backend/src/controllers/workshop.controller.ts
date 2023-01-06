@@ -440,7 +440,37 @@ export class WorkshopController {
     }
 
     permitNewWorkshop = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+        let workshop_id = request.body.workshop_id
+
+        Workshop.find({_id: workshop_id}, async (error, workshop) => {
+            if (error) return response.status(400).send({ message: error })
+
+            if (workshop == null) return response.status(404).send({ message: "Workshop is not found." })
+        
+            // check if user is organizer
+            let organizer = await User.findOne({_id: workshop.organizer_id})
+            if (organizer.role == Authentication.PARTICIPANT_ROLE) {
+                // user cannot participate in any workshop
+                let isParticipant = false
+
+                let workshops = await Workshop.find({})
+                workshops.forEach(w => {
+                    w.participants.forEach(u => {
+                        if (organizer._id == u._id) isParticipant = true
+                    })
+                    w.reservations.forEach(u => {
+                        if (organizer._id == u._id) isParticipant = true
+                    })
+                })
+
+                if (isParticipant) return response.status(400).send({message: "User is participating in other workshops."})
+            }
+
+            workshop.approved = true
+            workshop.save()
+
+            return response.send({message: "Workshop is successfully approved."})
+        })
     }
 
     // denyNewWorkshop = async (request: express.Request, response: express.Response)=>{
@@ -486,11 +516,59 @@ export class WorkshopController {
         })    
     }
 
-    updateWorkshop = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    updateWorkshop = async (request: any, response: express.Response)=>{
+        let role = request.role
+        let user_id = request._id
+        
+        let workshop_id = request.body._id
+        let organizer_username = request.body.organizer_username
+        let images = request.files
+        let approved = true
+        let name = request.body.name
+        let date = request.body.date
+        let address = request.body.address
+        let short_description = request.body.short_description
+        let long_secription = request.body.long_decription
+        let capacity = request.body.capacity
+
+        let workshop = await Workshop.findOne({_id: workshop_id})
+
+        if (role != Authentication.ADMIN_ROLE) {
+            if (user_id != workshop.organizer_id) {
+                return response.status(401).send({message: "Unauthorized workshop update request."})
+            }
+        }
+
+        if (role == Authentication.ADMIN_ROLE) {
+            // organizer change
+            let new_organizer = await User.findOne({username: organizer_username})
+            if (new_organizer == null)  return response.status(404).send({message: "User is not found."})
+            workshop.organizer_id = new_organizer._id
+        }
+        workshop.images = images
+        workshop.approved = approved
+        workshop.name = name
+        workshop.date = date
+        workshop.address = address
+        workshop.short_description = short_description
+        workshop.long_decription = long_secription
+        workshop.capacity = capacity
+
+        await workshop.save()
+        return response.send(workshop)
     }
 
     deleteWorkshop = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+        let workshop_id = request.body.workshop_id
+
+        Workshop.find({_id: workshop_id}, (error, workshop) => {
+            if (error) return response.status(400).send({ message: error })
+
+            if (workshop == null) return response.status(404).send({ message: "Workshop is not found." })
+        
+            workshop.delete()
+
+            return response.send({message: "Workshop is successfully deleted."})
+        })
     }
 }
