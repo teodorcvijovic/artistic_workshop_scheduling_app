@@ -147,15 +147,79 @@ export class ActivityController {
     }
 
     createComment = async (request: any, response: express.Response) => {
-        // TO DO
+        let user_id = request.user_id
+
+        let workshop_id = request.body.workshop_id
+        let content = request.body.content
+
+        let workshop = await Workshop.findOne({_id: workshop_id})
+        if (workshop == null) return response.status(404).send({message: "Workshop not found."})
+
+        let comment = new Comment(
+            {
+                user_id: user_id,
+                workshop_id: workshop_id,
+                content: content
+            }
+        )
+        await comment.save()
+        return response.send(comment)
     }
 
     updateCommentContent = async (request: any, response: express.Response) => {
-        // TO DO
+        let user_id = request.user_id
+        let role = request.role
+
+        let comment_id = request.body.comment_id
+        let new_content = request.body.new_content
+
+        Comment.findOne({_id: comment_id}, (error, comment) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            if (comment == null) {
+                return response.status(404).send({ message: "Comment not found." })
+            }
+
+            if (role != Authentication.ADMIN_ROLE && user_id != comment.user_id) {
+                return response.status(401).send({ message: "Unauthorized attemt to delete a comment." })
+            }
+
+            comment.content = new_content
+            comment.save()
+
+            return response.send({message: "Comment is updated."})
+        })
     }
 
     deleteComment = async (request: any, response: express.Response) => {
-        // TO DO
+        let user_id = request.user_id
+        let role = request.role
+
+        let comment_id = request.body.comment_id
+
+        Comment.findOne({_id: comment_id}, (error, comment) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            if (comment == null) {
+                return response.status(404).send({ message: "Comment not found." })
+            }
+
+            if (role != Authentication.ADMIN_ROLE && user_id != comment.user_id) {
+                return response.status(401).send({ message: "Unauthorized attemt to delete a comment." })
+            }
+
+            comment.delete()
+
+            return response.send({message: "Comment is deleted."})
+        })
     }
+
+    /************************* chat ***************************/
+
+    // TO DO
 
 }
