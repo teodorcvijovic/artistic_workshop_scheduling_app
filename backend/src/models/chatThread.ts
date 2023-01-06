@@ -13,6 +13,9 @@ let ChatThread = new Schema(
         participant_id: {type: String},
         
         messages: {type: Array}
+            // - sender_id (user_id or organizer_id)
+            // - timestamp
+            // - content
     }
 )
     

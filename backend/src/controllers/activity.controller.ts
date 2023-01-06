@@ -220,6 +220,20 @@ export class ActivityController {
 
     /************************* chat ***************************/
 
-    // TO DO
+    getAllThreadOfWorkshopsIParticipateIn = (request: any, response: express.Response) => {
+        // TO DO
+    }
+
+    getThreadsForWorkshop = (request: any, response: express.Response) => {
+        // TO DO
+    }
+
+    sendMessage = (request: any, response: express.Response) => {
+        // TO DO
+    }
+
+    createChatThread = (request: any, response: express.Response) => {
+        // TO DO
+    }
 
 }
