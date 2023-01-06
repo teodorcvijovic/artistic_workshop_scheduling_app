@@ -1,6 +1,31 @@
 import express from 'express'
 import { WorkshopController } from '../controllers/workshop.controller'
 import { Authentication } from '../authentication'
+import multer from 'multer'
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    
+    filename: function (req: any, file: any, cb: any) {
+        cb(null, file.originalname)
+    }
+})
+
+const fileFilter = (req: any,file: any,cb: any) => {
+    if(file.mimetype === "image/jpg"  || 
+       file.mimetype ==="image/jpeg"  || 
+       file.mimetype ===  "image/png"){
+     
+        cb(null, true);
+    }
+    else{
+        cb(new Error("Image uploaded is not of type jpg/jpeg or png"),false);
+    }
+}
+
+const upload = multer({storage: storage, fileFilter : fileFilter})
 
 const workshop_router = express.Router()
 
@@ -39,6 +64,7 @@ workshop_router.route("/cancel").delete(
 // new workshop request can be created by both participant and organizer
 workshop_router.route("/new_request").post(
     [Authentication.jwtCheck],
+    upload.array('images',5),
     (request, response) => new WorkshopController().newWorkshopCreationRequest(request, response)
 )
 
@@ -97,6 +123,7 @@ workshop_router.route("/permit").put(
 // admin create workshop, organizer must send request for creating a new workshop
 workshop_router.route("").post(
     [Authentication.jwtCheck, Authentication.isAdmin],
+    upload.array('images',5),
     (request, response) => new WorkshopController().createWorkshop(request, response)
 )
 

@@ -4,7 +4,8 @@ import nodemailer from "nodemailer"
 import { Configuration } from "../config"
 import User from "../models/user"
 import user from "../models/user"
-import { ObjectID } from "mongodb"
+import { Authentication } from "../authentication"
+import multer from 'multer'
 
 export class WorkshopController {
 
@@ -223,8 +224,43 @@ export class WorkshopController {
 
     /**************** */
 
-    newWorkshopCreationRequest = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    newWorkshopCreationRequest = async (request: any, response: express.Response)=>{
+        let organizer_id = request.user_id
+        let images = request.files
+        let approved = false
+        let name = request.body.name
+        let date = request.body.date
+        let address = request.body.address
+        let short_description = request.body.short_description
+        let long_secription = request.body.long_decription
+        let capacity = request.body.capacity
+
+        User.findOne({_id: organizer_id}, async (error, user) => {
+            if (error)  return response.status(400).send({ message: error })
+
+            if (user == null)  return response.status(404).send({ message: "User does not exist." })
+        
+            let workshop = new Workshop(
+                {
+                    organizer_id: user._id,
+                    images: images,
+                    approved: approved,
+                    name: name,
+                    date: date,
+                    address: address,
+                    short_description: short_description,
+                    long_secription: long_secription,
+                    capacity: capacity,
+                    participants: [],
+                    reservations: [],
+                    waiting_queue: [],
+                    likes: []
+                }
+            )
+
+            await workshop.save()
+            response.send(workshop)
+        })
     }
 
     /************ participation requests *******/
@@ -411,8 +447,43 @@ export class WorkshopController {
     //     // TO DO
     // }
 
-    createWorkshop = async (request: express.Request, response: express.Response)=>{
-        // TO DO
+    createWorkshop = async (request: any, response: express.Response)=>{
+        let organizer_username = request.body.organizer_username
+        let images = request.files
+        let approved = true
+        let name = request.body.name
+        let date = request.body.date
+        let address = request.body.address
+        let short_description = request.body.short_description
+        let long_secription = request.body.long_decription
+        let capacity = request.body.capacity
+
+        User.findOne({username: organizer_username}, async (error, user) => {
+            if (error)  return response.status(400).send({ message: error })
+
+            if (user == null)  return response.status(404).send({ message: "Organizer does not exist." })
+        
+            let workshop = new Workshop(
+                {
+                    organizer_id: user._id,
+                    images: images,
+                    approved: approved,
+                    name: name,
+                    date: date,
+                    address: address,
+                    short_description: short_description,
+                    long_secription: long_secription,
+                    capacity: capacity,
+                    participants: [],
+                    reservations: [],
+                    waiting_queue: [],
+                    likes: []
+                }
+            )
+
+            await workshop.save()
+            response.send(workshop)
+        })    
     }
 
     updateWorkshop = async (request: express.Request, response: express.Response)=>{

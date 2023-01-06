@@ -8,8 +8,7 @@ let Workshop = new Schema(
         id: {type: ObjectId },
         organizer_id: {type: String},
 
-        // main_image
-        // gallery
+        images: {type: Object},
 
         approved: {type: Boolean},
         
@@ -17,7 +16,7 @@ let Workshop = new Schema(
         date: {type: Date},
         address: {type: String},
         short_description: {type: String},
-        long_secription: {type: String},
+        long_decription: {type: String},
         capacity: {type: Number}, 
 
         participants: {type: Array},
@@ -25,7 +24,7 @@ let Workshop = new Schema(
         waiting_queue: {type: Array},
 
         likes: {type: Array},
-        comments: {type: Array}
+        // comments: {type: Array}
     }
 )
     
