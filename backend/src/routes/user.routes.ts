@@ -4,6 +4,11 @@ import { Authentication } from '../authentication'
 
 const user_router = express.Router()
 
+user_router.route("").get(
+    [Authentication.jwtCheck],
+    (request, response) => new UserController().getMyProfile(request, response)
+)
+
 user_router.route("/register").post(
     (request, response) => new UserController().register(request, response)
 )
@@ -53,7 +58,7 @@ user_router.route("").delete(
 )
 
 user_router.route("").put(
-    [Authentication.jwtCheck, Authentication.isAdmin],
+    [Authentication.jwtCheck],
     (request, response) => new UserController().updateUser(request, response)
 )
 

@@ -14,6 +14,15 @@ export class UserController {
     APPROVED_STATUS = 1
     DISAPPROVED_STATUS = 2
 
+    getMyProfile = async (request: any, response: express.Response)=>{
+        let user_id = request.user_id
+
+        let user = await User.findOne({_id: user_id})
+        if (user == null) return response.status(404).send({message: "User is not found."})
+
+        response.send(user)
+    }
+
     register = async (request: express.Request, response: express.Response)=>{
         let username = request.body.username
         let password = request.body.password
@@ -259,7 +268,10 @@ export class UserController {
         })
     }
 
-    updateUser = async (request: express.Request, response: express.Response) => {
+    updateUser = async (request: any, response: express.Response) => {
+        let requestor_role = request.role
+        let requestor_id = request.user_id
+
         let _id = request.body._id
         let username = request.body.username
         let password = request.body.password
@@ -283,13 +295,17 @@ export class UserController {
             
             if (user == null) return response.status(404).send({ message: 'User is not found.' })
 
+            if (requestor_role != Authentication.ADMIN_ROLE && requestor_id != user._id) {
+                return response.status(401).send({ message: 'Unauthorized request.' })
+            }
+
             user.username = username
             user.password = password
             user.firstname = firstname
             user.lastname = lastname
             user.phone = phone
             user.email = email
-            user.role = role
+            if (requestor_role == Authentication.ADMIN_ROLE) user.role = role
             user.organization_name = organization_name
             user.organization_address = organization_address
             user.organization_pib = organization_pib

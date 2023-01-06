@@ -518,7 +518,7 @@ export class WorkshopController {
 
     updateWorkshop = async (request: any, response: express.Response)=>{
         let role = request.role
-        let user_id = request._id
+        let user_id = request.user_id
         
         let workshop_id = request.body._id
         let organizer_username = request.body.organizer_username
