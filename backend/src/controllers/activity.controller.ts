@@ -8,6 +8,7 @@ import user from "../models/user"
 import { Authentication } from "../authentication"
 import { request } from "http"
 import comment from "../models/comment"
+import ChatThread from "../models/chatThread"
 
 
 export class ActivityController {
@@ -228,12 +229,63 @@ export class ActivityController {
         // TO DO
     }
 
-    sendMessage = (request: any, response: express.Response) => {
-        // TO DO
+    sendMessage = async (request: any, response: express.Response) => {
+        let sender_id = request.user_id
+
+        let thread_id = request.body.thread_id
+        let content = request.body.content
+
+        let timestamp = new Date()
+
+        let thread = await ChatThread.findOne({_id: thread_id})
+        if (thread == null) return response.status(404).send({message: "Chat thread is not found."})
+    
+        if (thread.participant_id != sender_id && thread.organizer_id != sender_id) {
+            return response.status(401).send({message: "Unauthorized message send."})
+        }
+
+        thread.messages.push(
+            {
+                sender_id: sender_id,
+                timestamp: timestamp,
+                content: content
+            }
+        )
+        thread.save()
+
+        return response.send({message: "Message is delivered."})
     }
 
     createChatThread = (request: any, response: express.Response) => {
-        // TO DO
+        let participant_id = request.user_id
+
+        let workshop_id = request.body.workshop_id
+
+        Workshop.findOne({_id: workshop_id}, async (error, workshop) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            if (workshop == null) return response.status(404).send({message: "Workshop is not found."})
+
+            let thread = await ChatThread.findOne({workshop_id: workshop_id, participant_id: participant_id})
+            if (thread != null) return response.status(400).send({message: "Chat thread for this workshop already exists."})
+
+            console.log(workshop.organizer_id)
+
+            thread = new ChatThread(
+                {
+                    workshop_id: workshop_id,
+                    organizer_id: workshop.organizer_id,
+                    participant_id: participant_id,
+                    messages: []
+                }
+            )
+
+            await thread.save()
+
+            return response.send(thread)
+        })
     }
 
 }
