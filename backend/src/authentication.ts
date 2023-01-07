@@ -28,7 +28,6 @@ export class Authentication {
             request.email = decodedToken.email
             request.user_id = decodedToken._id
 
-
             next()
         })
     }

@@ -222,11 +222,45 @@ export class ActivityController {
     /************************* chat ***************************/
 
     getAllThreadOfWorkshopsIParticipateIn = (request: any, response: express.Response) => {
-        // TO DO
+        let participant_id = request.user_id
+
+        Workshop.find({}, async (error, workshops) => {
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            let myWorkshops = []
+            workshops.forEach(w => {
+                w.participants.forEach(p => {
+                    if (p._id == participant_id) myWorkshops.push(w)
+                })
+            })
+
+            let threads = []
+            for (let i = 0; i < myWorkshops.length; i++) {
+                let thread = await ChatThread.findOne({participant_id: participant_id, workshop_id: myWorkshops[i]._id})
+                if (thread == null) continue
+                threads.push({
+                    workshop: myWorkshops[i],
+                    thread: thread
+                })
+            }
+
+            return response.send(threads)
+        })
     }
 
-    getThreadsForWorkshop = (request: any, response: express.Response) => {
-        // TO DO
+    getThreadsForWorkshop = async (request: any, response: express.Response) => {
+        let organizer_id = request.user_id
+
+        let workshop_id = request.body.workshop_id
+
+        let workshop = await Workshop.findOne({_id: workshop_id})
+        if (workshop == null) return response.status(404).send({message: "Workshop is not found."})
+        if (workshop.organizer_id != organizer_id) return response.status(401).send({message: "Unauthorized access."})
+    
+        let threads = await ChatThread.find({workshop_id: workshop_id})
+        return response.send(threads)
     }
 
     sendMessage = async (request: any, response: express.Response) => {
