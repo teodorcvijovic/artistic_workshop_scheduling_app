@@ -55,7 +55,7 @@ export class AdminWorkshopsComponent implements OnInit {
   editWorkshop(workshop) {
     this.editable_workshop_id = workshop._id
 
-    this.organizer_username = workshop.organizer.username
+    this.organizer_username = workshop.organizer.username // 
     this.name = workshop.name
     this.date = workshop.date
     this.address = workshop.address
