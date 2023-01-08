@@ -10,16 +10,69 @@ import { request } from "http"
 
 export class WorkshopController {
 
+    /****** helper *******/
+
+    async addUsersForAllWorkshops(workshops) {
+        let w = []
+        for(let i = 0; i < workshops.length; i++) {
+            let workshop = await this.returnWorkshopWithUsers(workshops[i])
+            w.push(workshop)
+        }
+        return w
+    }
+
+    async returnWorkshopWithUsers(workshop) {
+        let w = {
+            _id: workshop._id,
+            organizer: null,
+            images: workshop.images,
+            approved: workshop.approved,
+            name: workshop.name,
+            date: workshop.date,
+            address: workshop.address,
+            short_description: workshop.short_description,
+            long_description: workshop.long_description,
+            capacity: workshop.capacity,
+
+            participants: [],
+            reservations: [],
+            waiting_queue: [],
+            likes: []
+        }
+
+        w.organizer = await User.findOne({_id: workshop.organizer_id})
+        for(let i = 0; i < workshop.participants.length; i++) {
+            let user = await User.findOne({_id: workshop.participants[i]._id})
+            w.participants.push(user)
+        }
+        for(let i = 0; i < workshop.reservations.length; i++) {
+            let user = await User.findOne({_id: workshop.reservations[i]._id})
+            w.reservations.push(user)
+        }
+        for(let i = 0; i < workshop.waiting_queue.length; i++) {
+            let user = await User.findOne({_id: workshop.waiting_queue[i]._id})
+            w.waiting_queue.push(user)
+        }
+        for(let i = 0; i < workshop.likes.length; i++) {
+            let user = await User.findOne({_id: workshop.likes[i]._id})
+            w.likes.push(user)
+        }
+
+        return w
+    }
+
+    /*********************/
+
     getAllActiveWorkshops = async (request: any, response: express.Response)=>{
         let currentDate = new Date()
     
-        Workshop.find({}, (error , workshops)=>{
+        Workshop.find({}, async (error , workshops)=>{
             if (error) {
                 return response.status(400).send({ message: error })
             }
 
             workshops = workshops.filter(w => currentDate <= w.date)
-            response.json(workshops)
+            response.send(await this.addUsersForAllWorkshops(workshops))
         })
     }
 
@@ -27,7 +80,7 @@ export class WorkshopController {
         let user_id = request.user_id
         let currentDate = new Date()
 
-        Workshop.find({}, (error , workshops)=>{
+        Workshop.find({}, async (error , workshops)=>{
             if (error) {
                 return response.status(400).send({ message: error })
             }
@@ -42,7 +95,7 @@ export class WorkshopController {
                 
                 return iParticipated
             })
-            response.json(workshops)
+            response.json(await this.addUsersForAllWorkshops(workshops))
         })
     }
 
@@ -50,7 +103,7 @@ export class WorkshopController {
         let currentDate = new Date()
         let user_id = request.user_id
 
-        Workshop.find({}, (error , workshops)=>{
+        Workshop.find({}, async (error , workshops)=>{
             if (error) {
                 return response.status(400).send({ message: error })
             }
@@ -65,7 +118,7 @@ export class WorkshopController {
 
                 return iParticipated
             })
-            response.json(workshops)
+            response.json(await this.addUsersForAllWorkshops(workshops))
         })
     }
 
@@ -153,7 +206,7 @@ export class WorkshopController {
     getAllWorkshopsOrganizeByMe = async (request: any, response: express.Response)=>{
         let user_id = request.user_id
 
-        Workshop.find({}, (error , workshops)=>{
+        Workshop.find({}, async (error , workshops)=>{
             if (error) {
                 return response.status(400).send({ message: error })
             }
@@ -162,7 +215,7 @@ export class WorkshopController {
                 if (w.organizer_id == user_id) return true
                 return false
             })
-            response.json(workshops)
+            response.json(await this.addUsersForAllWorkshops(workshops))
         })
     }
 
@@ -233,7 +286,7 @@ export class WorkshopController {
         let date = request.body.date
         let address = request.body.address
         let short_description = request.body.short_description
-        let long_secription = request.body.long_decription
+        let long_secription = request.body.long_description
         let capacity = request.body.capacity
 
         User.findOne({_id: organizer_id}, async (error, user) => {
@@ -421,12 +474,12 @@ export class WorkshopController {
     /************* admin routes ****************/
 
     getAllWorkshops = async (request: express.Request, response: express.Response)=>{
-        Workshop.find({}, (error , workshops)=>{
+        Workshop.find({}, async (error , workshops)=>{
             if (error) {
                 console.log(error)
                 return
             }
-            response.json(workshops)
+            response.json(await this.addUsersForAllWorkshops(workshops))
         })
     }
 
@@ -486,7 +539,7 @@ export class WorkshopController {
         let date = request.body.date
         let address = request.body.address
         let short_description = request.body.short_description
-        let long_secription = request.body.long_decription
+        let long_secription = request.body.long_description
         let capacity = request.body.capacity
 
         User.findOne({username: organizer_username}, async (error, user) => {
@@ -524,13 +577,17 @@ export class WorkshopController {
         let workshop_id = request.body._id
         let organizer_username = request.body.organizer_username
         let images = request.files
+        console.log(images)
+
         let approved = true
         let name = request.body.name
         let date = request.body.date
         let address = request.body.address
         let short_description = request.body.short_description
-        let long_secription = request.body.long_decription
+        let long_description = request.body.long_description
         let capacity = request.body.capacity
+
+        let updateImages = request.body.updateImages
 
         let workshop = await Workshop.findOne({_id: workshop_id})
 
@@ -546,13 +603,13 @@ export class WorkshopController {
             if (new_organizer == null)  return response.status(404).send({message: "User is not found."})
             workshop.organizer_id = new_organizer._id
         }
-        workshop.images = images
+        if (updateImages || workshop.images.length > 0) workshop.images = images
         workshop.approved = approved
         workshop.name = name
         workshop.date = date
         workshop.address = address
         workshop.short_description = short_description
-        workshop.long_decription = long_secription
+        workshop.long_description = long_description
         workshop.capacity = capacity
 
         await workshop.save()
@@ -562,7 +619,7 @@ export class WorkshopController {
     deleteWorkshop = async (request: express.Request, response: express.Response)=>{
         let workshop_id = request.body.workshop_id
 
-        Workshop.find({_id: workshop_id}, (error, workshop) => {
+        Workshop.findOne({_id: workshop_id}, (error, workshop) => {
             if (error) return response.status(400).send({ message: error })
 
             if (workshop == null) return response.status(404).send({ message: "Workshop is not found." })

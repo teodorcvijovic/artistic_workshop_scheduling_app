@@ -130,6 +130,7 @@ workshop_router.route("").post(
 // update workshop, note that this is called by both organizer and admin
 workshop_router.route("").put(
     [Authentication.jwtCheck, Authentication.isOrganizer],
+    upload.array('images',5),
     (request, response) => new WorkshopController().updateWorkshop(request, response)
 )
 
@@ -137,6 +138,55 @@ workshop_router.route("").put(
 workshop_router.route("").delete(
     [Authentication.jwtCheck, Authentication.isAdmin],
     (request, response) => new WorkshopController().deleteWorkshop(request, response)
+)
+
+/******* image retrieving ********/
+
+const fs = require("fs");
+const path = require("path");
+
+workshop_router.route("/image").get(
+    (request, res) => {
+        let serverPath = request.query.path
+
+        var filePath = path.join(__dirname,
+            "\\..\\..\\" + serverPath
+        ).split("%20").join(" ");
+ 
+    // Checking if the path exists
+    fs.exists(filePath, function (exists) {
+ 
+        if (!exists) {
+            res.writeHead(404, {
+                "Content-Type": "text/plain" });
+            res.end("404 Not Found");
+            return;
+        }
+ 
+        // Extracting file extension
+        var ext = path.extname(serverPath);
+ 
+        // Setting default Content-Type
+        var contentType = "text/plain";
+ 
+        // Checking if the extension of
+        // image is '.png'
+        if (ext === ".png") {
+            contentType = "image/png";
+        }
+ 
+        // Setting the headers
+        res.writeHead(200, {
+            "Content-Type": contentType });
+
+        // Reading the file
+        fs.readFile(filePath,
+            function (err, content) {
+                // Serving the image
+                res.end(content);
+            });
+    });
+    }
 )
 
 export default workshop_router

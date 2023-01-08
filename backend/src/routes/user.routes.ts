@@ -67,4 +67,9 @@ user_router.route("").post(
     (request, response) => new UserController().createUser(request, response)
 )
 
+user_router.route("/details").post(
+    [Authentication.jwtCheck, Authentication.isAdmin],
+    (request, response) => new UserController().getUserDetails(request, response)
+)
+
 export default user_router
