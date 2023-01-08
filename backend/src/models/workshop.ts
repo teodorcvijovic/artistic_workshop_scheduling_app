@@ -16,7 +16,7 @@ let Workshop = new Schema(
         date: {type: Date},
         address: {type: String},
         short_description: {type: String},
-        long_decription: {type: String},
+        long_description: {type: String},
         capacity: {type: Number}, 
 
         participants: {type: Array},

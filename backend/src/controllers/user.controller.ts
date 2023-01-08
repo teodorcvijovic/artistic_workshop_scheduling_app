@@ -361,4 +361,13 @@ export class UserController {
         })
     }
 
+    getUserDetails = async (request: any, response: any) => {
+        let user_id = request.body.user_id
+
+        let user = await User.findOne({_id: user_id})
+
+        if (user == null) return response.status(404).send({message: "User not found."})
+        return response.send(user)
+    }
+
 }

@@ -91,4 +91,12 @@ export class UserService {
     return this.http.put(`${this.URI}`, data)
   }
 
+  getUserDetails() {
+    return this.http.get(`${this.URI}`)
+  }
+
+  getUser(user_id) {
+    const body = {user_id: user_id}
+    return this.http.post(`${this.URI}/details`, {body: body})
+  }
 }

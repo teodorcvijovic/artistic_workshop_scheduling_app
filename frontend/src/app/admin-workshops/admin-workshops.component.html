@@ -1,0 +1,93 @@
+<app-navbar></app-navbar>
+<div class="container"> <!-- responsive -->
+    <div class="row">
+        <div class="col-sm-12"> 
+            <h4>Workshops</h4><hr>
+            <!-- <button (click)="addNewWorkshop()">Add new user</button><hr> -->
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor='let workshop of workshops' class="col-sm-12 col-md-6 col-lg-6">
+            <div class="workshop">
+                <table>
+                    <tr>
+                        <th>Name:&nbsp;</th>
+                        <td *ngIf="editable_workshop_id != workshop._id">{{workshop.name}}</td>
+                        <td *ngIf="editable_workshop_id == workshop._id"><input type="text" name="name" [(ngModel)]="name"></td>
+                    </tr>
+                    <tr>
+                        <th *ngIf="editable_workshop_id != workshop._id">Organizer:&nbsp;</th>
+                        <th *ngIf="editable_workshop_id == workshop._id">Organizer username:&nbsp;</th>
+                        <td *ngIf="editable_workshop_id != workshop._id">{{workshop.organizer.firstname}}&nbsp;{{workshop.organizer.lastname}}</td>
+                        <td *ngIf="editable_workshop_id == workshop._id"><input type="text" name="organizer_username" [(ngModel)]="organizer_username"></td>
+                    </tr>
+                    <tr>
+                        <th>Date:&nbsp;</th>
+                        <td  *ngIf="editable_workshop_id != workshop._id">{{workshop.date != null ? workshop.date.toString().split("T")[0] : ""}}</td>
+                        <td  *ngIf="editable_workshop_id == workshop._id"> <input type="date" [(ngModel)]="date" name="date"></td>
+                    </tr>
+                    <tr>
+                        <th>Address:&nbsp;</th>
+                        <td  *ngIf="editable_workshop_id != workshop._id" >{{workshop.address}}</td>
+                        <td  *ngIf="editable_workshop_id == workshop._id"> <input type="text" name="address" [(ngModel)]="address"> </td>
+                    </tr>
+                    <tr>
+                        <th>Short description:&nbsp;</th>
+                        <td *ngIf="editable_workshop_id != workshop._id" >{{workshop.short_description}}</td>
+                        <td *ngIf="editable_workshop_id == workshop._id" > <textarea rows="2" cols="40" name="short_description" [(ngModel)]="short_description"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Long description:&nbsp;</th>
+                        <td *ngIf="editable_workshop_id != workshop._id" >{{workshop.long_description}}</td>
+                        <td *ngIf="editable_workshop_id == workshop._id" > <textarea rows="4" cols="40" name="long_description" [(ngModel)]="long_description"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Capacity:&nbsp;</th>
+                        <td *ngIf="editable_workshop_id != workshop._id" >{{'' + workshop.capacity + ''}}</td>
+                        <td *ngIf="editable_workshop_id == workshop._id" > <input type="number" name="number" [(ngModel)]="capacity" min="0" step="1"> </td>
+                    </tr>
+                    <tr *ngIf="editable_workshop_id != workshop._id">
+                        <th>Likes:&nbsp;</th>
+                        <td>{{workshop.likes.length}}</td>
+                    </tr>
+                    <tr *ngIf="editable_workshop_id == workshop._id">
+                        <td colspan="2"> <span style="color: red">{{error}}</span> </td>
+                    </tr>
+                </table>
+                <hr>
+                <div *ngIf="editable_workshop_id != workshop._id" class="container"> <!-- responsive -->
+                    <div class="row">
+                        <div *ngFor="let image of workshop.images"  class="col-sm-12 col-lg-6"> 
+                            <img  class="workshop" style="padding: 0px; max-width: 100%; max-height: 400px;" src="http://localhost:4000/workshop/image?path=/{{image.path}}">
+                        </div>
+                      
+                            <i *ngIf="workshop.images == null || workshop.images.length == 0">Empty gallery.</i>
+                
+                    </div>
+                </div>
+                <div *ngIf="editable_workshop_id == workshop._id">
+                    <table>
+                        <tr>
+                            <th>Images:</th>
+                            <td>
+                                <button style="padding: 1px; border-radius: 0px" (click)="removeImages()">Remove</button>
+                            </td>
+                            <td> <input (change)="onFileChange($event)" type="file" accept="image/*" multiple> </td>
+
+
+                        </tr>
+                        <tr>
+                            <td colspan="3" *ngIf="updateImages">
+                                <i>Workshop images are modified. Once removed images cannot be retrieved.</i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <hr>
+                <button *ngIf="editable_workshop_id == ''" (click)='deleteWorkshop(workshop)' class="reject">Delete workshop</button>
+                <button *ngIf="editable_workshop_id == ''" (click)='editWorkshop(workshop)' class="">Edit workshop data</button> 
+                <button *ngIf="editable_workshop_id == workshop._id" (click)='commitWorkshopChanges(workshop)' class="commit">Commit changes</button>
+                <button *ngIf="editable_workshop_id == workshop._id" (click)='cancelEdit()' class="">Cancel</button> 
+            </div>
+        </div>
+    </div>

@@ -1,3 +1,12 @@
+// import 'rxjs/add/operator/filter';
+// import 'rxjs/Observable';
+// import 'rxjs/Subject';
+// import 'rxjs/add/observable/from';
+// import 'rxjs/add/operator/debounceTime';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/mergeMap';
+// import 'rxjs/add/operator/toArray';
+
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,6 +27,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AdminListUsersComponent } from './admin-list-users/admin-list-users.component';
 import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminWorkshopsComponent } from './admin-workshops/admin-workshops.component';
+
 
 @NgModule({
   declarations: [
@@ -32,13 +43,15 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     NavbarComponent,
     AdminListUsersComponent,
     AdminAddUserComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    AdminWorkshopsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+
   ],
   providers: [
     {
