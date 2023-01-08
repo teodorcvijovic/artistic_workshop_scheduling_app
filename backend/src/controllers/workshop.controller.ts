@@ -65,6 +65,7 @@ export class WorkshopController {
 
     getAllActiveWorkshops = async (request: any, response: express.Response)=>{
         let currentDate = new Date()
+        let user_id = request.user_id
     
         Workshop.find({approved: true}, async (error , workshops)=>{
             if (error) {
@@ -72,6 +73,20 @@ export class WorkshopController {
             }
 
             workshops = workshops.filter(w => currentDate <= w.date)
+
+            if (user_id) {
+                workshops = workshops.filter(w => {
+                    let alreadyApplied = false
+                    w.participants.forEach(p => {
+                        if (p._id == user_id) alreadyApplied = true
+                    })
+                    w.reservations.forEach(p => {
+                        if (p._id == user_id) alreadyApplied = true
+                    })
+                    return !alreadyApplied
+                })
+            }
+
             response.send(await this.addUsersForAllWorkshops(workshops))
         })
     }

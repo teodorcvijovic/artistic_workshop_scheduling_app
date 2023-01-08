@@ -32,6 +32,36 @@ export class Authentication {
         })
     }
 
+    static optionalJWTprocessing = (request, response, next) => {
+        let authHeader = request.headers.authorization
+        if (authHeader == null) {
+            next()
+            return
+        }
+        
+        let jwtToken = authHeader.split(' ')
+        if (jwtToken.length != 2) {
+            next()
+            return
+        }
+        jwtToken = jwtToken[1]
+
+        jwt.verify(jwtToken, Configuration.JWT_SECRET_KEY, (error, decodedToken) => {
+            if (error) {return response.status(401).send({ message: "Unauthorized access." })}
+            
+            let role = decodedToken.role
+            if (role == null) return response.status(401).send({ message: "Unauthorized access. Role is not specified in the token." })
+            
+            // access token fields and insert in into request
+            request.role = role
+            request.username = decodedToken.username
+            request.email = decodedToken.email
+            request.user_id = decodedToken._id
+
+            next()
+        })
+    }
+
     static isAdmin = (request, response, next) => {
         let role = request.role
 

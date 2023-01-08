@@ -32,6 +32,7 @@ const workshop_router = express.Router()
 // not have happened yet
 workshop_router.route("/all_active").get(
     // everyone can see it
+    [Authentication.optionalJWTprocessing],
     (request, response) => new WorkshopController().getAllActiveWorkshops(request, response)
 )
 
