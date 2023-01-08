@@ -17,6 +17,8 @@ export class NavbarComponent implements OnInit {
 
   logged: boolean
   isAdmin: boolean
+  isParticipant: boolean
+  isOrganizer: boolean
 
   mySubscription: Subscription
   
@@ -24,6 +26,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.logged = RoleCheck.isLogged()
     this.isAdmin = RoleCheck.isAdmin()
+    this.isOrganizer = RoleCheck.isOrganizer()
+    this.isParticipant = RoleCheck.isParticipant()
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;

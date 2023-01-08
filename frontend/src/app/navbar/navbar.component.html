@@ -4,8 +4,8 @@
       <a *ngIf='logged' class="navbar-brand navbar-link" (click)="logout()">Logout</a>
       <a *ngIf='logged' class="navbar-brand navbar-link" href="/password_change">Change password</a>
 
-      <!-- user routes -->
-      <a *ngIf='!isAdmin' class="navbar-brand navbar-link" href="/">Home</a>
+      <!-- unauthenticated user routes -->
+      <a *ngIf='!logged || isParticipant' class="navbar-brand navbar-link participant" href="/">Workshops</a>
 
       <!-- admin routes -->
       <a *ngIf='isAdmin' class="navbar-brand navbar-link admin" href="/requests">Registration requests</a>

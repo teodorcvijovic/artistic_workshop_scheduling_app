@@ -66,13 +66,38 @@ export class WorkshopController {
     getAllActiveWorkshops = async (request: any, response: express.Response)=>{
         let currentDate = new Date()
     
-        Workshop.find({}, async (error , workshops)=>{
+        Workshop.find({approved: true}, async (error , workshops)=>{
             if (error) {
                 return response.status(400).send({ message: error })
             }
 
             workshops = workshops.filter(w => currentDate <= w.date)
             response.send(await this.addUsersForAllWorkshops(workshops))
+        })
+    }
+
+    getTop5Workshops = async (request: any, response: express.Response)=>{
+        let currentDate = new Date()
+    
+        Workshop.find({}, async (error , workshops)=>{
+            if (error) {
+                return response.status(400).send({ message: error })
+            }
+
+            workshops.sort((w1, w2) => {
+                let l1 = w1.likes == null ? 0 : w1.likes.length
+                let l2 = w1.likes == null ? 0 : w2.likes.length
+                return l2 - l1
+            })
+
+            let w = []
+
+            for(let i = 0; i < 5; ++i) {
+                if (i >= workshops.length) break
+                w.push(workshops[i])
+            }
+
+            response.send(await this.addUsersForAllWorkshops(w))
         })
     }
 

@@ -35,6 +35,11 @@ workshop_router.route("/all_active").get(
     (request, response) => new WorkshopController().getAllActiveWorkshops(request, response)
 )
 
+workshop_router.route("/top5").get(
+    // everyone can see it
+    (request, response) => new WorkshopController().getTop5Workshops(request, response)
+)
+
 workshop_router.route("/participated_in_past").get(
     [Authentication.jwtCheck],
     (request, response) => new WorkshopController().getMyPreviousWorkshops(request, response)

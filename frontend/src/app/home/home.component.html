@@ -1,5 +1,141 @@
 <app-navbar></app-navbar>
-<div>
-    home component HTML page
+<div class="container" style="width: 100%;">
+    <div class="row" style="width:100%; margin: 0px;">
+        <div [ngClass]="{'col-sm-12': true, 'col-lg-6': true}">
+            <div class="cointainer">
+                <h4>Apply to a workshop</h4>
+                <i *ngIf="!logged">You must login in order to be able to apply to a workshop.</i><br  *ngIf="!logged">
+                <button style="margin-left: 0px; margin-top:13px" *ngIf="!filterAndSort" (click)="openFilterAndSort()">Show filter</button>
+                <button style="margin-left: 0px; margin-top:13px" *ngIf="filterAndSort" (click)="closeFilterAndSort()">Hide filter</button>
+                <div *ngIf="filterAndSort">
+                    <hr>
+                    <!-- sort and search -->
+                    <table>
+                        <tr>
+                            <td>Name:</td>
+                            <td><input size="13" type="text" name="name" [(ngModel)]="name"></td>
+                            <td>Address:</td>
+                            <td><input size="13" type="text" name="address" [(ngModel)]="address"></td>
+                            <td>
+                                <button (click)="search()">Search</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <select [(ngModel)]="sortCriteria">
+                                    <option value="name">Name</option>
+                                    <option value="date">Date</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select [(ngModel)]="sortDir">
+                                    <option [ngValue]="true">Ascending</option>
+                                    <option [ngValue]="false">Descending</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button (click)="sort()">Sort</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <hr>
+                <div class="row">
+                    <i *ngIf="activeWorkshops == null || activeWorkshops.length == 0">Empty workshop list.</i>
+                    <div *ngFor='let w of activeWorkshops' [ngClass]="{'col-sm-12': true}">
+                        <div class="activeWorkshop">
+                            <table>
+                                <tr>
+                                    <th>Name:&nbsp;</th>
+                                    <td>{{w.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date:&nbsp;</th>
+                                    <td>{{w.date != null ? w.date.toString().split("T")[0] : ""}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address:&nbsp;</th>
+                                    <td>{{w.address}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description:&nbsp;</th>
+                                    <td>{{w.short_description}}</td>
+                                </tr>
+                            </table>
+                            <hr>
+                            <div *ngIf="w.images != null && w.images.length > 0" style="text-align: center">
+                                <img  class="pic" style="padding: 0px; max-width: 80%; max-height: 200px;" src="http://localhost:4000/workshop/image?path=/{{w.images[0].path}}">    
+                            </div>
+                            <div *ngIf="logged">
+                                <hr>
+                                <button (click)="seeWorkshopDetails(w)">See workshop details</button>
+                            </div>    
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="{'col-sm-12': true, 'col-lg-6': true}">
+            <div *ngIf="!logged">
+                <div class="cointainer">
+                    <h4>Top 5</h4>
+                    <i>Five workshops that got most likes from our users.</i>
+                    <hr>
+                    <div class="row">
+                        <div *ngFor='let w of top5Workshops' [ngClass]="{'col-sm-12': true}">
+                            <div class="activeWorkshop">
+                                <table>
+                                    <tr>
+                                        <th>Name:&nbsp;</th>
+                                        <td>{{w.name}} <b> ({{w.likes.length}} <span *ngIf="w.likes.length == 1">like</span><span *ngIf="w.likes.length != 1">likes</span>)</b></td>
+                    
+                                    </tr>
+                                    <tr>
+                                        <th>Date:&nbsp;</th>
+                                        <td>{{w.date != null ? w.date.toString().split("T")[0] : ""}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address:&nbsp;</th>
+                                        <td>{{w.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description:&nbsp;</th>
+                                        <td>{{w.short_description}}</td>
+                                    </tr>
+                                </table>
+                                <hr>
+                                <div *ngIf="w.images != null && w.images.length > 0" style="text-align: center">
+                                    <img  class="pic" style="padding: 0px; max-width: 80%; max-height: 200px;" src="http://localhost:4000/workshop/image?path=/{{w.images[0].path}}">    
+                                </div>
+                                <div *ngIf="logged">
+                                    <hr>
+                                    <button (click)="seeWorkshopDetails(w)">See workshop details</button>
+                                </div>    
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="logged">
+                <div class="cointainer">
+                    <h4>My current workshops</h4>
+                    <hr>
+                    <i>Workshops you are currently applied to. You can cancel your participation if there are more than 12 hours before workshop starts.</i>
+                    <hr>
+                    <div class="row">
+                        <!-- TO DO -->
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
 </div>

@@ -19,6 +19,14 @@ export class WorkshopService {
     return this.http.get(`${this.URI}/requests`)
   }
 
+  getAllActiveWorkshops() {
+    return this.http.get(`${this.URI}/all_active`)
+  }
+
+  getTop5Workshops() {
+    return this.http.get(`${this.URI}/top5`)
+  }
+
   permitNewWorkshop(_id) {
     const body = {
       workshop_id: _id
