@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+<div class="container"> <!-- responsive -->
+    <div class="row">
+        <div class="col-sm-12"> <h4>Requests for organizing a workshop</h4><hr></div>
+        <div class="col-sm-12"> <span style="color: red"> {{error}} </span></div>
+    </div>
+    <div class="row">
+        <div *ngFor='let workshop of requests' class="col-sm-12 col-md-6 col-lg-6">
+            <div class="request"> 
+            <table>
+                <tr>
+                    <th> Name:&nbsp; </th><td>{{workshop.name}}</td>
+                </tr>
+                <tr>
+                    <th> Organizer:&nbsp; </th><td>{{workshop.organizer.firstname}}&nbsp;{{workshop.organizer.lastname}}</td>
+                </tr>
+                <tr>
+                    <th>Date:&nbsp;</th>
+                    <td>{{workshop.date != null ? workshop.date.toString().split("T")[0] : ""}}</td>                </tr>
+
+                <tr>
+                    <th> Address:&nbsp; </th><td>{{workshop.address}}</td>
+                </tr>
+                <tr>
+                    <th> Short description:&nbsp; </th><td>{{workshop.short_description}}</td>
+                </tr>
+                <tr>
+                    <th> Long description:&nbsp; </th><td>{{workshop.long_description}}</td>
+                </tr>
+                <tr>
+                    <th> Capacity:&nbsp; </th><td>{{workshop.capacity}}</td>
+                </tr>            
+            </table>
+            <hr>
+                <div class="container"> <!-- responsive -->
+                    <div class="row">
+                        <div *ngFor="let image of workshop.images"  class="col-sm-12 col-lg-6"> 
+                            <img  class="pic" style="padding: 0px; max-width: 100%; max-height: 400px;" src="http://localhost:4000/workshop/image?path=/{{image.path}}">
+                        </div>
+                      
+                            <i *ngIf="workshop.images == null || workshop.images.length == 0">Empty gallery.</i>
+                
+                    </div>
+                </div>
+            <hr>
+            <table>
+                <tr>
+                    <td>
+                        <button (click)='acceptRequest(workshop)' class="accept">Accept</button>
+                    </td>
+                    <td>
+                        <button (click)='denyRequest(workshop)' class="reject">Reject</button>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>

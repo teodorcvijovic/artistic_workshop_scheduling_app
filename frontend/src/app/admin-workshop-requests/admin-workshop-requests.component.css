@@ -1,0 +1,39 @@
+.request {
+    margin: 5px;
+    background-color: rgb(228, 228, 228);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+.pic {
+    margin: 5px;
+    background-color: rgb(228, 228, 228);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+    margin-bottom: 20px;
+}
+
+.accept {
+    background-color: rgb(43, 148, 43);
+    color: white;
+
+}
+
+.reject {
+    background-color: rgb(161, 17, 21);
+    color: white;
+}
+
+.accept:hover {
+    background-color: rgb(20, 86, 20);
+    color: white;
+    border-color: rgb(20, 86, 20);;
+}
+
+.reject:hover {
+    background-color: rgb(93, 7, 10);
+    color: white;
+    border-color: rgb(93, 7, 10);;
+}

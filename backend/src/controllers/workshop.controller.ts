@@ -484,30 +484,34 @@ export class WorkshopController {
     }
 
     getAllRequestsForOrganizing = async (request: express.Request, response: express.Response)=>{
-        Workshop.find({approved: false}, (error , workshops)=>{
+        Workshop.find({approved: false}, async (error , workshops)=>{
             if (error) {
                 console.log(error)
                 return
             }
-            response.json(workshops)
+            response.json(await this.addUsersForAllWorkshops(workshops))
         })
     }
 
-    permitNewWorkshop = async (request: express.Request, response: express.Response)=>{
+    permitNewWorkshop = (request: express.Request, response: express.Response)=>{
         let workshop_id = request.body.workshop_id
 
-        Workshop.find({_id: workshop_id}, async (error, workshop) => {
+        Workshop.findOne({_id: workshop_id}, async (error, workshop) => {
             if (error) return response.status(400).send({ message: error })
 
             if (workshop == null) return response.status(404).send({ message: "Workshop is not found." })
         
             // check if user is organizer
+
             let organizer = await User.findOne({_id: workshop.organizer_id})
+
             if (organizer.role == Authentication.PARTICIPANT_ROLE) {
                 // user cannot participate in any workshop
                 let isParticipant = false
 
                 let workshops = await Workshop.find({})
+                let currentDate = new Date()
+                workshops = workshops.filter(w => currentDate <= w.date)
                 workshops.forEach(w => {
                     w.participants.forEach(u => {
                         if (organizer._id == u._id) isParticipant = true
@@ -517,7 +521,9 @@ export class WorkshopController {
                     })
                 })
 
-                if (isParticipant) return response.status(400).send({message: "User is participating in other workshops."})
+                if (isParticipant) return response.status(400).send({message: "User is not organizer. User is participating in other workshops."})
+            
+                organizer.role = Authentication.ORGANIZER_ROLE
             }
 
             workshop.approved = true
@@ -539,7 +545,7 @@ export class WorkshopController {
         let date = request.body.date
         let address = request.body.address
         let short_description = request.body.short_description
-        let long_secription = request.body.long_description
+        let long_description = request.body.long_description
         let capacity = request.body.capacity
 
         User.findOne({username: organizer_username}, async (error, user) => {
@@ -556,7 +562,7 @@ export class WorkshopController {
                     date: date,
                     address: address,
                     short_description: short_description,
-                    long_secription: long_secription,
+                    long_description: long_description,
                     capacity: capacity,
                     participants: [],
                     reservations: [],

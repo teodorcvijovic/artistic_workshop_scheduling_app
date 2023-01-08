@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component';
+import { AdminAddWorkshopComponent } from './admin-add-workshop/admin-add-workshop.component';
 import { AdminListUsersComponent } from './admin-list-users/admin-list-users.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminWorkshopRequestsComponent } from './admin-workshop-requests/admin-workshop-requests.component';
 import { AdminWorkshopsComponent } from './admin-workshops/admin-workshops.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path: 'add_user', component: AdminAddUserComponent},
   {path: 'admin_login', component: AdminLoginComponent},
   {path: 'workshops', component: AdminWorkshopsComponent},
+  {path: 'add_workshop', component: AdminAddWorkshopComponent},
+  {path: 'workshop_requests', component: AdminWorkshopRequestsComponent},
 
   // home
   {path: '', redirectTo: 'home', pathMatch: 'full' },

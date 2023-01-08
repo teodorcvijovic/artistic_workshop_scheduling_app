@@ -15,6 +15,18 @@ export class WorkshopService {
     return this.http.get(`${this.URI}/all`)
   }
 
+  getAllRequestsForOrganizing() {
+    return this.http.get(`${this.URI}/requests`)
+  }
+
+  permitNewWorkshop(_id) {
+    const body = {
+      workshop_id: _id
+    }
+
+    return this.http.put(`${this.URI}/permit`, body)
+  }
+
   deleteWorkshop(_id) {
     const body = {
       workshop_id: _id
@@ -25,5 +37,9 @@ export class WorkshopService {
 
   updateWorkshop(formData: FormData) {
     return this.http.put(`${this.URI}`, formData)
+  }
+
+  createWorkshop(formData: FormData) {
+    return this.http.post(`${this.URI}`, formData)
   }
 }

@@ -28,6 +28,8 @@ import { AdminListUsersComponent } from './admin-list-users/admin-list-users.com
 import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminWorkshopsComponent } from './admin-workshops/admin-workshops.component';
+import { AdminAddWorkshopComponent } from './admin-add-workshop/admin-add-workshop.component';
+import { AdminWorkshopRequestsComponent } from './admin-workshop-requests/admin-workshop-requests.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { AdminWorkshopsComponent } from './admin-workshops/admin-workshops.compo
     AdminListUsersComponent,
     AdminAddUserComponent,
     AdminLoginComponent,
-    AdminWorkshopsComponent
+    AdminWorkshopsComponent,
+    AdminAddWorkshopComponent,
+    AdminWorkshopRequestsComponent
   ],
   imports: [
     BrowserModule,

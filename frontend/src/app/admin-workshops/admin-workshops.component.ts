@@ -43,8 +43,13 @@ export class AdminWorkshopsComponent implements OnInit {
   long_description: string
   capacity: number
 
-  images: FileList
   updateImages: boolean
+
+  addNewWorkshop() {
+    this.router.navigate([
+      '/add_workshop'
+    ])
+  }
 
   deleteWorkshop(workshop) {
     this.workshopService.deleteWorkshop(workshop._id).subscribe((data) => {
@@ -92,7 +97,6 @@ export class AdminWorkshopsComponent implements OnInit {
         formData.append("images",  this.myFiles[i]);
     } 
 
-    console.log(this.organizer_username)
     formData.append('_id', workshop._id)
     formData.append('organizer_username', this.organizer_username)
     formData.append('name', this.name)
