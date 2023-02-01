@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Workshop } from '../models/workshop';
 import { WorkshopService } from '../services/workshop.service';
 import { RoleCheck } from '../utils/role-check';
+import { SessionUtil } from '../utils/sessionutil';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,13 @@ export class HomeComponent implements OnInit {
 
   logged: boolean
   isParticipant: boolean
+  message: string = ''
 
   unfilteredActiveWorkshops: Workshop[] = []
   activeWorkshops: Workshop[] = []
   top5Workshops: Workshop[]
   myCurrentWorkshops: Workshop[]
+  
 
   ngOnInit(): void {
     this.logged = RoleCheck.isLogged()
@@ -103,7 +106,9 @@ export class HomeComponent implements OnInit {
   /*********** participant *********/
 
   seeWorkshopDetails(workshop) {
-    // TO DO
+    localStorage.removeItem('workshop_detailed')
+    localStorage.setItem('workshop_detailed', JSON.stringify(workshop))
+    this.router.navigate(['/workshop_details'])
   }
 
   canCancel(workshopDate: Date) {
@@ -116,10 +121,51 @@ export class HomeComponent implements OnInit {
   }
 
   cancelParticipation(workshop) {
-    // TO DO
+    this.message = ''
     this.workshopService.cancelParticipation(workshop._id).subscribe((data: any) => {
       this.myCurrentWorkshops = this.myCurrentWorkshops.filter(w => w._id != workshop._id)
+      this.activeWorkshops.push(workshop)
     })
+  }
+
+  apply(workshop) {
+    this.message = ''
+    this.workshopService.applyForWorkshop(workshop._id).subscribe((data: any) => {
+      this.message = data.message
+
+      this.activeWorkshops = this.activeWorkshops.filter(w => w._id != workshop._id)
+      this.myCurrentWorkshops.push(workshop)
+    })
+  }
+
+  addMeToWaitList(workshop) {
+    this.message = ''
+    this.workshopService.putMeInWaitingQueue(workshop._id).subscribe((data: any) => {
+      this.message = data.message
+      workshop.waiting_queue.push(SessionUtil.getUser())
+    })
+  }
+
+  isParticipating(workshop) {
+    let ret = false
+    workshop.participants.forEach(p => {
+      if (p.username == SessionUtil.getUser().username) ret = true
+    })
+
+    return ret
+  }
+
+  canApply(workshop){
+    return workshop.participants.length + workshop.reservations.length < workshop.capacity
+  }
+
+  isWaiting(workshop) {
+    let ret = false
+    workshop.waiting_queue.forEach(p => {
+      if (p.username == SessionUtil.getUser().username) ret = true
+    })
+
+    return ret
   }
 
 }

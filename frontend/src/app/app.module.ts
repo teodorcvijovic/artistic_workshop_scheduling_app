@@ -31,6 +31,8 @@ import { AdminWorkshopsComponent } from './admin-workshops/admin-workshops.compo
 import { AdminAddWorkshopComponent } from './admin-add-workshop/admin-add-workshop.component';
 import { AdminWorkshopRequestsComponent } from './admin-workshop-requests/admin-workshop-requests.component';
 import { BecomeOrganizerComponent } from './become-organizer/become-organizer.component';
+import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
+import { SafePipe } from './utils/safe.pipe';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { BecomeOrganizerComponent } from './become-organizer/become-organizer.co
     AdminWorkshopsComponent,
     AdminAddWorkshopComponent,
     AdminWorkshopRequestsComponent,
-    BecomeOrganizerComponent
+    BecomeOrganizerComponent,
+    WorkshopDetailsComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -58,6 +62,9 @@ import { BecomeOrganizerComponent } from './become-organizer/become-organizer.co
     FormsModule,
     HttpClientModule,
 
+  ],
+  exports: [
+    SafePipe
   ],
   providers: [
     {

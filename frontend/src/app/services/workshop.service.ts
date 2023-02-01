@@ -66,4 +66,20 @@ export class WorkshopService {
 
     return this.http.put(`${this.URI}/cancel_pariticipation`, body)
   }
+
+  applyForWorkshop(_id) {
+    const body = {
+      _id: _id
+    }
+
+    return this.http.post(`${this.URI}/apply`, body)
+  }
+
+  putMeInWaitingQueue(_id) {
+    const body = {
+      _id: _id
+    }
+
+    return this.http.post(`${this.URI}/queue`, body)
+  }
 }

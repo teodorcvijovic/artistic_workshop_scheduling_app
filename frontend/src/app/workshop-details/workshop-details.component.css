@@ -1,10 +1,20 @@
-.activeWorkshop {
+.col-sm-12 {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.mytable {
     margin: 5px;
     background-color: rgb(228, 228, 228);
     border-radius: 5px;
-    padding: 20px;
+    padding: 30px;
     box-shadow: 5px 10px 8px #d4d4d4;
     margin-bottom: 20px;
+}
+
+tr:hover {
+    color:rgb(11, 26, 155);
 }
 
 .pic {
@@ -16,17 +26,6 @@
     margin-bottom: 20px;
 }
 
-.reject {
-    background-color: rgb(181, 22, 27);
-    color: white;
-}
-
-.cancel {
-    background-color: rgb(169, 62, 66);
-    color: white;
-}
-
-.apply {
-    background-color: rgb(19, 71, 167);
-    color: white;
+.pic:hover {
+    box-shadow: 5px 10px 8px #838bb5;
 }

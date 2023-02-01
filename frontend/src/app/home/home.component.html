@@ -42,6 +42,7 @@
                     </table>
                 </div>
                 <hr>
+                <span style="color: rgb(16, 68, 151)">{{message}}</span>
                 <div class="row">
                     <i *ngIf="activeWorkshops == null || activeWorkshops.length == 0">Empty workshop list.</i>
                     <div *ngFor='let w of activeWorkshops' [ngClass]="{'col-sm-12': true}">
@@ -71,6 +72,9 @@
                             <div *ngIf="logged">
                                 <hr>
                                 <button (click)="seeWorkshopDetails(w)">See workshop details</button>
+                                <button *ngIf="canApply(w)" (click)="apply(w)" class="apply">Apply</button>
+                                <button *ngIf="!canApply(w) && !isWaiting(w)" (click)="addMeToWaitList(w)" class="apply">Add me to wait list</button>
+                                <span *ngIf="!canApply(w) && isWaiting(w)" style="color: rgb(29, 80, 209)">&nbsp;Subscribed to notification.</span>
                             </div>    
                            
                         </div>
@@ -155,8 +159,9 @@
                                 </div>
                                 <div *ngIf="canCancel(w.date)">
                                     <hr>
-                                    <button (click)="cancelParticipation(w)" class="reject">Cancel participation</button>
-
+                                    <button (click)="seeWorkshopDetails(w)">See workshop details</button>
+                                    <button *ngIf="isParticipating(w)" (click)="cancelParticipation(w)" class="reject">Cancel participation</button>
+                                    <button *ngIf="!isParticipating(w)" (click)="cancelParticipation(w)" class="cancel">Cancel reservation</button>
                                 </div>
                           
                                

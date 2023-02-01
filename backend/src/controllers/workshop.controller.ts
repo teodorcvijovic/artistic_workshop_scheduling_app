@@ -156,7 +156,10 @@ export class WorkshopController {
                 w.participants.forEach(participant => {
                     if (participant._id == user_id) iParticipated = true
                 });
-                
+                w.reservations.forEach(participant => {
+                    if (participant._id == user_id) iParticipated = true
+                });
+
                 return iParticipated
             })
             response.json(await this.addUsersForAllWorkshops(workshops))

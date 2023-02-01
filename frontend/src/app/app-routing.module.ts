@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
 import { ResetLinkComponent } from './reset-link/reset-link.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 
 const routes: Routes = [
   // user
@@ -34,6 +35,7 @@ const routes: Routes = [
 
   // participant routes
   {path: 'become_organizer', component: BecomeOrganizerComponent},
+  {path: 'workshop_details', component: WorkshopDetailsComponent},
 
   // home
   {path: '', redirectTo: 'home', pathMatch: 'full' },
