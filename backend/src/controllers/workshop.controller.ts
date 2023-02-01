@@ -204,7 +204,7 @@ export class WorkshopController {
                 isRemoved = true
                 return false
             })
-            workshop.waiting_queue = {}
+            workshop.waiting_queue = []
 
             workshop.save()
 

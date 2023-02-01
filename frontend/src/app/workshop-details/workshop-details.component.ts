@@ -18,7 +18,7 @@ export class WorkshopDetailsComponent implements OnInit {
   ) { }
 
   workshop: any
-  public static address: string = 'Vodovodska%2092'
+  address: string = ''
 
   ngOnInit(): void {
     let workshopString = localStorage.getItem('workshop_detailed')
@@ -32,4 +32,9 @@ export class WorkshopDetailsComponent implements OnInit {
     this.router.navigate(['/home'])
   }
 
+  getMapURL() {
+    let address: string[] = this.workshop.address.split(' ')
+    let address2 = address.join('%20')
+    return `https://maps.google.com/maps?q=${address2}&t=&z=13&ie=UTF8&iwloc=&output=embed`
+  }
 }
