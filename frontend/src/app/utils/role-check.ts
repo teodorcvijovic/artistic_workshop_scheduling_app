@@ -25,6 +25,13 @@ export class RoleCheck {
         router.navigate(['/login'])
     }
 
+    static participantCheck(router: Router) {
+        let user = SessionUtil.getUser()
+        if (user == null || Object.keys(user).length == 0) router.navigate(['/login'])
+        if (user.role == Configuration.PARTICIPANT_ROLE) return
+        router.navigate(['/login'])
+    }
+
     static isOrganizer() {
         let user = SessionUtil.getUser()
         if (user == null || Object.keys(user).length == 0) return false

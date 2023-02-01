@@ -12,6 +12,9 @@
       <a *ngIf='isAdmin' class="navbar-brand navbar-link admin" href="/users">Users</a>
       <a *ngIf='isAdmin' class="navbar-brand navbar-link admin" href="/workshops">Workshops</a>
       <a *ngIf='isAdmin' class="navbar-brand navbar-link admin" href="/workshop_requests">Organizer requests</a>
+
+      <!-- participant user routes -->
+      <a *ngIf='isParticipant' class="navbar-brand navbar-link participant" href="/become_organizer">Become organizer</a>
     </div>
   </nav>
 

@@ -11,6 +11,10 @@ export class WorkshopService {
 
   URI = `http://${Configuration.BACKEND_HOST}:${Configuration.BACKEND_PORT}/${Configuration.BACKEND_WORKSHOP_ROUTES}`
 
+  getMyCurrentWorkshops() {
+    return this.http.get(`${this.URI}/participating`)
+  }
+
   getAllWorkshops() {
     return this.http.get(`${this.URI}/all`)
   }
@@ -49,5 +53,17 @@ export class WorkshopService {
 
   createWorkshop(formData: FormData) {
     return this.http.post(`${this.URI}`, formData)
+  }
+
+  newWorkshopRequest(formData: FormData) {
+    return this.http.post(`${this.URI}/new_request`, formData)
+  }
+
+  cancelParticipation(workshop_id) {
+    const body = {
+      _id: workshop_id
+    }
+
+    return this.http.put(`${this.URI}/cancel_pariticipation`, body)
   }
 }

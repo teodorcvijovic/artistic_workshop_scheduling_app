@@ -127,7 +127,41 @@
                     <i>Workshops you are currently applied to. You can cancel your participation if there are more than 12 hours before workshop starts.</i>
                     <hr>
                     <div class="row">
-                        <!-- TO DO -->
+                        
+                        <div *ngFor='let w of myCurrentWorkshops' [ngClass]="{'col-sm-12': true}">
+                            <div class="activeWorkshop">
+                                <table>
+                                    <tr>
+                                        <th>Name:&nbsp;</th>
+                                        <td>{{w.name}} </td>
+                    
+                                    </tr>
+                                    <tr>
+                                        <th>Date:&nbsp;</th>
+                                        <td>{{w.date != null ? w.date.toString().split("T")[0] : ""}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address:&nbsp;</th>
+                                        <td>{{w.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description:&nbsp;</th>
+                                        <td>{{w.short_description}}</td>
+                                    </tr>
+                                </table>
+                                <hr>
+                                <div *ngIf="w.images != null && w.images.length > 0" style="text-align: center">
+                                    <img  class="pic" style="padding: 0px; max-width: 40%; max-height: 200px;" src="http://localhost:4000/workshop/image?path=/{{w.images[0].path}}">    
+                                </div>
+                                <div *ngIf="canCancel(w.date)">
+                                    <hr>
+                                    <button (click)="cancelParticipation(w)" class="reject">Cancel participation</button>
+
+                                </div>
+                          
+                               
+                            </div>
+                        </div>
 
 
 

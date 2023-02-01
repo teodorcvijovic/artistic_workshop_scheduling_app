@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   unfilteredActiveWorkshops: Workshop[] = []
   activeWorkshops: Workshop[] = []
   top5Workshops: Workshop[]
+  myCurrentWorkshops: Workshop[]
 
   ngOnInit(): void {
     this.logged = RoleCheck.isLogged()
@@ -39,6 +40,12 @@ export class HomeComponent implements OnInit {
     this.workshopService.getTop5Workshops().subscribe((data: any) => {
       this.top5Workshops = data
     })
+
+    if (this.isParticipant) {
+      this.workshopService.getMyCurrentWorkshops().subscribe((data: any) => {
+        this.myCurrentWorkshops = data
+      })
+    }
   }
 
   filterAndSort: boolean = false
@@ -97,6 +104,22 @@ export class HomeComponent implements OnInit {
 
   seeWorkshopDetails(workshop) {
     // TO DO
+  }
+
+  canCancel(workshopDate: Date) {
+    workshopDate = new Date(workshopDate)
+    let currDate = new Date()
+    if (workshopDate.getTime() - currDate.getTime() < 12 * 60 * 60 * 1000)  {
+      return false
+    }
+    return true
+  }
+
+  cancelParticipation(workshop) {
+    // TO DO
+    this.workshopService.cancelParticipation(workshop._id).subscribe((data: any) => {
+      this.myCurrentWorkshops = this.myCurrentWorkshops.filter(w => w._id != workshop._id)
+    })
   }
 
 }

@@ -83,7 +83,8 @@ export class WorkshopController {
                     w.reservations.forEach(p => {
                         if (p._id == user_id) alreadyApplied = true
                     })
-                    return !alreadyApplied
+
+                    return !alreadyApplied && w.organizer_id != user_id
                 })
             }
 
@@ -155,7 +156,7 @@ export class WorkshopController {
                 w.participants.forEach(participant => {
                     if (participant._id == user_id) iParticipated = true
                 });
-
+                
                 return iParticipated
             })
             response.json(await this.addUsersForAllWorkshops(workshops))
@@ -564,6 +565,7 @@ export class WorkshopController {
                 if (isParticipant) return response.status(400).send({message: "User is not organizer. User is participating in other workshops."})
             
                 organizer.role = Authentication.ORGANIZER_ROLE
+                organizer.save()
             }
 
             workshop.approved = true

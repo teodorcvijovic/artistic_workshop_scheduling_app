@@ -6,6 +6,7 @@ import { AdminListUsersComponent } from './admin-list-users/admin-list-users.com
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminWorkshopRequestsComponent } from './admin-workshop-requests/admin-workshop-requests.component';
 import { AdminWorkshopsComponent } from './admin-workshops/admin-workshops.component';
+import { BecomeOrganizerComponent } from './become-organizer/become-organizer.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
@@ -30,6 +31,9 @@ const routes: Routes = [
   {path: 'workshops', component: AdminWorkshopsComponent},
   {path: 'add_workshop', component: AdminAddWorkshopComponent},
   {path: 'workshop_requests', component: AdminWorkshopRequestsComponent},
+
+  // participant routes
+  {path: 'become_organizer', component: BecomeOrganizerComponent},
 
   // home
   {path: '', redirectTo: 'home', pathMatch: 'full' },

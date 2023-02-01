@@ -30,6 +30,7 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminWorkshopsComponent } from './admin-workshops/admin-workshops.component';
 import { AdminAddWorkshopComponent } from './admin-add-workshop/admin-add-workshop.component';
 import { AdminWorkshopRequestsComponent } from './admin-workshop-requests/admin-workshop-requests.component';
+import { BecomeOrganizerComponent } from './become-organizer/become-organizer.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AdminWorkshopRequestsComponent } from './admin-workshop-requests/admin-
     AdminLoginComponent,
     AdminWorkshopsComponent,
     AdminAddWorkshopComponent,
-    AdminWorkshopRequestsComponent
+    AdminWorkshopRequestsComponent,
+    BecomeOrganizerComponent
   ],
   imports: [
     BrowserModule,
