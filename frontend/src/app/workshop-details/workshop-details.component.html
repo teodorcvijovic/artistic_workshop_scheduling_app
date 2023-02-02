@@ -57,7 +57,6 @@
              
                 <span style="color: red">{{error}}</span>
                 <div *ngIf="showLikes">
-                    <!-- TO DO -->
                     <button *ngIf="!iLiked()" class="likes" (click)="like()">Like</button>
                     <button *ngIf="iLiked()" class="likes" (click)="unlike()">Unlike</button>
                     <hr>
@@ -76,7 +75,53 @@
                 </div>
                 <div *ngIf="showComments">
                     <!-- TO DO -->
-                    comments
+                    <div class="container" style="display: block; width: 100%;">
+
+                        <div class="row" style="display: block; width: 100%;">
+                            <div class="col-sm-12" style="display: block; width: 100%;">
+                                <div *ngFor="let c of comments" class="comment" style="display: block; width: 100%;">
+                                    <table>
+                                        <tr>
+                                            <td rowspan="2"><div>
+                                                <img class="personImage" [src]="c.user.image" width="50px" height="50px"/>
+                                            </div></td><td><b>{{c.user.firstname}}</b> &nbsp;
+                                                <span style="color: rgb(108, 108, 108)">
+                                                    {{c.comment.timestamp != null ? c.comment.timestamp.toString().split("T")[0] : ""}}
+                                                    
+                                                    {{c.comment.timestamp != null ? c.comment.timestamp.toString().split("T")[1].split(":", 2)[0] 
+                                                    + ":" + c.comment.timestamp.toString().split("T")[1].split(":", 2)[1]
+                                                    : ""}}
+                                                
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="commentContent">{{c.comment.content}}</div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                               
+                                <div class="commentSend" class="col-sm-12" style="display: block; width: 100%;">
+                                    <table class="commentSend">
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <input type="text" [(ngModel)]="comment" placeholder="Type content">
+
+                                            </td>
+                                            <td>
+                                                <button class="commentButton" (click)="postComment()">Comment</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     
                 </div>
             </div>

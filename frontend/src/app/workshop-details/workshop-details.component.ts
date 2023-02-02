@@ -23,6 +23,7 @@ export class WorkshopDetailsComponent implements OnInit {
   workshop: any
   comments: any = []
   address: string = ''
+  comment: string = ''
 
   ngOnInit(): void {
     let workshopString = localStorage.getItem('workshop_detailed')
@@ -38,7 +39,7 @@ export class WorkshopDetailsComponent implements OnInit {
     this.workshopService.getMyPreviousWorkshops().subscribe((data: any) => {
       let workshops = data
       workshops.forEach(w => {
-        if (w._id != this.workshop._id && w.name == this.workshop.name) {
+        if (w._id != this.workshop._id && w.name.toLowerCase() == this.workshop.name.toLowerCase()) {
           w.participants.forEach(p => {
             if (p.username == SessionUtil.getUser().username) this.iLikedSimilarWorkshop = true 
           })
@@ -103,5 +104,13 @@ export class WorkshopDetailsComponent implements OnInit {
     })
   }
 
+  /******************* */
+
+  postComment() {
+    this.activityService.sendComment(this.workshop._id, this.comment).subscribe((data: any) => {
+      this.comment = ''
+      this.comments.push(data)
+    })
+  }
 
 }

@@ -15,7 +15,7 @@
 }
 
 tr:hover {
-    color:rgb(11, 26, 155);
+    color:rgb(110, 110, 110);
 }
 
 .pic {
@@ -28,7 +28,7 @@ tr:hover {
 }
 
 .pic:hover {
-    box-shadow: 5px 10px 8px #838bb5;
+    box-shadow: 5px 10px 8px #949494;
 }
 
 /*******************************************/
@@ -36,4 +36,34 @@ tr:hover {
 .likes {
     background-color: rgb(200, 52, 52);
     color: rgb(255, 255, 255);
+}
+
+.commentContent {
+    margin: 5px;
+    background-color: rgb(196, 196, 196);
+    border-radius: 13px;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+.personImage {
+    border-radius: 33px;
+    margin-right: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+.comment {
+    margin-bottom: 10px;
+}
+
+.commentButton {
+    padding-bottom: 2px;
+    padding-top: 2px;
+ 
+}
+
+.commentSend {
+    margin-top: 40px;
 }

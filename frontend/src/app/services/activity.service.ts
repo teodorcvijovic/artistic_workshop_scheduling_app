@@ -34,4 +34,13 @@ export class ActivityService {
 
     return this.http.put(`${this.URI}/unlike`, body)
   }
+
+  sendComment(workshop_id, content) {
+    let body = {
+      workshop_id: workshop_id,
+      content: content
+    }
+
+    return this.http.post(`${this.URI}/comment`, body)
+  }
 }

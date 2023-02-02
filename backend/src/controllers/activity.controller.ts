@@ -132,7 +132,7 @@ export class ActivityController {
 
             if (workshop == null) return response.status(404).send({message: "Workshop not found."})
         
-            let comments_without_users = await Comment.find({workshop_id: workshop_id})
+            let comments_without_users = await Comment.find({workshop_id: workshop_id}).sort({timestamp: 1})
 
             for (let i = 0; i < comments_without_users.length; i++) {
                 let user = await User.findOne({_id: comments_without_users[i].user_id})
@@ -164,7 +164,12 @@ export class ActivityController {
             }
         )
         await comment.save()
-        return response.send(comment)
+        let user = await User.findOne({_id: user_id})
+
+        return response.send({
+            user: user,
+            comment: comment
+        })
     }
 
     updateCommentContent = async (request: any, response: express.Response) => {
