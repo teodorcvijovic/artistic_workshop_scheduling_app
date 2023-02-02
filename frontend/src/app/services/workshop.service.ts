@@ -15,6 +15,10 @@ export class WorkshopService {
     return this.http.get(`${this.URI}/participating`)
   }
 
+  getMyPreviousWorkshops() {
+    return this.http.get(`${this.URI}/participated_in_past`)
+  }
+
   getAllWorkshops() {
     return this.http.get(`${this.URI}/all`)
   }

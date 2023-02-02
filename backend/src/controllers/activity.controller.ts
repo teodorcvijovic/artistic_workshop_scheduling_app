@@ -48,7 +48,7 @@ export class ActivityController {
             if (error) {
                 return response.status(400).send({ message: error })
             }
-
+           
             if (workshop == null) return response.status(404).send({ message: "Workshop is not found" })
 
             workshop.likes = workshop.likes.filter(u => u._id != user_id)

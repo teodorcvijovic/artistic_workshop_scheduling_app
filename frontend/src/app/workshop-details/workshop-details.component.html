@@ -6,7 +6,7 @@
         <div class="col-sm-12">
             <button (click)="back()">Back</button>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-md-8">
             <div class="mytable">
             <table>
                 <tr>
@@ -38,6 +38,47 @@
                 </tr>
         
             </table>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="mytable">
+                <button (click)="toggleLikes()" class="likes" *ngIf="workshop.likes.length != 1 && !showLikes">{{workshop.likes.length}} Likes (show)</button>
+                <button (click)="toggleLikes()" class="likes" *ngIf="workshop.likes.length == 1 && !showLikes">{{workshop.likes.length}} Like (show)</button>
+
+                <button (click)="toggleLikes()" class="likes" *ngIf="workshop.likes.length != 1 && showLikes">{{workshop.likes.length}} Likes (hide)</button>
+                <button (click)="toggleLikes()" class="likes" *ngIf="workshop.likes.length == 1 && showLikes">{{workshop.likes.length}} Like (hide)</button>
+
+                <button (click)="toggleComments()" class="likes" *ngIf="comments.length != 1 && !showComments">{{comments.length}} Comments (show)</button>
+                <button (click)="toggleComments()" class="likes" *ngIf="comments.length == 1 && !showComments">{{comments.length}} Comment (show)</button>
+
+                <button (click)="toggleComments()" class="likes" *ngIf="comments.length != 1 && showComments">{{comments.length}} Comments (hide)</button>
+                <button (click)="toggleComments()" class="likes" *ngIf="comments.length == 1 && showComments">{{comments.length}} Comment (hide)</button>
+                <hr>
+             
+                <span style="color: red">{{error}}</span>
+                <div *ngIf="showLikes">
+                    <!-- TO DO -->
+                    <button *ngIf="!iLiked()" class="likes" (click)="like()">Like</button>
+                    <button *ngIf="iLiked()" class="likes" (click)="unlike()">Unlike</button>
+                    <hr>
+                    <div *ngIf="workshop.likes.length > 0">
+                        <h5 style="color: rgb(123, 123, 123)"><i>People who liked the workshop</i></h5> 
+                        <table>
+                            <tr *ngFor="let user of workshop.likes">
+                                <b><td>{{user.firstname}}&nbsp;{{user.lastname}}</td><td><hr></td></b>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div *ngIf="workshop.likes.length == 0">
+                        <i>No likes</i>
+                    </div>
+                </div>
+                <div *ngIf="showComments">
+                    <!-- TO DO -->
+                    comments
+                    
+                </div>
             </div>
         </div>
     </div>

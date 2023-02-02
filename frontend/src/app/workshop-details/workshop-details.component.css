@@ -11,6 +11,7 @@
     padding: 30px;
     box-shadow: 5px 10px 8px #d4d4d4;
     margin-bottom: 20px;
+    /* width: 100%; */
 }
 
 tr:hover {
@@ -30,3 +31,9 @@ tr:hover {
     box-shadow: 5px 10px 8px #838bb5;
 }
 
+/*******************************************/
+
+.likes {
+    background-color: rgb(200, 52, 52);
+    color: rgb(255, 255, 255);
+}

@@ -26,12 +26,12 @@ activity_router.route("/mycomments").get(
     (request, response) => new ActivityController().getMyComments(request, response)
 )
 
-activity_router.route("/workshop_likes").get(
+activity_router.route("/workshop_likes").post(
     [Authentication.jwtCheck],
     (request, response) => new ActivityController().getWorkshopLikes(request, response)
 )
     
-activity_router.route("/workshop_comments").get(
+activity_router.route("/workshop_comments").post(
     [Authentication.jwtCheck],
     (request, response) => new ActivityController().getWorkshopComments(request, response)
 )
