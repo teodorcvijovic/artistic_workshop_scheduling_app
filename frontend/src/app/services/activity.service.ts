@@ -43,4 +43,34 @@ export class ActivityService {
 
     return this.http.post(`${this.URI}/comment`, body)
   }
+
+  getAllParticipantChatThreads() {
+
+    return this.http.get(`${this.URI}/participant_threads`)
+  }
+
+  getThread(workshop) {
+    let body = {
+      workshop_id: workshop._id
+    }
+
+    return this.http.post(`${this.URI}/thread`, body)
+  }
+
+  createThread(workshop) {
+    let body = {
+      workshop_id: workshop._id
+    }
+
+    return this.http.post(`${this.URI}/create_thread`, body)
+  }
+
+  sendMessage(thread_id, content) {
+    let body = {
+      thread_id: thread_id,
+      content: content
+    }
+
+    return this.http.post(`${this.URI}/message`, body)
+  }
 }

@@ -53,6 +53,11 @@ activity_router.route("/comment").delete(
 
 /********** chat ************/
 
+activity_router.route("/thread").post(
+    [Authentication.jwtCheck],
+    (request, response) => new ActivityController().getThread(request, response)
+)
+
 activity_router.route("/participant_threads").get(
     [Authentication.jwtCheck, Authentication.isParticipant],
     (request, response) => new ActivityController().getAllThreadOfWorkshopsIParticipateIn(request, response)

@@ -25,6 +25,12 @@ export class WorkshopDetailsComponent implements OnInit {
   address: string = ''
   comment: string = ''
 
+  /*
+    {organizer: ..., thread: ...}
+
+  */
+  chatThread: any = null
+
   ngOnInit(): void {
     let workshopString = localStorage.getItem('workshop_detailed')
     if (workshopString == '' || workshopString == null) {
@@ -46,6 +52,11 @@ export class WorkshopDetailsComponent implements OnInit {
         }
       })
     })
+
+    this.activityService.getThread(this.workshop).subscribe((data: any) => {
+      if (data == null) return
+      else this.chatThread = data
+    })
   }
 
   back() {
@@ -62,6 +73,7 @@ export class WorkshopDetailsComponent implements OnInit {
 
   showLikes = false
   showComments = false
+  showChat = false
 
   toggleLikes() {
     if (!this.showLikes && !this.iLikedSimilarWorkshop) {
@@ -70,13 +82,28 @@ export class WorkshopDetailsComponent implements OnInit {
     }
     this.error = ''
     this.showLikes = !this.showLikes
-    if (this.showLikes) this.showComments = false
+    if (this.showLikes) {
+      this.showComments = false
+      this.showChat = false
+    }
   }
 
   toggleComments() {
     this.error = ''
     this.showComments = !this.showComments
-    if (this.showComments) this.showLikes = false
+    if (this.showComments) {
+      this.showLikes = false
+      this.showChat = false
+    }
+  }
+
+  toggleChat() {
+    this.error = ''
+    this.showChat = !this.showChat
+    if (this.showChat) {
+      this.showLikes = false
+      this.showComments = false
+    }
   }
 
   error: string = ''
@@ -111,6 +138,38 @@ export class WorkshopDetailsComponent implements OnInit {
       this.comment = ''
       this.comments.push(data)
     })
+  }
+
+  startThread() {
+    if (this.chatThread != null) return
+
+    this.activityService.createThread(this.workshop).subscribe((data: any) => {
+      this.chatThread = data
+    })
+  }
+
+  message: string = ''
+
+  sendMessage() {
+    this.activityService.sendMessage(this.chatThread.thread._id, this.message).subscribe((data:any) => {
+      this.chatThread.thread.messages.push(data)
+      this.message = ''
+    }) 
+  }
+
+  getUser(sender_id) {
+    if (sender_id == SessionUtil.getUser()._id) 
+      return SessionUtil.getUser()
+
+    return this.chatThread.organizer
+  }
+
+  // 0 - me, 1 - not me
+  isMe(sender_id) {
+    if (sender_id == SessionUtil.getUser()._id) 
+      return true
+
+    return false
   }
 
 }

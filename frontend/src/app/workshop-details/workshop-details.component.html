@@ -6,7 +6,7 @@
         <div class="col-sm-12">
             <button (click)="back()">Back</button>
         </div>
-        <div class="col-sm-12 col-md-8">
+        <div class="col-sm-12 col-md-7">
             <div class="mytable">
             <table>
                 <tr>
@@ -40,7 +40,7 @@
             </table>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-5">
             <div class="mytable">
                 <button (click)="toggleLikes()" class="likes" *ngIf="workshop.likes.length != 1 && !showLikes">{{workshop.likes.length}} Likes (show)</button>
                 <button (click)="toggleLikes()" class="likes" *ngIf="workshop.likes.length == 1 && !showLikes">{{workshop.likes.length}} Like (show)</button>
@@ -53,6 +53,10 @@
 
                 <button (click)="toggleComments()" class="likes" *ngIf="comments.length != 1 && showComments">{{comments.length}} Comments (hide)</button>
                 <button (click)="toggleComments()" class="likes" *ngIf="comments.length == 1 && showComments">{{comments.length}} Comment (hide)</button>
+
+                <button (click)="toggleChat()" class="likes" *ngIf="!showChat">Show chat</button>
+
+                <button (click)="toggleChat()" class="likes" *ngIf="showChat">Hide chat</button>
                 <hr>
              
                 <span style="color: red">{{error}}</span>
@@ -74,7 +78,7 @@
                     </div>
                 </div>
                 <div *ngIf="showComments">
-                    <!-- TO DO -->
+
                     <div class="container" style="display: block; width: 100%;">
 
                         <div class="row" style="display: block; width: 100%;">
@@ -123,6 +127,83 @@
                     </div>
                     
                     
+                </div>
+                <div *ngIf="showChat">
+                        <div *ngIf="chatThread == null">
+                            <button (click)="startThread()" class="likes">Start a chat thread</button>
+                        </div>
+                        <div *ngIf="chatThread != null">
+                            
+
+                            <div class="container" style="display: block; width: 100%;">
+
+                                <div class="row" style="display: block; width: 100%;">
+                                    <div class="col-sm-12" style="display: block; width: 100%;">
+                                        <div *ngFor="let message of chatThread.thread.messages" class="comment" style="display: block; width: 100%;">
+                                            <table style="width:100%">
+                                                <tr *ngIf="!isMe(message.sender_id)">
+                                                    <td rowspan="2">
+                                                        <div style="width:100%">
+                                                            <img class="personImageLeft" [src]="getUser(message.sender_id).image" width="50px" height="50px"/>
+                                                        </div>
+                                                    </td>
+                                                    <td><b>{{getUser(message.sender_id).firstname}}</b> &nbsp;
+                                                        <span style="color: rgb(108, 108, 108)">
+                                                            {{message.timestamp != null ? message.timestamp.toString().split("T")[0] : ""}}
+                                                            
+                                                            {{message.timestamp != null ? message.timestamp.toString().split("T")[1].split(":", 2)[0] 
+                                                            + ":" + message.timestamp.toString().split("T")[1].split(":", 2)[1]
+                                                            : ""}}
+                                                        
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="isMe(message.sender_id)">
+                                                    <td><b>{{getUser(message.sender_id).firstname}}</b> &nbsp;
+                                                        <span style="color: rgb(108, 108, 108)">
+                                                            {{message.timestamp != null ? message.timestamp.toString().split("T")[0] : ""}}
+                                                            
+                                                            {{message.timestamp != null ? message.timestamp.toString().split("T")[1].split(":", 2)[0] 
+                                                            + ":" + message.timestamp.toString().split("T")[1].split(":", 2)[1]
+                                                            : ""}}
+                                                        
+                                                        </span>
+                                                    </td>
+                                                    <td rowspan="2">
+                                                        <div>
+                                                            <img class="personImageLeft" [src]="getUser(message.sender_id).image" width="50px" height="50px"/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div class="commentContent">{{message.content}}</div></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+        
+                                       
+                                        <div class="commentSend" class="col-sm-12" style="display: block; width: 100%;">
+                                            <table class="commentSend">
+                                                <tr>
+                                                    <td>
+        
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" [(ngModel)]="message" placeholder="Type your message">
+        
+                                                    </td>
+                                                    <td>
+                                                        <button class="commentButton" (click)="sendMessage()">Send message</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                 </div>
             </div>
         </div>

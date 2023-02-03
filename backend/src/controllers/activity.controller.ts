@@ -9,6 +9,7 @@ import { Authentication } from "../authentication"
 import { request } from "http"
 import comment from "../models/comment"
 import ChatThread from "../models/chatThread"
+import { captureRejectionSymbol } from "events"
 
 
 export class ActivityController {
@@ -228,7 +229,7 @@ export class ActivityController {
 
     getAllThreadOfWorkshopsIParticipateIn = (request: any, response: express.Response) => {
         let participant_id = request.user_id
-
+        console.log(participant_id) // LOG
         Workshop.find({}, async (error, workshops) => {
             if (error) {
                 return response.status(400).send({ message: error })
@@ -283,16 +284,18 @@ export class ActivityController {
             return response.status(401).send({message: "Unauthorized message send."})
         }
 
+        let message = {
+            sender_id: sender_id,
+            timestamp: timestamp,
+            content: content
+        }
+
         thread.messages.push(
-            {
-                sender_id: sender_id,
-                timestamp: timestamp,
-                content: content
-            }
+            message
         )
         thread.save()
 
-        return response.send({message: "Message is delivered."})
+        return response.send(message)
     }
 
     createChatThread = (request: any, response: express.Response) => {
@@ -323,7 +326,30 @@ export class ActivityController {
 
             await thread.save()
 
-            return response.send(thread)
+            let organizer = await User.findOne({_id: thread.organizer_id})
+
+            return response.send({
+                thread: thread,
+                organizer: organizer
+            })
+
+            //return response.send(thread)
+        })
+    }
+
+    getThread = async (request: any, response: express.Response) => {
+        let participant_id = request.user_id
+        let workshop_id = request.body.workshop_id
+     
+        let thread = await ChatThread.findOne({workshop_id: workshop_id, participant_id: participant_id})
+
+        if (thread == null) return response.send(null)
+
+        let organizer = await User.findOne({_id: thread.organizer_id})
+
+        return response.send({
+            thread: thread,
+            organizer: organizer
         })
     }
 

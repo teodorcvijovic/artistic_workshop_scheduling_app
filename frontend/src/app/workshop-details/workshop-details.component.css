@@ -48,9 +48,21 @@ tr:hover {
     margin-top: 0px;
 }
 
+.personImageRight {
+    border-radius: 33px;
+    margin-right: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
 .personImage {
     border-radius: 33px;
     margin-right: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+.personImageLeft {
+    border-radius: 33px;
+    margin-left: 20px;
     box-shadow: 5px 10px 8px #d4d4d4;
 }
 
