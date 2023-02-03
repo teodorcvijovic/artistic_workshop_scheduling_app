@@ -10,6 +10,7 @@ import { BecomeOrganizerComponent } from './become-organizer/become-organizer.co
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
 import { ResetLinkComponent } from './reset-link/reset-link.component';
@@ -32,14 +33,16 @@ const routes: Routes = [
   {path: 'workshops', component: AdminWorkshopsComponent},
   {path: 'add_workshop', component: AdminAddWorkshopComponent},
   {path: 'workshop_requests', component: AdminWorkshopRequestsComponent},
-
+  
+  // home
+  {path: '', redirectTo: 'home', pathMatch: 'full' },
+  {path: 'home', component: HomeComponent},
+  
   // participant routes
   {path: 'become_organizer', component: BecomeOrganizerComponent},
   {path: 'workshop_details', component: WorkshopDetailsComponent},
+  {path: 'profile', component: ProfileComponent},
 
-  // home
-  {path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'home', component: HomeComponent}
 ];
 
 @NgModule({

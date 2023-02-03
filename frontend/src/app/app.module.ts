@@ -33,6 +33,7 @@ import { AdminWorkshopRequestsComponent } from './admin-workshop-requests/admin-
 import { BecomeOrganizerComponent } from './become-organizer/become-organizer.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 import { SafePipe } from './utils/safe.pipe';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { SafePipe } from './utils/safe.pipe';
     AdminWorkshopRequestsComponent,
     BecomeOrganizerComponent,
     WorkshopDetailsComponent,
-    SafePipe
+    SafePipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

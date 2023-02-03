@@ -1,5 +1,7 @@
 <nav class="navbar" id="navbar">
     <div class="">
+      <a *ngIf='isParticipant' class="navbar-brand navbar-link participant" href="/profile">Profile</a>
+      
       <a *ngIf='!logged' class="navbar-brand navbar-link" href="/login">Login</a>
       <a *ngIf='logged' class="navbar-brand navbar-link" (click)="logout()">Logout</a>
       <a *ngIf='logged' class="navbar-brand navbar-link" href="/password_change">Change password</a>
