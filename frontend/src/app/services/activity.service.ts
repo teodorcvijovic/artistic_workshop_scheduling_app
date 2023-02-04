@@ -44,9 +44,8 @@ export class ActivityService {
     return this.http.post(`${this.URI}/comment`, body)
   }
 
-  getAllParticipantChatThreads() {
-
-    return this.http.get(`${this.URI}/participant_threads`)
+  getMyThreads() {
+    return this.http.get(`${this.URI}/threads`)
   }
 
   getThread(workshop) {

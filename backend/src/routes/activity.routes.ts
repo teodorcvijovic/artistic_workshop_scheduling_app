@@ -58,9 +58,9 @@ activity_router.route("/thread").post(
     (request, response) => new ActivityController().getThread(request, response)
 )
 
-activity_router.route("/participant_threads").get(
+activity_router.route("/threads").get(
     [Authentication.jwtCheck, Authentication.isParticipant],
-    (request, response) => new ActivityController().getAllThreadOfWorkshopsIParticipateIn(request, response)
+    (request, response) => new ActivityController().getMyThreads(request, response)
 )
 
 activity_router.route("/threads_for_workshop").get(

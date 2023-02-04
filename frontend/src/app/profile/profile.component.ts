@@ -43,6 +43,10 @@ export class ProfileComponent implements OnInit {
     this.activityService.getMyComments().subscribe((data: any) => {
       this.comments = data
     })
+
+    this.activityService.getMyThreads().subscribe((data: any) => {
+      this.threads = data
+    })
   }
 
   showProfile() {
@@ -301,5 +305,37 @@ export class ProfileComponent implements OnInit {
       })
       this.editable_index = -1
     })
+  }
+
+  /*************************************************/
+
+  threads = []
+  chatThread = null
+  message: string = ''
+
+  openThread(th) {
+    this.chatThread = th
+  }
+
+  sendMessage() {
+    this.activityService.sendMessage(this.chatThread.thread._id, this.message).subscribe((data:any) => {
+      this.chatThread.thread.messages.push(data)
+      this.message = ''
+    }) 
+  }
+
+  getUser(sender_id) {
+    if (sender_id == SessionUtil.getUser()._id) 
+      return SessionUtil.getUser()
+
+    return this.chatThread.organizer
+  }
+
+  // 0 - me, 1 - not me
+  isMe(sender_id) {
+    if (sender_id == SessionUtil.getUser()._id) 
+      return true
+
+    return false
   }
 }

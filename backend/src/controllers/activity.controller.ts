@@ -228,28 +228,25 @@ export class ActivityController {
 
     /************************* chat ***************************/
 
-    getAllThreadOfWorkshopsIParticipateIn = (request: any, response: express.Response) => {
+    getMyThreads = (request: any, response: express.Response) => {
         let participant_id = request.user_id
-        console.log(participant_id) // LOG
+        
         Workshop.find({}, async (error, workshops) => {
             if (error) {
                 return response.status(400).send({ message: error })
             }
 
-            let myWorkshops = []
-            workshops.forEach(w => {
-                w.participants.forEach(p => {
-                    if (p._id == participant_id) myWorkshops.push(w)
-                })
-            })
+            let myWorkshops = workshops
 
             let threads = []
             for (let i = 0; i < myWorkshops.length; i++) {
                 let thread = await ChatThread.findOne({participant_id: participant_id, workshop_id: myWorkshops[i]._id})
                 if (thread == null) continue
+                let organizer = await User.findOne({_id: thread.organizer_id})
                 threads.push({
                     workshop: myWorkshops[i],
-                    thread: thread
+                    thread: thread,
+                    organizer: organizer
                 })
             }
 
