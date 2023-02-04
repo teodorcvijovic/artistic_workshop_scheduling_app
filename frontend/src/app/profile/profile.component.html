@@ -76,15 +76,126 @@
         </div>
     </div>
     <div *ngIf="page == 1" class="row">
-        workshops
+        <div class="col-sm-12" style="width:100%;display: flex;justify-content: center;">
+            <table>
+                <tr>
+                    <td>
+                        <select [(ngModel)]="sortCriteria">
+                            <option value="name">Name</option>
+                            <option value="organizer">Organizer</option>
+                            <option value="date">Date</option>
+                            <option value="address">Address</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select [(ngModel)]="sortDir">
+                            <option [ngValue]="true">Ascending</option>
+                            <option [ngValue]="false">Descending</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button (click)="sort()">Sort</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-12" style="width:100%;display: flex;justify-content: center;">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Name</th><th>Organizer</th><th>Date</th><th>Address</th><th>Short description</th><th>Long description</th>
+                    </tr>
 
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let w of previousWorkshops">
+                        <td>{{w.name}}</td>
+                        <td>{{w.organizer.firstname}}&nbsp;{{w.organizer.lastname}}</td>
+                        <td style="min-width:110px">{{w.date != null ? w.date.toString().split("T")[0] : ""}}</td>
+                        <td>{{w.address}}</td>
+                        <td style="max-width:300px">{{w.short_description}}</td>
+                        <td style="max-width:300px">{{w.long_description}}</td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
     </div>
     <div *ngIf="page == 2" class="row">
-        actions
+        <div class="col-md-6 col-sm-12 ">
+            <div class="profil">
+                <h3>Likes</h3>
+                <hr>
+                <table class="likes">
+                    <tr>
+                        <td><b>Workshop name</b></td><td colspan="2"><b>Date</b></td>
+                    </tr>
+                    <tr *ngFor="let like of likes">
+                        <td>{{like.name}}</td><td>{{like.date != null ? like.date.toString().split("T")[0] : ""}}</td>
 
+                        <td><button (click)="unlike(like)" class="likebutton">Unlike</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 ">
+            <div class="profil">
+                <h3>Comments</h3>
+                <hr>
+                <div *ngFor="let c of comments;  let i = index" [attr.data-index]="i" class="comment" style="display: block; width: 100%;">
+                    <table *ngIf="i != editable_index">
+                        <tr>
+                            <td colspan="1"><b>{{c.workshop.name}}</b> &nbsp;
+                                <span style="color: rgb(108, 108, 108)">
+                                    {{c.comment.timestamp != null ? c.comment.timestamp.toString().split("T")[0] : ""}}
+                                    
+                                    {{c.comment.timestamp != null ? c.comment.timestamp.toString().split("T")[1].split(":", 2)[0] 
+                                    + ":" + c.comment.timestamp.toString().split("T")[1].split(":", 2)[1]
+                                    : ""}}
+                                
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="commentContent" style="max-width:300px" >{{c.comment.content}}</div></td>
+                            <td>
+                                <button (click)="editComment(c, i)" [ngClass]="{'editButton': editable_index==-1, 'greyish':editable_index!=-1}">Edit</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <table *ngIf="i == editable_index">
+                        <tr>
+                            <td colspan="1"><b>{{c.workshop.name}}</b> &nbsp;
+                                <span style="color: rgb(108, 108, 108)">
+                                    {{c.comment.timestamp != null ? c.comment.timestamp.toString().split("T")[0] : ""}}
+                                    
+                                    {{c.comment.timestamp != null ? c.comment.timestamp.toString().split("T")[1].split(":", 2)[0] 
+                                    + ":" + c.comment.timestamp.toString().split("T")[1].split(":", 2)[1]
+                                    : ""}}
+                                
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="commentContent" style="max-width:300px" >
+                                <input type="text" [(ngModel)]="content" style="width:95%">
+                                </div></td>
+                            <td>
+                                <button (click)="commitCommEdit()" class="commitButton">Update</button>
+                                <button (click)="deleteComm()" class="deleteButton">Delete</button>
+                                <button (click)="cancelEditComm()" class="">Cancel</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <div *ngIf="page == 3" class="row">
-        threads
+        TO DO: threads
+
+
 
     </div>
 </div>

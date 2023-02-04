@@ -219,6 +219,7 @@ export class ActivityController {
                 return response.status(401).send({ message: "Unauthorized attemt to delete a comment." })
             }
 
+            console.log(comment._id)
             comment.delete()
 
             return response.send({message: "Comment is deleted."})

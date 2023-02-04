@@ -73,4 +73,31 @@ export class ActivityService {
 
     return this.http.post(`${this.URI}/message`, body)
   }
+
+  getMyLikes() {
+
+    return this.http.get(`${this.URI}/mylikes`)
+  }
+
+  getMyComments() {
+
+    return this.http.get(`${this.URI}/mycomments`)
+  }
+
+  updateComment(comment_id, new_content) {
+    let body = {
+      comment_id: comment_id,
+      new_content: new_content
+    }
+
+    return this.http.put(`${this.URI}/comment`, body)
+  }
+
+  deleteComment(comment_id) {
+    let body = {
+      comment_id: comment_id
+    }
+ 
+    return this.http.delete(`${this.URI}/comment`, {body: body})
+  }
 }

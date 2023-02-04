@@ -31,6 +31,18 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.user = SessionUtil.getUser()
     this.editable_user_id = ''
+
+    this.workshopService.getMyPreviousWorkshops().subscribe((data: any) => {
+      this.previousWorkshops = data
+    })
+
+    this.activityService.getMyLikes().subscribe((data: any) => {
+      this.likes = data
+    })
+
+    this.activityService.getMyComments().subscribe((data: any) => {
+      this.comments = data
+    })
   }
 
   showProfile() {
@@ -182,4 +194,112 @@ export class ProfileComponent implements OnInit {
   }
 
   /******************************************/
+
+  previousWorkshops: any = null
+
+  sortCriteria: string = 'name'
+  sortDir: boolean = true
+
+  sort() {
+    if (this.sortCriteria == 'name') {
+      if (this.sortDir == true) {
+        this.previousWorkshops.sort((w1, w2) => {
+          if (w1.name.toLowerCase() > w2.name.toLowerCase()) return 1
+          else if (w1.name.toLowerCase() < w2.name.toLowerCase()) return -1
+          return 0
+        })
+      }
+      else {
+        this.previousWorkshops.sort((w1, w2) => {
+          if (w1.name.toLowerCase() > w2.name.toLowerCase()) return -1
+          else if (w1.name.toLowerCase() < w2.name.toLowerCase()) return 1
+          return 0
+        })
+      }
+    }
+    if (this.sortCriteria == 'organizer') {
+      if (this.sortDir == true) {
+        this.previousWorkshops.sort((w1, w2) => {
+          if (w1.organizer.username.toLowerCase() > w2.organizer.username.toLowerCase()) return 1
+          else if (w1.organizer.username.toLowerCase() < w2.organizer.username.toLowerCase()) return -1
+          return 0
+        })
+      }
+      else {
+        this.previousWorkshops.sort((w1, w2) => {
+          if (w1.organizer.username.toLowerCase() > w2.organizer.username.toLowerCase()) return -1
+          else if (w1.organizer.username.toLowerCase() < w2.organizer.username.toLowerCase()) return 1
+          return 0
+        })
+      }
+    }
+    if (this.sortCriteria == 'address') {
+      if (this.sortDir == true) {
+        this.previousWorkshops.sort((w1, w2) => {
+          if (w1.address.toLowerCase() > w2.address.toLowerCase()) return 1
+          else if (w1.address.toLowerCase() < w2.address.toLowerCase()) return -1
+          return 0
+        })
+      }
+      else {
+        this.previousWorkshops.sort((w1, w2) => {
+          if (w1.address.toLowerCase() > w2.address.toLowerCase()) return -1
+          else if (w1.address.toLowerCase() < w2.address.toLowerCase()) return 1
+          return 0
+        })
+      }
+    }
+    if (this.sortCriteria == 'date') {
+      this.previousWorkshops.sort((w1, w2) => {
+        let d1 = new Date(w1.date)
+        let d2 = new Date(w2.date)
+        let diff = d1.getTime() - d2.getTime()
+        return diff
+      })
+
+      if (!this.sortDir) this.previousWorkshops.reverse()
+    }
+  }
+
+  /****************************************************************/
+
+  likes: any = []
+  comments: any = []
+
+  editable_index = -1
+  content: string = ''
+
+  unlike(like) {
+    this.activityService.unlike(like).subscribe((data) => {
+      this.likes = this.likes.filter(w => w._id != like._id)
+    })
+  }
+
+  editComment(comment, i) {
+    this.editable_index = i
+    this.content = comment.comment.content
+  }
+
+  cancelEditComm() {
+    this.editable_index = -1
+  }
+
+  commitCommEdit() {
+    let comment_id = this.comments[this.editable_index].comment._id
+    this.activityService.updateComment(comment_id, this.content).subscribe((data:any) => {
+      this.comments[this.editable_index].comment.content = this.content
+      this.editable_index = -1
+    })
+
+  }
+
+  deleteComm() {
+    let comment_id = this.comments[this.editable_index].comment._id
+    this.activityService.deleteComment(comment_id).subscribe((data:any) => {
+      this.comments = this.comments.filter(c => {
+        return c.comment._id != comment_id
+      })
+      this.editable_index = -1
+    })
+  }
 }
