@@ -1,2 +1,90 @@
 <app-navbar></app-navbar>
-profile
+
+
+<div class="container" style="width:100%">
+    <div class="row" style="width:100%;display: flex;justify-content: center; margin-bottom: 15px;">
+        <div class="col-sm-12" style="width:100%;display: flex;justify-content: center;">
+            <button [ngClass]="{'greyish': page == 0}" (click)="showProfile()">Profile</button>
+            <button [ngClass]="{'greyish': page == 1}" (click)="showWorkshops()">Previous Workshops</button>
+            <button [ngClass]="{'greyish': page == 2}" (click)="showActions()">Likes & Comments</button>
+            <button [ngClass]="{'greyish': page == 3}" (click)="showThreads()">Chat Threads</button>
+        </div>
+    </div>
+    <div *ngIf="page == 0" class="row">
+        <div class="col-sm-12 profil" style="width:100%;display: flex;justify-content: center;">
+        <table>
+            <tr>
+                <td rowspan="6" style="padding-left: 0px; padding-right: 15px;">
+                    <!-- image -->
+                    <!-- <input  *ngIf="user._id == editable_user_id" type="file"  (change)="onChange($event)" accept="image/*, .jpeg, .png"> -->
+                    <div *ngIf="user.image && editable_user_id == ''">
+                        <img [src]="user.image" width="100px" height="100px"/>
+                    </div>
+                </td>
+                <th> Username:&nbsp; </th>
+                <td *ngIf="user._id != editable_user_id">{{user.username}}</td>
+                <td *ngIf="user._id == editable_user_id"><input type="text" name="username" [(ngModel)]="username"></td>
+
+                
+            </tr>
+            <tr>
+                <th> Firstname:&nbsp; </th>
+                <td *ngIf="user._id != editable_user_id">{{user.firstname}}</td>
+                <td *ngIf="user._id == editable_user_id"><input type="text" name="firstname" [(ngModel)]="firstname"></td>
+            </tr>
+            <tr>
+                <th> Lastname:&nbsp; </th>
+                <td *ngIf="user._id != editable_user_id">{{user.lastname}}</td>
+                <td *ngIf="user._id == editable_user_id"><input type="text" name="lastname" [(ngModel)]="lastname"></td>
+            </tr>
+            <tr>
+                <th> Email:&nbsp; </th>
+                <td *ngIf="user._id != editable_user_id">{{user.email}}</td>
+                <td *ngIf="user._id == editable_user_id"><input type="text" name="email" [(ngModel)]="email"></td>
+            </tr>
+            <tr>
+                <th> Phone:&nbsp; </th>
+                <td *ngIf="user._id != editable_user_id">{{user.phone}}</td>
+                <td *ngIf="user._id == editable_user_id"><input type="text" name="phone" [(ngModel)]="phone"></td>
+            </tr>
+            <tr *ngIf="user._id == editable_user_id">
+                <th>Image:&nbsp;</th>
+                <td>
+                    <button style="padding: 1px; border-radius: 0px" (click)="removeImage()">Remove</button>
+                    <input  type="file"  (change)="onChange($event)" accept="image/*, .jpeg, .png">
+                </td>
+                <td colspan="1">
+                </td>
+            </tr>
+            <tr *ngIf="user._id == editable_user_id">
+                <td colspan="4"><span style='color: red'>{{error}}</span></td>
+            </tr>
+        </table>
+        <hr *ngIf="user._id == editable_user_id">
+        <table *ngIf="user._id == editable_user_id">
+            <!-- ovde je pre bio input za sliku -->
+        </table>
+         
+      <hr>
+      <table>
+        <tr>
+            <td *ngIf="user._id != editable_user_id">  <button (click)='editUser()' class="">Edit data</button> </td>
+            <td *ngIf="user._id == editable_user_id">  <button (click)='commitUserChanges()' class="commit">Commit changes</button> &nbsp;  <button (click)='cancelEdit()' class="">Cancel</button> </td>
+            <td *ngIf="user._id == editable_user_id">  </td>
+        </tr>
+      </table>
+        </div>
+    </div>
+    <div *ngIf="page == 1" class="row">
+        workshops
+
+    </div>
+    <div *ngIf="page == 2" class="row">
+        actions
+
+    </div>
+    <div *ngIf="page == 3" class="row">
+        threads
+
+    </div>
+</div>
