@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { SessionUtil } from '../utils/sessionutil';
+import { Configuration } from '../utils/config';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +47,10 @@ export class LoginComponent implements OnInit {
           this.error = ''
 
           // window.location.reload()
-          this.router.navigate(['/home'])
+          if (user.role == Configuration.PARTICIPANT_ROLE) this.router.navigate(['/home'])
+          if (user.role == Configuration.ORGANIZER_ROLE) this.router.navigate(['/organizer'])
+          else this.router.navigate(['/workshops'])
+
       },
       error: error => {
         this.error = error.error.message

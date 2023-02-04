@@ -10,6 +10,7 @@ import { BecomeOrganizerComponent } from './become-organizer/become-organizer.co
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
+import { ProfileOrganizerComponent } from './profile-organizer/profile-organizer.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
@@ -42,6 +43,9 @@ const routes: Routes = [
   {path: 'become_organizer', component: BecomeOrganizerComponent},
   {path: 'workshop_details', component: WorkshopDetailsComponent},
   {path: 'profile', component: ProfileComponent},
+
+  // organizer
+  {path: 'organizer', component: ProfileOrganizerComponent},
 
 ];
 
