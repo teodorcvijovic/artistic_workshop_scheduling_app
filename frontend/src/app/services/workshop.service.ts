@@ -117,4 +117,12 @@ export class WorkshopService {
  
     return this.http.delete(`${this.URI}/cancel`, {body: body})
   }
+
+  saveJSON(workshop_id) {
+    const body = {
+      workshop_id: workshop_id
+    }
+
+    return this.http.post(`${this.URI}/template`, body)
+  }
 }

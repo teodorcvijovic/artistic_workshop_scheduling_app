@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { delay } from 'rxjs';
 import { ActivityService } from '../services/activity.service';
 import { UserService } from '../services/user.service';
 import { WorkshopService } from '../services/workshop.service';
@@ -157,12 +158,21 @@ export class ProfileOrganizerComponent implements OnInit {
 
   /***************************/
 
+  mess = ''
+
   saveTemplate(workshop) {
-    // TO DO
+    this.workshopService.saveJSON(workshop._id).subscribe(async (data: any) => {
+      this.mess = 'Template is saved.'
+
+      setTimeout(() => 
+      {
+        this.mess = ''
+      },
+      4000);
+    })
 
 
 
-    
   }
 
 }

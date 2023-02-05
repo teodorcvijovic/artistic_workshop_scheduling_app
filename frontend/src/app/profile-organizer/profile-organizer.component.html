@@ -119,6 +119,8 @@
                 <button *ngIf="editable_workshop_id == ''" (click)='cancelWorkshop(workshop)' class="reject">Cancel workshop</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='commitWorkshopChanges(workshop)' class="commit">Commit changes</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='cancelEdit()' class="">Cancel</button> 
+                <br>
+                <i>{{mess}}</i>
             </div>
         </div>
     </div>

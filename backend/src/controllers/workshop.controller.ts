@@ -11,6 +11,8 @@ import { Authentication } from "../authentication"
 import multer from 'multer'
 import { request } from "http"
 
+import fs from 'fs'
+
 export class WorkshopController {
 
     /****** helper *******/
@@ -708,5 +710,37 @@ export class WorkshopController {
 
             return response.send({message: "Workshop is successfully deleted."})
         })
+    }
+
+    saveTemplate = async (request: any, response: express.Response)=>{
+        let organizer_id = request.user_id
+        
+        let workshop_id = request.body.workshop_id
+        
+        let folderName = "workshop-templates/" + organizer_id
+
+        if (!fs.existsSync(folderName)) {
+            fs.mkdir(folderName, { recursive: true }, (err) => {
+
+                Workshop.findOne({_id: workshop_id}, (err, workshop) => {
+                    let jsonString = JSON.stringify(workshop)
+                    fs.writeFile(folderName + "/" + workshop_id + ".json", jsonString, (err) => {
+                        
+                    });
+        
+                    return response.send({"message": "ok"});
+                })
+            })
+        } else {
+            Workshop.findOne({_id: workshop_id}, (err, workshop) => {
+                let w2 = workshop
+                let jsonString = JSON.stringify(w2)
+                fs.writeFile(folderName + "/" + workshop_id + ".json", jsonString, (err) => {
+                    
+                });
+    
+                return response.send({"message": "ok"});
+            })
+        }
     }
 }
