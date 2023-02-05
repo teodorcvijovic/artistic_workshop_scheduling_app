@@ -3,6 +3,9 @@ import Workshop from '../models/workshop'
 import nodemailer from "nodemailer"
 import { Configuration } from "../config"
 import User from "../models/user"
+import Comment from "../models/comment"
+import ChatThread from "../models/chatThread"
+
 import user from "../models/user"
 import { Authentication } from "../authentication"
 import multer from 'multer'
@@ -268,7 +271,7 @@ export class WorkshopController {
 
         let workshop_id = request.body._id
 
-        Workshop.findOne({_id: workshop_id}, (error, workshop) => {
+        Workshop.findOne({_id: workshop_id}, async (error, workshop) => {
             if (error) {
                 return response.status(400).send({ message: error })
             }
@@ -281,7 +284,17 @@ export class WorkshopController {
 
             workshop.delete()
 
-            // TODO: what about chat threads?
+            let comments = await Comment.find({workshop_id: workshop_id})
+            if (comments == null) comments = []
+            for(let i = 0; i < comments.length; i++) {
+                comments[i].delete()
+            }
+
+            comments = await ChatThread.find({workshop_id: workshop_id})
+            if (comments == null) comments = []
+            for(let i = 0; i < comments.length; i++) {
+                comments[i].delete()
+            }
 
             return response.send({ message: "Workshop successfully canceled" })
         })
@@ -674,12 +687,24 @@ export class WorkshopController {
     deleteWorkshop = async (request: express.Request, response: express.Response)=>{
         let workshop_id = request.body.workshop_id
 
-        Workshop.findOne({_id: workshop_id}, (error, workshop) => {
+        Workshop.findOne({_id: workshop_id}, async (error, workshop) => {
             if (error) return response.status(400).send({ message: error })
 
             if (workshop == null) return response.status(404).send({ message: "Workshop is not found." })
         
             workshop.delete()
+
+            let comments = await Comment.find({workshop_id: workshop_id})
+            if (comments == null) comments = []
+            for(let i = 0; i < comments.length; i++) {
+                comments[i].delete()
+            }
+
+            comments = await ChatThread.find({workshop_id: workshop_id})
+            if (comments == null) comments = []
+            for(let i = 0; i < comments.length; i++) {
+                comments[i].delete()
+            }
 
             return response.send({message: "Workshop is successfully deleted."})
         })

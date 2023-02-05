@@ -99,4 +99,6 @@ export class ActivityService {
  
     return this.http.delete(`${this.URI}/comment`, {body: body})
   }
+
+ 
 }

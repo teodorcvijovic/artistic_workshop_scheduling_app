@@ -56,9 +56,9 @@ export class ProfileOrganizerComponent implements OnInit {
     // ])
   }
 
-  deleteWorkshop(workshop) {
-    this.workshopService.deleteWorkshop(workshop._id).subscribe((data) => {
-      this.workshops = this.workshops.filter(w => w !== workshop)
+  cancelWorkshop(workshop) {
+    this.workshopService.cancelWorkshop(workshop._id).subscribe((data: any) => {
+        this.workshops = this.workshops.filter(w => w !== workshop)
     })
   }
 

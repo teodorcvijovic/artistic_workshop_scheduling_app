@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12"> 
             <h4>Workshops</h4><hr>
-            <button (click)="addNewWorkshop()">Add new workshop</button><hr>
+            <button (click)="addNewWorkshop()">Add new workshop (TO DO)</button><hr>
         </div>
     </div>
     <div class="row">
@@ -78,7 +78,7 @@
                     </table>
                 </div>
                 <hr>
-                <button *ngIf="editable_workshop_id == ''" (click)='deleteWorkshop(workshop)' class="reject">Delete workshop</button>
+                <button *ngIf="editable_workshop_id == ''" (click)='cancelWorkshop(workshop)' class="reject">Cancel workshop</button>
                 <button *ngIf="editable_workshop_id == ''" (click)='editWorkshop(workshop)' class="">Edit workshop data</button> 
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='commitWorkshopChanges(workshop)' class="commit">Commit changes</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='cancelEdit()' class="">Cancel</button> 

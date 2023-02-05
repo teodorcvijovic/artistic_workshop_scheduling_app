@@ -90,4 +90,12 @@ export class WorkshopService {
 
     return this.http.post(`${this.URI}/queue`, body)
   }
+
+  cancelWorkshop(workshop_id) {
+    let body = {
+      _id: workshop_id
+    }
+ 
+    return this.http.delete(`${this.URI}/cancel`, {body: body})
+  }
 }
