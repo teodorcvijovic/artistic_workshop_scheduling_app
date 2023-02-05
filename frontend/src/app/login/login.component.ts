@@ -47,8 +47,9 @@ export class LoginComponent implements OnInit {
           this.error = ''
 
           // window.location.reload()
+          console.log(user.role)
           if (user.role == Configuration.PARTICIPANT_ROLE) this.router.navigate(['/home'])
-          if (user.role == Configuration.ORGANIZER_ROLE) this.router.navigate(['/organizer'])
+          else if (user.role == Configuration.ORGANIZER_ROLE) this.router.navigate(['/organizer'])
           else this.router.navigate(['/workshops'])
 
       },

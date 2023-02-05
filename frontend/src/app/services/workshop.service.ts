@@ -35,6 +35,10 @@ export class WorkshopService {
     return this.http.get(`${this.URI}/top5`)
   }
 
+  getWorkshopsOrganizedByMe() {
+    return this.http.get(`${this.URI}/organized_by_me`)
+  }
+
   permitNewWorkshop(_id) {
     const body = {
       workshop_id: _id

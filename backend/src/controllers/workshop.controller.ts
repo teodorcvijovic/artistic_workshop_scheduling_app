@@ -628,8 +628,7 @@ export class WorkshopController {
         let workshop_id = request.body._id
         let organizer_username = request.body.organizer_username
         let images = request.files
-        console.log(images)
-
+        
         let approved = true
         let name = request.body.name
         let date = request.body.date
@@ -637,7 +636,7 @@ export class WorkshopController {
         let short_description = request.body.short_description
         let long_description = request.body.long_description
         let capacity = request.body.capacity
-
+        
         let updateImages = request.body.updateImages
 
         let workshop = await Workshop.findOne({_id: workshop_id})
@@ -654,7 +653,12 @@ export class WorkshopController {
             if (new_organizer == null)  return response.status(404).send({message: "User is not found."})
             workshop.organizer_id = new_organizer._id
         }
-        if (updateImages || workshop.images.length > 0) workshop.images = images
+        // if (updateImages || workshop.images.length > 0) workshop.images = images
+        if (updateImages == 'true') {
+           
+            workshop.images = images
+        }
+
         workshop.approved = approved
         workshop.name = name
         workshop.date = date
