@@ -68,7 +68,7 @@
                 <div *ngIf="editable_workshop_id == workshop._id">
                     <table>
                         <tr>
-                            <th>Images:</th>
+                            <th>Images ({{this.myFiles.length == 0 && !this.updateImages? workshop.images.length :  this.myFiles.length}}):</th>
                             <td>
                                 <button style="padding: 1px; border-radius: 0px" (click)="removeImages()">Remove</button>
                             </td>

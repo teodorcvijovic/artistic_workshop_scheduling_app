@@ -120,12 +120,13 @@ export class AdminWorkshopsComponent implements OnInit {
 
     this.editable_workshop_id = ''
     this.error = ''
+    this.updateImages = false
   }
 
    myFiles: string[] = [];
 
   onFileChange(event) {
-      if (event.target.files.length > 5) {
+    if (this.myFiles.length + event.target.files.length >= 5) {
         this.error = "You can not add more than 5 images."
         return
       }

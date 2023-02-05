@@ -154,4 +154,15 @@ export class ProfileOrganizerComponent implements OnInit {
     })
   }
 
+
+  /***************************/
+
+  saveTemplate(workshop) {
+    // TO DO
+
+
+
+    
+  }
+
 }
