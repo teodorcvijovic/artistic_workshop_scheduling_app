@@ -139,6 +139,19 @@ export class ProfileOrganizerComponent implements OnInit {
       this.error = ''
   }
 
+  /*************************** */
 
+  accept(workshop, user) {
+    this.workshopService.permitParticipation(workshop._id, user._id).subscribe((data: any) => {
+      workshop.participants.push(user)
+      workshop.reservations = workshop.reservations.filter(r => r._id != user._id)
+    })
+  }
+
+  reject(workshop, user) {
+    this.workshopService.denyParticipation(workshop._id, user._id).subscribe((data: any) => {
+      workshop.reservations = workshop.reservations.filter(r => r._id != user._id)
+    })
+  }
 
 }

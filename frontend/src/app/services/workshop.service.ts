@@ -75,6 +75,25 @@ export class WorkshopService {
     return this.http.put(`${this.URI}/cancel_pariticipation`, body)
   }
 
+  permitParticipation(workshop_id, participant_id) {
+    const body = {
+      workshop_id: workshop_id,
+      participant_id: participant_id
+    }
+
+    return this.http.put(`${this.URI}/permit_participation`, body)
+  }
+
+  
+  denyParticipation(workshop_id, participant_id) {
+    const body = {
+      workshop_id: workshop_id,
+      participant_id: participant_id
+    }
+
+    return this.http.put(`${this.URI}/deny_participation`, body)
+  }
+
   applyForWorkshop(_id) {
     const body = {
       _id: _id

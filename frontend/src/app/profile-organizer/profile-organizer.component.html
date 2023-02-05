@@ -77,9 +77,45 @@
                         </tr>
                     </table>
                 </div>
+                <div *ngIf="editable_workshop_id == ''">
                 <hr>
+                <h5>Participation requests</h5>
+                <div *ngIf="workshop.reservations.length == 0">
+                    <i>Currently no new reservations.</i>
+                </div>
+                <div class="container"  *ngIf="workshop.reservations.length != 0">
+                    <div class="row">
+                        <div class="col-sm-6" *ngFor="let r of workshop.reservations">
+                            
+                            <div class="kartica">
+                                <table>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <div>
+                                                <img class="personImage" [src]="r.image" width="50px" height="50px"/>
+                                            </div>
+                                        </td>
+                                        <td width="240px">
+                                            <b>{{r.firstname}}&nbsp;{{r.lastname}}</b> &nbsp;
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button (click)="accept(workshop, r)" class="accept">Accept</button>
+                                            <button (click)="reject(workshop, r)" class="reject">Reject</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <hr>
+                <button *ngIf="editable_workshop_id == ''" (click)='editWorkshop(workshop)' class="">Edit data</button> 
                 <button *ngIf="editable_workshop_id == ''" (click)='cancelWorkshop(workshop)' class="reject">Cancel workshop</button>
-                <button *ngIf="editable_workshop_id == ''" (click)='editWorkshop(workshop)' class="">Edit workshop data</button> 
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='commitWorkshopChanges(workshop)' class="commit">Commit changes</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='cancelEdit()' class="">Cancel</button> 
             </div>
