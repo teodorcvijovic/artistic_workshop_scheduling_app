@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="mytable">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <h3>Organize new workshop</h3><hr>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Name:&nbsp;</th>
+                    <td><input type="text" name="name" [(ngModel)]="name"></td>
+                </tr>
+                <tr>
+                    <th>Date:&nbsp;</th>
+                    <td><input type="date" name="date" [(ngModel)]="date"></td>
+                </tr>
+                <tr>
+                    <th>Address:&nbsp;</th>
+                    <td><input type="text" name="address" [(ngModel)]="address"></td>
+                </tr>
+                <tr>
+                    <th>Short description:&nbsp;</th>
+                    <td> <textarea rows="2" cols="40" name="short_description" [(ngModel)]="short_description"></textarea></td>
+                </tr>
+                <tr>
+                    <th>Long description:&nbsp;</th>
+                    <td > <textarea rows="4" cols="40" name="long_description" [(ngModel)]="long_description"></textarea></td>
+                </tr>
+                <tr>
+                    <th>Images:</th>
+                    <!-- <td>
+                        <button style="padding: 1px; border-radius: 0px" (click)="removeImages()">Remove</button>
+                    </td> -->
+                    <td> <input (change)="onFileChange($event)" type="file" accept="image/*" multiple> </td>
+                </tr>
+        
+                <tr>
+                    <th>Capacity:&nbsp;</th>
+                    <td><input type="number" name="number" [(ngModel)]="capacity" min="1" step="1"></td>
+                </tr>
+               
+        
+                <!-- ------------------------------------- -->
+                <br>
+                <tr>
+                    
+                    <td colspan='2'>
+                        <button class="commit" (click)='addWorkshop()'>Add workshop</button>
+                   
+                        <button (click)='cancel()'>Cancel</button>
+                    </td>
+                </tr>
+                <br>
+            </table>
+            <span style='color: red'>{{error}}</span><br>
+            </div>
+        </div>
+    </div>
+</div>

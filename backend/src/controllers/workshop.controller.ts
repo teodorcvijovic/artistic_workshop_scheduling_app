@@ -100,7 +100,7 @@ export class WorkshopController {
     getTop5Workshops = async (request: any, response: express.Response)=>{
         let currentDate = new Date()
     
-        Workshop.find({}, async (error , workshops)=>{
+        Workshop.find({approved: true}, async (error , workshops)=>{
             if (error) {
                 return response.status(400).send({ message: error })
             }
@@ -345,7 +345,7 @@ export class WorkshopController {
         let date = request.body.date
         let address = request.body.address
         let short_description = request.body.short_description
-        let long_secription = request.body.long_description
+        let long_description = request.body.long_description
         let capacity = request.body.capacity
 
         User.findOne({_id: organizer_id}, async (error, user) => {
@@ -362,7 +362,7 @@ export class WorkshopController {
                     date: date,
                     address: address,
                     short_description: short_description,
-                    long_secription: long_secription,
+                    long_description: long_description,
                     capacity: capacity,
                     participants: [],
                     reservations: [],

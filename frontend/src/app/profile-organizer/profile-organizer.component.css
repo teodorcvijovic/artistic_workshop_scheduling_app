@@ -7,6 +7,21 @@
     margin-bottom: 20px;
 }
 
+.workshopNotApproved {
+    margin: 5px;
+    background-color: rgb(178, 178, 178);
+    color: grey;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+    margin-bottom: 20px;
+}
+
+.workshopNotApproved img, .workshopNotApproved button {
+    box-shadow: 5px 10px 8px #a9a9a9;
+    filter: brightness(76%)
+}
+
 .reject {
     background-color: rgb(181, 22, 27);
     color: white;

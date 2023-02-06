@@ -50,11 +50,9 @@ export class ProfileOrganizerComponent implements OnInit {
   updateImages: boolean
 
   addNewWorkshop() {
-    // TO DO
-
-    // this.router.navigate([
-    //   '/add_workshop'
-    // ])
+    this.router.navigate([
+      '/organize_workshop'
+    ])
   }
 
   cancelWorkshop(workshop) {

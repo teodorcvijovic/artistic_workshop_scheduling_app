@@ -3,12 +3,12 @@
     <div class="row">
         <div class="col-sm-12"> 
             <h4>Workshops</h4><hr>
-            <button (click)="addNewWorkshop()">Add new workshop (TO DO)</button><hr>
+            <button (click)="addNewWorkshop()">Add new workshop</button><hr>
         </div>
     </div>
     <div class="row">
         <div *ngFor='let workshop of workshops' class="col-sm-12 col-md-6 col-lg-6">
-            <div class="workshop">
+            <div [ngClass]="{'workshop': workshop.approved, 'workshopNotApproved': !workshop.approved}">
                 <table>
                     <tr>
                         <th>Name:&nbsp;</th>
@@ -38,7 +38,7 @@
                     <tr>
                         <th>Capacity:&nbsp;</th>
                         <td *ngIf="editable_workshop_id != workshop._id" >{{'' + workshop.capacity + ''}}</td>
-                        <td *ngIf="editable_workshop_id == workshop._id" > <input type="number" name="number" [(ngModel)]="capacity" min="0" step="1"> </td>
+                        <td *ngIf="editable_workshop_id == workshop._id" > <input type="number" name="number" [(ngModel)]="capacity" min="1" step="1"> </td>
                     </tr>
                     <tr *ngIf="editable_workshop_id != workshop._id">
                         <th>Likes:&nbsp;</th>
@@ -114,8 +114,11 @@
                 </div>
                 </div>
                 <hr>
-                <button *ngIf="editable_workshop_id == ''" (click)='editWorkshop(workshop)' class="">Edit data</button> 
-                <button *ngIf="editable_workshop_id == ''" (click)='saveTemplate(workshop)' class="commit">Save as template</button> 
+                <div *ngIf="!workshop.approved">
+                    <i style="color: rgb(157, 0, 0)">Workshop is waiting for approval from administrator.</i>
+                </div>
+                <button *ngIf="editable_workshop_id == '' && workshop.approved" (click)='editWorkshop(workshop)' class="">Edit data</button> 
+                <button *ngIf="editable_workshop_id == '' && workshop.approved" (click)='saveTemplate(workshop)' class="commit">Save as template</button> 
                 <button *ngIf="editable_workshop_id == ''" (click)='cancelWorkshop(workshop)' class="reject">Cancel workshop</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='commitWorkshopChanges(workshop)' class="commit">Commit changes</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='cancelEdit()' class="">Cancel</button> 

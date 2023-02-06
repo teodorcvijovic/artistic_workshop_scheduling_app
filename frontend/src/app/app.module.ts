@@ -35,6 +35,7 @@ import { WorkshopDetailsComponent } from './workshop-details/workshop-details.co
 import { SafePipe } from './utils/safe.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileOrganizerComponent } from './profile-organizer/profile-organizer.component';
+import { OrganizerAddWorkshopComponent } from './organizer-add-workshop/organizer-add-workshop.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ProfileOrganizerComponent } from './profile-organizer/profile-organizer
     WorkshopDetailsComponent,
     SafePipe,
     ProfileComponent,
-    ProfileOrganizerComponent
+    ProfileOrganizerComponent,
+    OrganizerAddWorkshopComponent
   ],
   imports: [
     BrowserModule,

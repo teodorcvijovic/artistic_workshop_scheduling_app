@@ -5,11 +5,11 @@ import { WorkshopService } from '../services/workshop.service';
 import { RoleCheck } from '../utils/role-check';
 
 @Component({
-  selector: 'app-admin-add-workshop',
-  templateUrl: './admin-add-workshop.component.html',
-  styleUrls: ['./admin-add-workshop.component.css']
+  selector: 'app-organizer-add-workshop',
+  templateUrl: './organizer-add-workshop.component.html',
+  styleUrls: ['./organizer-add-workshop.component.css']
 })
-export class AdminAddWorkshopComponent implements OnInit {
+export class OrganizerAddWorkshopComponent implements OnInit {
 
   constructor(
     private router: Router,
@@ -19,7 +19,6 @@ export class AdminAddWorkshopComponent implements OnInit {
 
   error: string = ''
 
-  organizer_username: string
   name: string
   date: Date
   address: string
@@ -28,11 +27,11 @@ export class AdminAddWorkshopComponent implements OnInit {
   capacity: number = 1
 
   ngOnInit(): void {
-    RoleCheck.adminCheck(this.router)
+    RoleCheck.organizerCheck(this.router)
   }
 
   cancel() {
-    this.router.navigate(['/workshops'])
+    this.router.navigate(['/organizer'])
   }
 
   addWorkshop() {
@@ -46,7 +45,6 @@ export class AdminAddWorkshopComponent implements OnInit {
         formData.append("images",  this.myFiles[i]);
     } 
 
-    formData.append('organizer_username', this.organizer_username)
     formData.append('name', this.name)
     formData.append('date', '' + this.date + '')
     formData.append('address', this.address)
@@ -54,9 +52,9 @@ export class AdminAddWorkshopComponent implements OnInit {
     formData.append('long_description',this.long_description)
     formData.append('capacity', '' + this.capacity + '')
 
-    this.workshopService.createWorkshop(formData).subscribe({
+    this.workshopService.newWorkshopRequest(formData).subscribe({
       next: (data: any) => {
-        this.router.navigate(['/workshops'])
+        this.router.navigate(['/organizer'])
       },
       error: (error) => {
         this.error = error.error.message
@@ -80,3 +78,4 @@ export class AdminAddWorkshopComponent implements OnInit {
   }
 
 }
+
