@@ -79,6 +79,15 @@ workshop_router.route("/template").post(
     (request, response) => new WorkshopController().saveTemplate(request, response)
 )
 
+workshop_router.route("/template").get(
+    [Authentication.jwtCheck],
+    (request, response) => new WorkshopController().getTemplates(request, response)
+)
+
+workshop_router.route('/picture').get(
+    (req, res)=>new WorkshopController().fetchPicture(req, res)
+)
+
 /*************** participation requests **************/
 
 workshop_router.route("/apply").post(

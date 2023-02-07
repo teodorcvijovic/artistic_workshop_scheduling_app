@@ -125,4 +125,12 @@ export class WorkshopService {
 
     return this.http.post(`${this.URI}/template`, body)
   }
+
+  getTemplates() {
+    return this.http.get(`${this.URI}/template`)
+  }
+
+  getImage(path) {
+    return this.http.get(`${this.URI}/picture?path=${path}`,  { responseType: 'blob' })
+  }
 }

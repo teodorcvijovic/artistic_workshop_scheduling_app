@@ -26,8 +26,14 @@ export class OrganizerAddWorkshopComponent implements OnInit {
   long_description: string
   capacity: number = 1
 
+  templates = []
+
   ngOnInit(): void {
     RoleCheck.organizerCheck(this.router)
+
+    this.workshopService.getTemplates().subscribe((data: any) => {
+      this.templates = data
+    })
   }
 
   cancel() {
@@ -64,7 +70,7 @@ export class OrganizerAddWorkshopComponent implements OnInit {
     this.error = ''
   }
 
-  myFiles: string[] = [];
+  myFiles: any[] = [];
 
   onFileChange(event) {
       if (event.target.files.length > 5) {
@@ -72,9 +78,31 @@ export class OrganizerAddWorkshopComponent implements OnInit {
         return
       }
       for (var i = 0; i  < event.target.files.length; i++){
-          this.myFiles.push(event.target.files[i]);
+          let f = event.target.files[i]
+          console.log(f)
+          this.myFiles.push(f);
       }
       this.error = ''
+  }
+
+  async selectTemplate(workshop) {
+    this.name=workshop.name
+    this.date=workshop.date
+    this.address=workshop.address
+    this.short_description=workshop.short_description
+    this.long_description=workshop.long_description
+    this.capacity=workshop.capacity
+    // this.myFiles=workshop.images
+    this.myFiles = []
+    for(let i = 0; i < workshop.images.length; i++) {
+      this.workshopService.getImage(workshop.images[i].path).subscribe((data:any) => {
+        this.myFiles.push(new File([data], workshop.images[i].filename, {lastModified: workshop.images[i].lastModified, type: workshop.images[i].mimetype}))
+      })
+    }
+  }
+
+  removeImages() {
+    this.myFiles = []
   }
 
 }

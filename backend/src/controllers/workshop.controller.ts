@@ -12,6 +12,7 @@ import multer from 'multer'
 import { request } from "http"
 
 import fs from 'fs'
+import path from "path"
 
 export class WorkshopController {
 
@@ -742,5 +743,38 @@ export class WorkshopController {
                 return response.send({"message": "ok"});
             })
         }
+    }
+
+    getTemplates = async (request: any, response: express.Response)=>{
+        let organizer_id = request.user_id
+        let folderName = "workshop-templates/" + organizer_id
+
+        fs.readdir(folderName, (err, files) => {
+
+            let workshops = []
+            for (let i = 0; i < files.length; i++) {
+                console.log(files[i])
+                const data = fs.readFileSync(folderName + '/' + files[i], {encoding: "utf-8"})
+                let w = JSON.parse(data)
+                workshops.push(w)
+            }
+
+            return response.send(workshops)
+        });
+    }
+
+    fetchPicture = (req: any, response: express.Response) => {
+        let serverPath = req.query.path;
+        var filePath = path.join(__dirname, "\\..\\..\\" + serverPath).split("%20").join(" ");
+      
+        var ext = path.extname(serverPath);
+        var contentType = "text/plain";
+    
+        if (ext === ".png") contentType = "image/png";
+        if (ext === ".jpeg") contentType = "image/jpeg";
+
+        fs.readFile(filePath, function(err, content) {
+            return response.contentType(contentType).send(content);
+        });
     }
 }

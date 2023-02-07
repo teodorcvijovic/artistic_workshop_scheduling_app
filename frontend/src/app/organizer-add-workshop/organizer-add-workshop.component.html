@@ -3,7 +3,39 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-lg-5">
+
+            <div class="">
+                <h5>Saved templates</h5>
+                <hr>
+                <div *ngFor="let w of templates" class="mytable">
+                    <table>
+
+                        <tr>
+                            <td rowspan="4" >
+                                <button (click)="selectTemplate(w)">Select </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <th>Name:&nbsp;</th>
+                            <td>{{w.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date:&nbsp;</th>
+                            <td>{{w.date != null ? w.date.toString().split("T")[0] : ""}}</td>
+                        </tr>
+                        <tr>
+                            <th>Address:&nbsp;</th>
+                            <td>{{w.address}}</td>
+                        </tr>
+                        <tr>
+                            <th>Description:&nbsp;</th>
+                            <td>{{w.short_description}}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-7">
             <div class="mytable">
             <table>
                 <tr>
@@ -32,11 +64,10 @@
                     <td > <textarea rows="4" cols="40" name="long_description" [(ngModel)]="long_description"></textarea></td>
                 </tr>
                 <tr>
-                    <th>Images:</th>
-                    <!-- <td>
-                        <button style="padding: 1px; border-radius: 0px" (click)="removeImages()">Remove</button>
-                    </td> -->
-                    <td> <input (change)="onFileChange($event)" type="file" accept="image/*" multiple> </td>
+                    <th>Images ({{this.myFiles.length}}):</th>
+                   
+                    <td>
+                        <button style="padding: 1px; border-radius: 0px" (click)="removeImages()">Remove</button> <input (change)="onFileChange($event)" type="file" accept="image/*" multiple> </td>
                 </tr>
         
                 <tr>
