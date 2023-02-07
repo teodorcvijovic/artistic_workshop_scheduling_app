@@ -24,6 +24,7 @@ export class OrganizerChatComponent implements OnInit {
   
   workshop: any = null
   threads = [] // thread, participant
+  opened = []
 
   back() {
     this.router.navigate(['/organizer'])
@@ -35,34 +36,43 @@ export class OrganizerChatComponent implements OnInit {
     if (this.workshop == null) {
       this.router.navigate(['/organizer'])
     }
-    localStorage.removeItem('my-saved-workshop')
+    //localStorage.removeItem('my-saved-workshop')
     this.workshop = JSON.parse(this.workshop)
     console.log(this.workshop)
     this.activityService.getThreadsForWorkshop(this.workshop).subscribe((data: any) => {
       this.threads = data
+      this.threads.forEach(th => {
+        this.opened.push(false)
+        this.message.push('')
+      })
       console.log(data)
     })
   }
 
-  chatThread = null
-  message: string = ''
+  //chatThread = null
+  message = []
 
-  openThread(th) {
-    this.chatThread = th
+  openThread(th, i) {
+    //this.chatThread = th
+    this.opened[i] = true
   }
 
-  sendMessage() {
-    this.activityService.sendMessage(this.chatThread.thread._id, this.message).subscribe((data:any) => {
-      this.chatThread.thread.messages.push(data)
-      this.message = ''
+  closeThread(th, i) {
+    this.opened[i] = false
+  }
+
+  sendMessage(chatThread, i) {
+    this.activityService.sendMessage(chatThread.thread._id, this.message[i]).subscribe((data:any) => {
+      chatThread.thread.messages.push(data)
+      this.message[i] = ''
     }) 
   }
 
-  getUser(sender_id) {
+  getUser(chatThread, sender_id) {
     if (sender_id == SessionUtil.getUser()._id) 
       return SessionUtil.getUser()
 
-    return this.chatThread.participant
+    return chatThread.participant
   }
 
   // 0 - me, 1 - not me
