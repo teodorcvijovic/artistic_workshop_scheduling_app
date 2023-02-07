@@ -56,6 +56,14 @@ export class ActivityService {
     return this.http.post(`${this.URI}/thread`, body)
   }
 
+  getThreadsForWorkshop(workshop) {
+    let body = {
+      workshop_id: workshop._id
+    }
+
+    return this.http.post(`${this.URI}/threads_for_workshop`, body)
+  }
+
   createThread(workshop) {
     let body = {
       workshop_id: workshop._id

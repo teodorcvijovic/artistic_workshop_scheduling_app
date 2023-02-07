@@ -117,9 +117,10 @@
                 <div *ngIf="!workshop.approved">
                     <i style="color: rgb(157, 0, 0)">Workshop is waiting for approval from administrator.</i>
                 </div>
-                <button *ngIf="editable_workshop_id == '' && workshop.approved" (click)='editWorkshop(workshop)' class="">Edit data</button> 
-                <button *ngIf="editable_workshop_id == '' && workshop.approved" (click)='saveTemplate(workshop)' class="commit">Save as template</button> 
-                <button *ngIf="editable_workshop_id == ''" (click)='cancelWorkshop(workshop)' class="reject">Cancel workshop</button>
+                <button *ngIf="editable_workshop_id == '' && workshop.approved" (click)='editWorkshop(workshop)' class="">Edit </button> 
+                <button *ngIf="editable_workshop_id == '' && workshop.approved" (click)='saveTemplate(workshop)' class="commit">Save template</button>
+                <button *ngIf="editable_workshop_id == '' && workshop.approved" (click)='openChat(workshop)' class="commit">Chat</button>  
+                <button *ngIf="editable_workshop_id == ''" (click)='cancelWorkshop(workshop)' class="reject">Cancel</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='commitWorkshopChanges(workshop)' class="commit">Commit changes</button>
                 <button *ngIf="editable_workshop_id == workshop._id" (click)='cancelEdit()' class="">Cancel</button> 
                 <br>

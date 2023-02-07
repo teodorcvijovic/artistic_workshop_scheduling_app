@@ -63,7 +63,7 @@ activity_router.route("/threads").get(
     (request, response) => new ActivityController().getMyThreads(request, response)
 )
 
-activity_router.route("/threads_for_workshop").get(
+activity_router.route("/threads_for_workshop").post(
     [Authentication.jwtCheck, Authentication.isOrganizer],
     (request, response) => new ActivityController().getThreadsForWorkshop(request, response)
 )

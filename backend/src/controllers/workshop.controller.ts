@@ -753,7 +753,6 @@ export class WorkshopController {
 
             let workshops = []
             for (let i = 0; i < files.length; i++) {
-                console.log(files[i])
                 const data = fs.readFileSync(folderName + '/' + files[i], {encoding: "utf-8"})
                 let w = JSON.parse(data)
                 workshops.push(w)

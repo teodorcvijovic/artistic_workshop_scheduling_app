@@ -173,4 +173,11 @@ export class ProfileOrganizerComponent implements OnInit {
 
   }
 
+  /************************** */
+
+  openChat(workshop) {
+    localStorage.setItem('my-saved-workshop', JSON.stringify(workshop))
+    this.router.navigate(['/workshop_chat'])
+  }
+
 }

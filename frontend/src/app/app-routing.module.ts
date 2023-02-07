@@ -10,6 +10,7 @@ import { BecomeOrganizerComponent } from './become-organizer/become-organizer.co
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { OrganizerAddWorkshopComponent } from './organizer-add-workshop/organizer-add-workshop.component';
+import { OrganizerChatComponent } from './organizer-chat/organizer-chat.component';
 import { PasswordChangeComponent } from './password-change/password-change.component';
 import { ProfileOrganizerComponent } from './profile-organizer/profile-organizer.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -47,7 +48,8 @@ const routes: Routes = [
 
   // organizer
   {path: 'organizer', component: ProfileOrganizerComponent},
-  {path: 'organize_workshop', component: OrganizerAddWorkshopComponent}
+  {path: 'organize_workshop', component: OrganizerAddWorkshopComponent},
+  {path: 'workshop_chat', component: OrganizerChatComponent}
 
 ];
 

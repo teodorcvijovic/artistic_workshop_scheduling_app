@@ -264,7 +264,17 @@ export class ActivityController {
         if (workshop.organizer_id != organizer_id) return response.status(401).send({message: "Unauthorized access."})
     
         let threads = await ChatThread.find({workshop_id: workshop_id})
-        return response.send(threads)
+
+        let threadsToReturn = []
+        for(let i = 0; i < threads.length; i++) {
+            let user = await User.findOne({_id: threads[i].participant_id})
+            threadsToReturn.push({
+                thread: threads[i],
+                participant: user
+            })
+        }
+
+        return response.send(threadsToReturn)
     }
 
     sendMessage = async (request: any, response: express.Response) => {
