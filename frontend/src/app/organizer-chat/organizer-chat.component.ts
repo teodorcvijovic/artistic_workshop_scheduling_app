@@ -25,6 +25,10 @@ export class OrganizerChatComponent implements OnInit {
   workshop: any = null
   threads = [] // thread, participant
 
+  back() {
+    this.router.navigate(['/organizer'])
+  }
+
   ngOnInit(): void {
     RoleCheck.organizerCheck(this.router)
     this.workshop = localStorage.getItem('my-saved-workshop')

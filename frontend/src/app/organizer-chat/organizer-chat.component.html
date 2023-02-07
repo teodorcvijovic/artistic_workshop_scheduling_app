@@ -1,10 +1,11 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="row">
-        <div class="col-md-1 col-sm-12 "></div>
+        <div class="col-md-1 col-sm-12 "><button (click)="back()">Back</button></div>
         <div class="col-md-5 col-sm-12 ">
             <div class="profil" style="min-height: 500px;">
-                <h4>All threads</h4>
+                <h4>{{workshop.name}} - Chat</h4>
+               
                 <hr>
                 <div class="container" style="display: flex;width:100%;justify-content: center">
                     <div class="row" style="display: flex;width:100%;justify-content: center">
