@@ -1,0 +1,168 @@
+.greyish {
+    background-color: rgb(154, 154, 154);
+    border-color: rgb(154, 154, 154);
+}
+
+img {
+    border-radius: 5px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+.commit {
+    background-color: rgb(9, 53, 149);
+    color: white;
+}
+
+.commit:hover {
+    background-color: rgb(30, 32, 74);
+    color: white;
+    border-color: rgb(30, 32, 74);
+}
+
+.profil {
+    margin: 5px;
+    background-color: rgb(228, 228, 228);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+    margin-bottom: 20px;
+}
+
+/***********************/
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    /* font-family: sans-serif; */
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+
+.styled-table thead tr {
+    background-color: #094071;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+/* .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #094071;
+} */
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #094071;
+}
+
+/************************/
+
+.likes td {
+    padding: 10px;
+}
+
+.likebutton {
+    background-color: rgb(172, 49, 49);
+    color: white
+}
+
+.comment {
+    margin-bottom: 10px;
+}
+
+.commentContent {
+    margin: 5px;
+    background-color: rgb(196, 196, 196);
+    border-radius: 13px;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+.editButton {
+    color: white;
+    background-color: #093171;
+}
+
+
+.commitButton {
+    color: white;
+    background-color: #092671;
+    border-color: #092671;
+}
+
+.commitButton:hover {
+    color: rgb(186, 186, 186);
+    background-color: #061d49;
+    border-color: #061d49;
+}
+
+.deleteButton {
+    color: white;
+    background-color: #930e0e;
+    border-color: #930e0e;
+}
+
+.deleteButton:hover {
+    color: rgb(186, 186, 186);
+    background-color: #570909;
+    border-color: #570909;
+}
+
+/**********************/
+
+.kartica {
+    margin: 5px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+.personImageRight {
+    border-radius: 33px;
+    margin-right: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+.personImage {
+    border-radius: 33px;
+    margin-right: 10px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+.personImageLeft {
+    border-radius: 33px;
+    margin-left: 20px;
+    box-shadow: 5px 10px 8px #d4d4d4;
+}
+
+.comment {
+    margin-bottom: 10px;
+}
+
+.commentButton {
+    padding-bottom: 2px;
+    padding-top: 2px;
+ 
+}
+
+.commentSend {
+    margin-top: 40px;
+}

@@ -1,1 +1,117 @@
 <app-navbar></app-navbar>
+<div class="container">
+    <div class="row">
+        <div class="col-md-1 col-sm-12 "></div>
+        <div class="col-md-5 col-sm-12 ">
+            <div class="profil" style="min-height: 500px;">
+                <h4>All threads</h4>
+                <hr>
+                <div class="container" style="display: flex;width:100%;justify-content: center">
+                    <div class="row" style="display: flex;width:100%;justify-content: center">
+
+                        <div class="col-sm-12" *ngFor="let th of threads" style="display: block;width:100%;justify-content: left">
+                     
+                                <div class="kartica">
+                                    <table>
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div>
+                                                    <img class="personImage" [src]="th.participant.image" width="50px" height="50px"/>
+                                                </div>
+                                            </td>
+                                            <td width="240px">
+                                                <b>{{th.participant.firstname}}&nbsp;{{th.participant.lastname}}</b> &nbsp;
+                                            </td>
+                                            <td rowspan="2">
+                                                <button (click)="openThread(th)" style="margin-left:30px">Open</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-12 ">
+            <div class="profil" style="min-height: 500px;">
+                <div *ngIf="chatThread == null">
+                    <i>Select one chat thread from the left menu.</i>
+                </div>
+                <div  *ngIf="chatThread != null" class="container" style="display: block; width: 100%;">
+
+                    <div class="row" style="display: block; width: 100%;">
+                        <div class="col-sm-12" style="display: block; width: 100%;">
+                            <div *ngFor="let message of chatThread.thread.messages" class="comment" style="display: block; width: 100%;">
+                                <table style="width:100%">
+                                    <tr *ngIf="!isMe(message.sender_id)">
+                                        <td rowspan="2">
+                                            <div style="width:100%">
+                                                <img class="personImageLeft" [src]="getUser(message.sender_id).image" width="50px" height="50px"/>
+                                            </div>
+                                        </td>
+                                        <td><b>{{getUser(message.sender_id).firstname}}</b> &nbsp;
+                                            <span style="color: rgb(108, 108, 108)">
+                                                {{message.timestamp != null ? message.timestamp.toString().split("T")[0] : ""}}
+                                                
+                                                {{message.timestamp != null ? message.timestamp.toString().split("T")[1].split(":", 2)[0] 
+                                                + ":" + message.timestamp.toString().split("T")[1].split(":", 2)[1]
+                                                : ""}}
+                                            
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="isMe(message.sender_id)">
+                                        <td><b>{{getUser(message.sender_id).firstname}}</b> &nbsp;
+                                            <span style="color: rgb(108, 108, 108)">
+                                                {{message.timestamp != null ? message.timestamp.toString().split("T")[0] : ""}}
+                                                
+                                                {{message.timestamp != null ? message.timestamp.toString().split("T")[1].split(":", 2)[0] 
+                                                + ":" + message.timestamp.toString().split("T")[1].split(":", 2)[1]
+                                                : ""}}
+                                            
+                                            </span>
+                                        </td>
+                                        <td rowspan="2">
+                                            <div>
+                                                <img class="personImageLeft" [src]="getUser(message.sender_id).image" width="50px" height="50px"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="commentContent">{{message.content}}</div></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                           
+                            <div class="commentSend" class="col-sm-12" style="display: block; width: 100%;">
+                                <table class="commentSend">
+                                    <tr>
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            <input type="text" [(ngModel)]="message" placeholder="Type your message">
+
+                                        </td>
+                                        <td>
+                                            <button class="commentButton" (click)="sendMessage()">Send message</button>
+                                        </td>
+                                    </tr>
+                        
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <div class="col-md-1 col-sm-12 "></div>
+    </div>
+</div>

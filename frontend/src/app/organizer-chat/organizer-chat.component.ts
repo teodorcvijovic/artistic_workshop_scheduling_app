@@ -5,6 +5,7 @@ import { ActivityService } from '../services/activity.service';
 import { UserService } from '../services/user.service';
 import { WorkshopService } from '../services/workshop.service';
 import { RoleCheck } from '../utils/role-check';
+import { SessionUtil } from '../utils/sessionutil';
 
 @Component({
   selector: 'app-organizer-chat',
@@ -37,6 +38,35 @@ export class OrganizerChatComponent implements OnInit {
       this.threads = data
       console.log(data)
     })
+  }
+
+  chatThread = null
+  message: string = ''
+
+  openThread(th) {
+    this.chatThread = th
+  }
+
+  sendMessage() {
+    this.activityService.sendMessage(this.chatThread.thread._id, this.message).subscribe((data:any) => {
+      this.chatThread.thread.messages.push(data)
+      this.message = ''
+    }) 
+  }
+
+  getUser(sender_id) {
+    if (sender_id == SessionUtil.getUser()._id) 
+      return SessionUtil.getUser()
+
+    return this.chatThread.participant
+  }
+
+  // 0 - me, 1 - not me
+  isMe(sender_id) {
+    if (sender_id == SessionUtil.getUser()._id) 
+      return true
+
+    return false
   }
 
 }
