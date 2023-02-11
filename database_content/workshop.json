@@ -1,0 +1,392 @@
+[{
+  "_id": {
+    "$oid": "63e80df2a7d3e0c8b8c2dd04"
+  },
+  "organizer_id": "63e80b06ac853337c29cba27",
+  "images": [
+    {
+      "fieldname": "images",
+      "originalname": "Starry_Night_Over_the_Rhone.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "Starry_Night_Over_the_Rhone.jpg",
+      "path": "uploads\\Starry_Night_Over_the_Rhone.jpg",
+      "size": 385717
+    },
+    {
+      "fieldname": "images",
+      "originalname": "VanGogh-starry_night.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "VanGogh-starry_night.jpg",
+      "path": "uploads\\VanGogh-starry_night.jpg",
+      "size": 397756
+    },
+    {
+      "fieldname": "images",
+      "originalname": "Vincent_Willem_van_Gogh_128.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "Vincent_Willem_van_Gogh_128.jpg",
+      "path": "uploads\\Vincent_Willem_van_Gogh_128.jpg",
+      "size": 298712
+    }
+  ],
+  "approved": true,
+  "name": "Van Gog Izlozba",
+  "date": {
+    "$date": {
+      "$numberLong": "1677110400000"
+    }
+  },
+  "address": "Trg Republike 1a, Beograd",
+  "short_description": "Zavirite u zivot i delo umetnika Van Goga",
+  "long_description": "Vinsent Vilem van Gog bio je postimpresinistički slikar holandskog porekla. Jedan je od trojice najvećih slikara postimpresionizma i jedan od najcenjenijih slikara uopšte.",
+  "capacity": 3,
+  "participants": [
+    {
+      "_id": "63e809ecac853337c29cba15"
+    },
+    {
+      "_id": "63e80b71ac853337c29cba3b"
+    }
+  ],
+  "reservations": [],
+  "waiting_queue": [],
+  "likes": [
+    {
+      "_id": "63e809ecac853337c29cba15"
+    }
+  ],
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "63e80f23c31e841186426bf8"
+  },
+  "organizer_id": "63e80b06ac853337c29cba27",
+  "images": [
+    {
+      "fieldname": "images",
+      "originalname": "avignon.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "avignon.jpg",
+      "path": "uploads\\avignon.jpg",
+      "size": 43343
+    },
+    {
+      "fieldname": "images",
+      "originalname": "guernica.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "guernica.jpg",
+      "path": "uploads\\guernica.jpg",
+      "size": 71129
+    },
+    {
+      "fieldname": "images",
+      "originalname": "the-old-guitarist.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "the-old-guitarist.jpg",
+      "path": "uploads\\the-old-guitarist.jpg",
+      "size": 46657
+    }
+  ],
+  "approved": true,
+  "name": "Svet Pabla Pikasa",
+  "date": {
+    "$date": {
+      "$numberLong": "1676419200000"
+    }
+  },
+  "address": "Usce 10, Beograd",
+  "short_description": "Otkrijte umetnost Pabla Pikasa",
+  "long_description": "Pablo Pikaso je bio sin Hozea Ruiza Blanka, profesora crtanja, i Marije Pikaso Lopez. Njegovo neuobičajeno interesovanje za crtež je počeo vrlo rano, negde u 11 godini, kada je postao učenik svog oca u Korunji, gde se porodica premestila 1891. godine.",
+  "capacity": 2,
+  "participants": [],
+  "reservations": [
+    {
+      "_id": "63e809ecac853337c29cba15"
+    }
+  ],
+  "waiting_queue": [],
+  "likes": [],
+  "__v": 4
+},{
+  "_id": {
+    "$oid": "63e80f83c31e841186426bfe"
+  },
+  "organizer_id": "63e80b06ac853337c29cba27",
+  "images": [
+    {
+      "fieldname": "images",
+      "originalname": "download (1).jfif",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "download (1).jfif",
+      "path": "uploads\\download (1).jfif",
+      "size": 5529
+    },
+    {
+      "fieldname": "images",
+      "originalname": "download.jfif",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "download.jfif",
+      "path": "uploads\\download.jfif",
+      "size": 2831
+    },
+    {
+      "fieldname": "images",
+      "originalname": "Ivan-Mestrovic-u-Galeriji-Narodnog-muzeja7.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "Ivan-Mestrovic-u-Galeriji-Narodnog-muzeja7.jpg",
+      "path": "uploads\\Ivan-Mestrovic-u-Galeriji-Narodnog-muzeja7.jpg",
+      "size": 306752
+    },
+    {
+      "fieldname": "images",
+      "originalname": "Ivan-Mestrovic-u-Galeriji-Narodnog-muzeja8.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "Ivan-Mestrovic-u-Galeriji-Narodnog-muzeja8.jpg",
+      "path": "uploads\\Ivan-Mestrovic-u-Galeriji-Narodnog-muzeja8.jpg",
+      "size": 204707
+    }
+  ],
+  "approved": true,
+  "name": "Srpska umetnost",
+  "date": {
+    "$date": {
+      "$numberLong": "1678924800000"
+    }
+  },
+  "address": "Trg Republike 1a, Beograd",
+  "short_description": "Otkrijte dela Ivana Mestrovica",
+  "long_description": "Meštrović je rođen u mestu Vrpolje u Slavoniji, ali je svoje detinjstvo proveo u selu Otavice, kod Drniša u Dalmaciji, odakle su mu bili roditelji (oba mesta su u to vreme pripadala Austrougarskoj). Kao dete dok je čuvao ovce, Meštrović je slušao epsku poeziju, narodne pesme i istorijske balade.",
+  "capacity": 1,
+  "participants": [],
+  "reservations": [],
+  "waiting_queue": [],
+  "likes": [],
+  "__v": 8
+},{
+  "_id": {
+    "$oid": "63e80fdac31e841186426c14"
+  },
+  "organizer_id": "63e80b06ac853337c29cba27",
+  "images": [
+    {
+      "fieldname": "images",
+      "originalname": "Vincent_Willem_van_Gogh_128.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "Vincent_Willem_van_Gogh_128.jpg",
+      "path": "uploads\\Vincent_Willem_van_Gogh_128.jpg",
+      "size": 298712
+    },
+    {
+      "fieldname": "images",
+      "originalname": "Starry_Night_Over_the_Rhone.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "Starry_Night_Over_the_Rhone.jpg",
+      "path": "uploads\\Starry_Night_Over_the_Rhone.jpg",
+      "size": 385717
+    },
+    {
+      "fieldname": "images",
+      "originalname": "VanGogh-starry_night.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "VanGogh-starry_night.jpg",
+      "path": "uploads\\VanGogh-starry_night.jpg",
+      "size": 397756
+    }
+  ],
+  "approved": false,
+  "name": "TEST 2",
+  "date": {
+    "$date": {
+      "$numberLong": "1677110400000"
+    }
+  },
+  "address": "Trg Republike 1a, Beograd",
+  "short_description": "Zavirite u zivot i delo umetnika Van Goga",
+  "long_description": "Vinsent Vilem van Gog bio je postimpresinistički slikar holandskog porekla. Jedan je od trojice najvećih slikara postimpresionizma i jedan od najcenjenijih slikara uopšte.",
+  "capacity": 3,
+  "participants": [],
+  "reservations": [],
+  "waiting_queue": [],
+  "likes": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63e8108dc31e841186426c57"
+  },
+  "organizer_id": "63e80b06ac853337c29cba27",
+  "images": [
+    {
+      "fieldname": "images",
+      "originalname": "da vinci.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "da vinci.jpg",
+      "path": "uploads\\da vinci.jpg",
+      "size": 48812
+    },
+    {
+      "fieldname": "images",
+      "originalname": "tajna-vecera-1.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "tajna-vecera-1.jpg",
+      "path": "uploads\\tajna-vecera-1.jpg",
+      "size": 59949
+    }
+  ],
+  "approved": true,
+  "name": "Da Vincijev kod",
+  "date": {
+    "$date": {
+      "$numberLong": "1676937600000"
+    }
+  },
+  "address": "Trg Republike 1a, Beograd",
+  "short_description": "Umetnost genija",
+  "long_description": "Njegove slike se danas smatraju vrhunskim djelima ovog \"univerzalnoga genija\" kako su ga često nazivali. Bio je fasciniran misterijom ljudskog lica i mogućnošću čitanja \"pokreta duše\" kroz pokrete i izraze lica. ",
+  "capacity": 5,
+  "participants": [],
+  "reservations": [],
+  "waiting_queue": [],
+  "likes": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63e810d9c31e841186426c79"
+  },
+  "organizer_id": "63e80b06ac853337c29cba27",
+  "images": [
+    {
+      "fieldname": "images",
+      "originalname": "SelbstPortrait_VG2.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "SelbstPortrait_VG2.jpg",
+      "path": "uploads\\SelbstPortrait_VG2.jpg",
+      "size": 353567
+    }
+  ],
+  "approved": true,
+  "name": "Van Gog Izlozba",
+  "date": {
+    "$date": {
+      "$numberLong": "1672790400000"
+    }
+  },
+  "address": "Trg Republike 1a, Beograd",
+  "short_description": "Zavirite u zivot i delo umetnika Van Goga",
+  "long_description": "Vinsent Vilem van Gog bio je postimpresinistički slikar holandskog porekla. Jedan je od trojice najvećih slikara postimpresionizma i jedan od najcenjenijih slikara uopšte.",
+  "capacity": 3,
+  "participants": [
+    {
+      "_id": "63e809ecac853337c29cba15"
+    }
+  ],
+  "reservations": [
+    {
+      "_id": "63e80b71ac853337c29cba3b"
+    }
+  ],
+  "waiting_queue": [],
+  "likes": [],
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "63e81154c31e841186426cb2"
+  },
+  "organizer_id": "63e80b06ac853337c29cba27",
+  "images": [
+    {
+      "fieldname": "images",
+      "originalname": "porsche 911 vintage light blue.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "porsche 911 vintage light blue.jpg",
+      "path": "uploads\\porsche 911 vintage light blue.jpg",
+      "size": 9288471
+    },
+    {
+      "fieldname": "images",
+      "originalname": "porsche 911 vintage red.jfif",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "porsche 911 vintage red.jfif",
+      "path": "uploads\\porsche 911 vintage red.jfif",
+      "size": 2009480
+    },
+    {
+      "fieldname": "images",
+      "originalname": "porsche 912 1967 white.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "porsche 912 1967 white.jpg",
+      "path": "uploads\\porsche 912 1967 white.jpg",
+      "size": 170686
+    },
+    {
+      "fieldname": "images",
+      "originalname": "porsche 912 red.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./uploads/",
+      "filename": "porsche 912 red.jpg",
+      "path": "uploads\\porsche 912 red.jpg",
+      "size": 462903
+    }
+  ],
+  "approved": true,
+  "name": "Stari automobili",
+  "date": {
+    "$date": {
+      "$numberLong": "1684886400000"
+    }
+  },
+  "address": "Usce 10, Beograd",
+  "short_description": "Izlozba fotografija",
+  "long_description": "Porše je nemački proizvođač supersportskih automobila. Nastali su 1931, osnovao ih je Ferdinand Porše. ",
+  "capacity": 2,
+  "participants": [
+    {
+      "_id": "63e809ecac853337c29cba15"
+    },
+    {
+      "_id": "63e80b71ac853337c29cba3b"
+    }
+  ],
+  "reservations": [],
+  "waiting_queue": [],
+  "likes": [],
+  "__v": 4
+}]
