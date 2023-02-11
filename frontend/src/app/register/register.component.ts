@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
   /***** methods ******/
 
   register() {
-    if (this.error != '') return
+    //if (this.error != '') return
 
     if (!this.username || !this.password1 || !this.password2 || !this.firstname || !this.lastname || !this.phone || !this.email) {
       this.error = 'Please fill out all mandatory fields.'
@@ -66,6 +66,8 @@ export class RegisterComponent implements OnInit {
       organization_pib: this.organization_pib,
       image: this.myImage
     }
+
+    console.log(data)
     
     this.userService.register(data).subscribe({
       next: (data:any) => {
@@ -74,6 +76,7 @@ export class RegisterComponent implements OnInit {
       },
       error: error => {
           this.error = error.error.message
+          console.log(error)
       }
     })
   }

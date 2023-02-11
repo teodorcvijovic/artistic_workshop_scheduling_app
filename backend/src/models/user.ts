@@ -1,3 +1,4 @@
+//import { ObjectId } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
@@ -5,7 +6,7 @@ const Schema = mongoose.Schema;
 
 let User = new Schema(
     {
-        _id: {
+        id: {
             type: ObjectId
         },
         username: {

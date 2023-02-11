@@ -750,7 +750,7 @@ export class WorkshopController {
         let folderName = "workshop-templates/" + organizer_id
 
         fs.readdir(folderName, (err, files) => {
-
+            if (files == null) return
             let workshops = []
             for (let i = 0; i < files.length; i++) {
                 const data = fs.readFileSync(folderName + '/' + files[i], {encoding: "utf-8"})

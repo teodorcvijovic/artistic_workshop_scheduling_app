@@ -7,6 +7,7 @@ import { Authentication } from "../authentication"
 import nodemailer from "nodemailer"
 import PasswordResetToken from "../models/passwordResetToken"
 import crypto from "crypto"
+import { ObjectId } from "mongodb"
 
 export class UserController {
 
@@ -64,6 +65,7 @@ export class UserController {
             })
 
             newUser.save((error, user) => {
+                console.log(error)
                 if (error) return response.status(400).send({ message: 'Registration failed.' })
 
                 // successful registration
@@ -339,6 +341,7 @@ export class UserController {
             if (user != null) return response.status(400).send({ message: 'User with given username already exists.' })
 
             const newUser = new User({
+                //_id: new ObjectId(),
                 username: username,
                 password: password,
                 firstname: firstname,
